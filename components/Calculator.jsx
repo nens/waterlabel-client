@@ -58,6 +58,9 @@ class Calculator extends Component {
 
   handleSubmitNewLabel(e) {
     let self = this;
+
+    const { dispatch, postcode, calculator } = this.props;
+
     const re = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (this.refs.email.value === '') {
       swal('E-mailadres niet ingevuld', 'Je moet een geldig e-maildres opgeven...', 'error');
@@ -68,32 +71,32 @@ class Calculator extends Component {
       return false;
     }
 
-    const newCalculationValues = this.props.calculator.calculationvalues;
+    const newCalculationValues = calculator.calculationvalues;
 
     $.ajax({
       type: 'POST',
       url: 'https://waterlabel.sandbox.lizard.net/api/v1/addlabel',
       data: {
-        'id': this.props.postcode.selectedObject.gid,
+        'id': postcode.selectedObject.gid,
         'email': this.refs.email.value,
-        'label': this.props.calculator.label,
+        'label': calculator.label,
         'calculationvalues': JSON.stringify({
-            'afvoer_dak_schuur': newCalculationValues.afvoer_dak_schuur,
-            'groene_achtertuin': newCalculationValues.groene_achtertuin,
-            'geveltuin': newCalculationValues.geveltuin,
-            'berging_dak_woning': newCalculationValues.berging_dak_woning,
-            'afvoer_dak_woning': newCalculationValues.afvoer_dak_woning,
-            'groene_voortuin': newCalculationValues.groene_voortuin,
-            'dak_woning': newCalculationValues.dak_woning,
-            'perceel': newCalculationValues.perceel,
-            'voortuin': newCalculationValues.voortuin,
-            'dak_schuur_garage': newCalculationValues.dak_schuur_garage,
-            'berging_dak_schuur': newCalculationValues.berging_dak_schuur,
-            'regenton': newCalculationValues.regenton,
-            'achtertuin': newCalculationValues.achtertuin,
-          }),
+          'afvoer_dak_schuur': newCalculationValues.afvoer_dak_schuur,
+          'groene_achtertuin': newCalculationValues.groene_achtertuin,
+          'geveltuin': newCalculationValues.geveltuin,
+          'berging_dak_woning': newCalculationValues.berging_dak_woning,
+          'afvoer_dak_woning': newCalculationValues.afvoer_dak_woning,
+          'groene_voortuin': newCalculationValues.groene_voortuin,
+          'dak_woning': newCalculationValues.dak_woning,
+          'perceel': newCalculationValues.perceel,
+          'voortuin': newCalculationValues.voortuin,
+          'dak_schuur_garage': newCalculationValues.dak_schuur_garage,
+          'berging_dak_schuur': newCalculationValues.berging_dak_schuur,
+          'regenton': newCalculationValues.regenton,
+          'achtertuin': newCalculationValues.achtertuin,
+        }),
       },
-      success: function(data){
+      success: () => {
         swal({
           title: 'We verwerken je Waterlabel',
           text: 'Bedankt voor je bijdrage!',
@@ -104,17 +107,18 @@ class Calculator extends Component {
         self.props.closeCalculator();
         self.props.openMap();
       },
-      failure: function(errMsg) {
+      failure: (errMsg) => {
         swal('Foutmelding', 'Er ging iets verkeerd, laat het ons weten via info@nelen-schuurmans.nl', 'error');
         console.log(errMsg);
       }
     });
 
     // Skipping posting via Redux for now... no obvious advantage in doing so?
-    // this.props.dispatch(submitNewLabel(this.props.postcode.selectedObject));
+    // dispatch(submitNewLabel(postcode.selectedObject));
   }
 
   handleChange() {
+    const { dispatch } = this.props;
     const values = {
       achtertuin: Number(this.refs.achtertuin.value),
       afvoer_dak_schuur: this.refs.afvoer_dak_schuur.value,
@@ -130,27 +134,29 @@ class Calculator extends Component {
       regenton: Number(this.refs.regenton.value),
       voortuin: Number(this.refs.voortuin.value),
     };
-    this.props.dispatch(computeLabel(values));
+    dispatch(computeLabel(values));
   }
 
   render() {
 
+    const { dispatch, postcode, calculator } = this.props;
+
     const initialLocation = {
-      lat: (this.props.postcode &&
-        this.props.postcode.selectedObject &&
-        this.props.postcode.selectedObject.lng) ?
-        Number(this.props.postcode.selectedObject.lng) :
+      lat: (postcode &&
+        postcode.selectedObject &&
+        postcode.selectedObject.lng) ?
+        Number(postcode.selectedObject.lng) :
         52.1741,
-      lng: (this.props.postcode &&
-        this.props.postcode.selectedObject &&
-        this.props.postcode.selectedObject.lat) ?
-        Number(this.props.postcode.selectedObject.lat) :
+      lng: (postcode &&
+        postcode.selectedObject &&
+        postcode.selectedObject.lat) ?
+        Number(postcode.selectedObject.lat) :
         5.2032,
     };
     const position = [initialLocation.lat, initialLocation.lng];
 
-    const calculationvalues = (this.props.postcode && this.props.postcode.selectedObject) ?
-      this.props.postcode.selectedObject.calculationvalues :
+    const calculationvalues = (postcode && postcode.selectedObject) ?
+      postcode.selectedObject.calculationvalues :
       {};
 
     return (
@@ -189,10 +195,10 @@ class Calculator extends Component {
                 id='dakwoning'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.dak_woning :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.dak_woning :
                   (calculationvalues.dak_woning) ? Math.round(calculationvalues.dak_woning) :
-                  (this.props.postcode.selectedObject) ? Math.round(this.props.postcode.selectedObject.sqm) : ''
+                  (postcode.selectedObject) ? Math.round(postcode.selectedObject.sqm) : ''
                 }
               />
               <div className='input-group-addon'>m<sup>2</sup></div>
@@ -228,8 +234,8 @@ class Calculator extends Component {
                 id='dakschuurgarage'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.dak_schuur_garage :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.dak_schuur_garage :
                   Math.round(calculationvalues.dak_schuur_garage)
                 } />
                 <div className='input-group-addon'>m<sup>2</sup></div>
@@ -262,8 +268,8 @@ class Calculator extends Component {
                 id='achtertuin'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.achtertuin :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.achtertuin :
                   Math.round(calculationvalues.achtertuin)
                 } />
                 <div className='input-group-addon'>m<sup>2</sup></div>
@@ -296,8 +302,8 @@ class Calculator extends Component {
                 id='voortuin'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.voortuin :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.voortuin :
                   Math.round(calculationvalues.voortuin)
                 } />
                 <div className='input-group-addon'>m<sup>2</sup></div>
@@ -327,11 +333,11 @@ class Calculator extends Component {
                 className='hidden'
                 id='perceel'
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.perceel :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.perceel :
                   Math.round(calculationvalues.perceel)
                 } />
-              {(this.props.calculator.calculationvalues) ? this.props.calculator.calculationvalues.perceel : 0} m<sup>2</sup>
+              {(calculator.calculationvalues) ? calculator.calculationvalues.perceel : 0} m<sup>2</sup>
             </div>
           </div>
 
@@ -364,8 +370,8 @@ class Calculator extends Component {
                 id='bergingdakwoning'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.berging_dak_woning :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.berging_dak_woning :
                   Math.round(calculationvalues.berging_dak_woning)
                 }
               />
@@ -396,8 +402,8 @@ class Calculator extends Component {
                 ref='afvoer_dak_woning'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.afvoer_dak_woning :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.afvoer_dak_woning :
                   calculationvalues.afvoer_dak_woning
                 }>
                 <option value=''></option>
@@ -435,8 +441,8 @@ class Calculator extends Component {
                 id='bergingdakschuur'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.berging_dak_schuur :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.berging_dak_schuur :
                   Math.round(calculationvalues.berging_dak_schuur)
                 }
                 />
@@ -467,8 +473,8 @@ class Calculator extends Component {
                 ref='afvoer_dak_schuur'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.afvoer_dak_schuur :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.afvoer_dak_schuur :
                   calculationvalues.afvoer_dak_schuur
                 }>
                 <option value=''></option>
@@ -509,8 +515,8 @@ class Calculator extends Component {
                 id='groeneachtertuin'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.groene_achtertuin :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.groene_achtertuin :
                   Math.round(calculationvalues.groene_achtertuin)
                 }
               />
@@ -545,8 +551,8 @@ class Calculator extends Component {
                 id='groenevoortuin'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.groene_voortuin :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.groene_voortuin :
                   Math.round(calculationvalues.groene_voortuin)
                 }
               />
@@ -582,8 +588,8 @@ class Calculator extends Component {
                 id='regenton'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.regenton :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.regenton :
                   Math.round(calculationvalues.regenton)
                 }
               />
@@ -614,8 +620,8 @@ class Calculator extends Component {
                 ref='geveltuin'
                 onChange={this.handleChange}
                 value={
-                  (this.props.calculator.calculationvalues) ?
-                  this.props.calculator.calculationvalues.geveltuin :
+                  (calculator.calculationvalues) ?
+                  calculator.calculationvalues.geveltuin :
                   calculationvalues.geveltuin
                 }>
                 <option value=''></option>
@@ -628,14 +634,14 @@ class Calculator extends Component {
         <Col md={6}>
             <h2 className={styles.GroupLabel}>Mijn waterlabel</h2>
             <hr/>
-              <span className='' style={{ position: 'absolute', left: 170, fontSize: '5em', fontWeight: 'bold' }}>{this.props.calculator.label}</span>
+              <span className='' style={{ position: 'absolute', left: 170, fontSize: '5em', fontWeight: 'bold' }}>{calculator.label}</span>
               <ol className={styles.labels}>
                   <li>
                       <svg className={styles.labelA} width='108.5' height='17'>
                           <polygon points='0,0 100,0 108.5,8.5 100,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>A</text>
                       </svg>
-                      {(this.props.calculator.label === 'A') ?
+                      {(calculator.label === 'A') ?
                       <svg className={styles.labelA} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -645,7 +651,7 @@ class Calculator extends Component {
                           <polygon points='0,0 90,0 98.5,8.5 90,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>B</text>
                       </svg>
-                      {(this.props.calculator.label === 'B') ?
+                      {(calculator.label === 'B') ?
                       <svg className={styles.labelB} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -655,7 +661,7 @@ class Calculator extends Component {
                           <polygon points='0,0 80,0 88.5,8.5 80,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>C</text>
                       </svg>
-                      {(this.props.calculator.label === 'C') ?
+                      {(calculator.label === 'C') ?
                       <svg className={styles.labelC} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -665,7 +671,7 @@ class Calculator extends Component {
                           <polygon points='0,0 70,0 78.5,8.5 70,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>D</text>
                       </svg>
-                      {(this.props.calculator.label === 'D') ?
+                      {(calculator.label === 'D') ?
                       <svg className={styles.labelD} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -675,7 +681,7 @@ class Calculator extends Component {
                           <polygon points='0,0 60,0 68.5,8.5 60,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>E</text>
                       </svg>
-                      {(this.props.calculator.label === 'E') ?
+                      {(calculator.label === 'E') ?
                       <svg className={styles.labelE} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -685,7 +691,7 @@ class Calculator extends Component {
                           <polygon points='0,0 50,0 58.5,8.5 50,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>F</text>
                       </svg>
-                      {(this.props.calculator.label === 'F') ?
+                      {(calculator.label === 'F') ?
                       <svg className={styles.labelF} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -695,7 +701,7 @@ class Calculator extends Component {
                           <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
                           <text style={{'fill':'white'}} x='2' y='13'>G</text>
                       </svg>
-                      {(this.props.calculator.label === 'G') ?
+                      {(calculator.label === 'G') ?
                       <svg className={styles.labelG} width='48.5' height='17'>
                           <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                       </svg> : ''}
@@ -735,9 +741,9 @@ class Calculator extends Component {
                     maxZoom={20}
                   />
 
-                  {(this.props.postcode && this.props.postcode.selectedObject && this.props.postcode.selectedObject.geo) ?
+                  {(postcode && postcode.selectedObject && postcode.selectedObject.geo) ?
                     <GeoJsonUpdatable
-                      data={this.props.postcode.selectedObject.geo}
+                      data={postcode.selectedObject.geo}
                       onEachFeature={(feature, layer) => {
                         layer.setStyle({
                           'color': '#ffffff',

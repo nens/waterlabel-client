@@ -1,32 +1,32 @@
-import L from 'leaflet';
-import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
-import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
-import moment from 'moment';
-import swal from 'sweetalert';
 import { ActionCreators } from 'redux-undo';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
+import $ from 'jquery';
 import AboutText from './AboutText.jsx';
 import algemeen02 from '../images/algemeen02.png';
 import Calculator from './Calculator.jsx';
+import calculatorStyles from './Calculator.css';
+import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
 import InteractiveCalculator from './InteractiveCalculator.jsx';
+import L from 'leaflet';
 import logo from '../images/logowaterlabel.svg';
+import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
 import SearchWidget from './SearchWidget.jsx';
 import SelectedObjectDetails from './SelectedObjectDetails.jsx';
 import selectedObjectStyles from './SelectedObjectDetails.css';
-import calculatorStyles from './Calculator.css';
 import styles from './App.css';
+import swal from 'sweetalert';
 import WaterlabelMap from './WaterlabelMap.jsx';
-import $ from 'jquery';
 require('!style!css!../node_modules/sweetalert/dist/sweetalert.css');
 
 import {
   clearSelectedObject,
+  fetchHistory,
   lookupPostcode,
   radiusSearch,
-  fetchHistory,
 } from '../actions.jsx';
 
 class App extends Component {
@@ -34,12 +34,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showAboutText: false,
       showCalculator: false,
       showInteractiveCalculator: false,
-      showMap: false,
-      showAboutText: false,
-      showPrivacyText: false,
       showIntro: false,
+      showMap: false,
+      showPrivacyText: false,
     };
     this.closeAboutText = this.closeAboutText.bind(this);
     this.closeCalculator = this.closeCalculator.bind(this);
@@ -64,7 +64,6 @@ class App extends Component {
 
   parseLocationString(e) {
     const parsed = queryString.parse(location.hash);
-
     const lat = (parsed.lat) ? parsed.lat : undefined;
     const lng = (parsed.lng) ? parsed.lng : undefined;
     const zoom = (parsed.zoom) ? parsed.zoom : undefined;
@@ -72,7 +71,6 @@ class App extends Component {
     const nr = (parsed.nr) ? parsed.nr : undefined;
 
     if (lat && lng && zoom && !postcode && !nr) {
-      // console.log('Zoom to location by', lat, lng, zoom);
       // this.props.dispatch(setMapLocation({ lat:lat, lng: lng, zoom: zoom }));
     }
 
@@ -172,22 +170,25 @@ class App extends Component {
     const huisnummerFormatted = this.refs.huisnummer.value;
 
     var rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-    if(rege.test(postcodeFormatted) && Number.isInteger(Number(huisnummerFormatted))) {
-      this.props.dispatch(lookupPostcode(postcodeFormatted, huisnummerFormatted));
+    if (rege.test(postcodeFormatted) &&
+        Number.isInteger(Number(huisnummerFormatted))) {
+      this.props.dispatch(
+        lookupPostcode(postcodeFormatted, huisnummerFormatted)
+      );
     }
   }
 
   handleKeyPress(e) {
-    // const self = this;
     if (e.key === 'Enter') {
       const postcodeFormatted = this.refs.postcode.value;
       const huisnummerFormatted = this.refs.huisnummer.value;
 
-      var rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-      if(rege.test(postcodeFormatted) && Number.isInteger(Number(huisnummerFormatted))) {
-        this.props.dispatch(lookupPostcode(postcodeFormatted, huisnummerFormatted));
+      let rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+      if (rege.test(postcodeFormatted) && Number.isInteger(Number(huisnummerFormatted))) {
+        this.props.dispatch(
+          lookupPostcode(postcodeFormatted, huisnummerFormatted)
+        );
       }
-
     }
   }
 
@@ -220,16 +221,15 @@ class App extends Component {
   }
 
   render() {
+    const { dispatch, postcode } = this.props;
 
     let geocoded;
-    let woonplaats = '?';
-    let straat = '?';
     let adres;
 
-    const selectedObject = (this.props.postcode &&
-      this.props.postcode.selectedObject &&
-      this.props.postcode.selectedObject.gid) ?
-      this.props.postcode.selectedObject : undefined;
+    const selectedObject = (postcode &&
+      postcode.selectedObject &&
+      postcode.selectedObject.gid) ?
+      postcode.selectedObject : undefined;
 
     try {
       geocoded = selectedObject.geocoded.results[0].address_components;
@@ -252,20 +252,20 @@ class App extends Component {
         onClick={this.handleGeoLocation}
         bsStyle='info'
         bsSize='lg'>
-        <i className='fa fa-crosshairs'></i>
+        <i className='fa fa-crosshairs' />
       </Button> :
       '';
 
     const initialLocation = {
-      lat: (this.props.postcode &&
-        this.props.postcode.selectedObject &&
-        this.props.postcode.selectedObject.lng) ?
-        Number(this.props.postcode.selectedObject.lng) :
+      lat: (postcode &&
+        postcode.selectedObject &&
+        postcode.selectedObject.lng) ?
+        Number(postcode.selectedObject.lng) :
         52.1741,
-      lng: (this.props.postcode &&
-        this.props.postcode.selectedObject &&
-        this.props.postcode.selectedObject.lat) ?
-        Number(this.props.postcode.selectedObject.lat) :
+      lng: (postcode &&
+        postcode.selectedObject &&
+        postcode.selectedObject.lat) ?
+        Number(postcode.selectedObject.lat) :
         5.2032,
     };
 
@@ -292,12 +292,16 @@ class App extends Component {
                     zIndex: 999,
                   }}
                 />
-                <div className="jumbotron" style={{ backgroundColor: '#fff', border: '1px solid gainsboro' }}>
+                <div className='jumbotron'
+                     style={{
+                       backgroundColor: '#fff',
+                       border: '1px solid gainsboro'
+                     }}>
                   <Row>
                     <Col md={9} sm={9} xs={9}>
                       <h1 className={styles.Title}>Mijn Waterlabel&nbsp;
                       <i style={{ cursor: 'pointer' }}
-                        onClick={this.openIntro} className="fa fa-1x fa-info-circle"></i></h1>
+                        onClick={this.openIntro} className='fa fa-1x fa-info-circle'></i></h1>
                     </Col>
                     <Col md={3} sm={3} xs={3}>
                       &nbsp;
@@ -310,30 +314,30 @@ class App extends Component {
                     <Col md={10}>
                       <Col md={3}>
                         <div className='form-group'>
-                          <label for="postcode">Postcode</label>
+                          <label for='postcode'>Postcode</label>
                           <input
-                            ref="postcode"
+                            ref='postcode'
                             onKeyPress={this.handleKeyPress}
                             id='postcode'
-                            type="text"
+                            type='text'
                             style={{ textTransform: 'uppercase' }}
-                            placeholder={(this.props.postcode.selectedObject) ?
-                              this.props.postcode.selectedObject.postcode : '3731HS'}
-                            className="form-control input-lg"
+                            placeholder={(postcode.selectedObject) ?
+                              postcode.selectedObject.postcode : '3731HS'}
+                            className='form-control input-lg'
                           />
                         </div>
                       </Col>
                       <Col md={2}>
                         <div className='form-group'>
-                          <label for="huisnummer">Huisnummer</label>
+                          <label for='huisnummer'>Huisnummer</label>
                           <input
-                            ref="huisnummer"
+                            ref='huisnummer'
                             onKeyPress={this.handleKeyPress}
                             id='huisnummer'
-                            type="number"
-                            placeholder={(this.props.postcode.selectedObject) ?
-                              this.props.postcode.selectedObject.huisnummer : 184}
-                            className="form-control input-lg"
+                            type='number'
+                            placeholder={(postcode.selectedObject) ?
+                              postcode.selectedObject.huisnummer : 184}
+                            className='form-control input-lg'
                           />
                         </div>
                       </Col>
@@ -344,7 +348,7 @@ class App extends Component {
                               bsStyle='info'
                               onClick={this.handleSearchButton}
                               bsSize='lg'>
-                              <i className="fa fa-search"></i>&nbsp;Zoek
+                              <i className='fa fa-search'></i>&nbsp;Zoek
                             </Button>
                             {geolocationButton}
                           </ButtonGroup>
@@ -358,10 +362,10 @@ class App extends Component {
             </Row>
             <Row>
               <Col md={12}>
-                {this.props.postcode.selectedObject ?
+                {postcode.selectedObject ?
                   <div
                     id='results'
-                    className="jumbotron"
+                    className='jumbotron'
                     style={{ backgroundColor: '#fff', border: '1px solid gainsboro' }}>
                     <div
                       style={{
@@ -369,19 +373,27 @@ class App extends Component {
                         position: 'absolute',
                         right: 25,
                         top: 10,
-                      }}><i onClick={() => this.props.dispatch(clearSelectedObject())} className="fa fa-close"></i>
+                      }}>
+                      <i onClick={() => dispatch(clearSelectedObject())} className='fa fa-close' />
                     </div>
 
                     <h2 className={calculatorStyles.GroupLabel}>{adres}</h2>
                     <hr/>
-                      <span className='' style={{ position: 'absolute', left: 225, fontSize: '5em', fontWeight: 'bold' }}>{this.props.postcode.selectedObject.label}</span>
+                      <span className='' style={{
+                        position: 'absolute',
+                        left: 225,
+                        fontSize: '5em',
+                        fontWeight: 'bold'
+                      }}>
+                        {postcode.selectedObject.label}
+                      </span>
                       <ol className={calculatorStyles.labels}>
                           <li>
                               <svg className={calculatorStyles.labelA} width='108.5' height='17'>
                                   <polygon points='0,0 100,0 108.5,8.5 100,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>A</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'A') ?
+                              {(postcode.selectedObject.label === 'A') ?
                               <svg className={calculatorStyles.labelA} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
@@ -391,7 +403,7 @@ class App extends Component {
                                   <polygon points='0,0 90,0 98.5,8.5 90,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>B</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'B') ?
+                              {(postcode.selectedObject.label === 'B') ?
                               <svg className={calculatorStyles.labelB} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
@@ -401,7 +413,7 @@ class App extends Component {
                                   <polygon points='0,0 80,0 88.5,8.5 80,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>C</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'C') ?
+                              {(postcode.selectedObject.label === 'C') ?
                               <svg className={calculatorStyles.labelC} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
@@ -411,7 +423,7 @@ class App extends Component {
                                   <polygon points='0,0 70,0 78.5,8.5 70,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>D</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'D') ?
+                              {(postcode.selectedObject.label === 'D') ?
                               <svg className={calculatorStyles.labelD} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
@@ -421,7 +433,7 @@ class App extends Component {
                                   <polygon points='0,0 60,0 68.5,8.5 60,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>E</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'E') ?
+                              {(postcode.selectedObject.label === 'E') ?
                               <svg className={calculatorStyles.labelE} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
@@ -431,7 +443,7 @@ class App extends Component {
                                   <polygon points='0,0 50,0 58.5,8.5 50,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>F</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'F') ?
+                              {(postcode.selectedObject.label === 'F') ?
                               <svg className={calculatorStyles.labelF} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
@@ -441,13 +453,12 @@ class App extends Component {
                                   <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
                                   <text style={{'fill':'white'}} x='2' y='13'>G</text>
                               </svg>
-                              {(this.props.postcode.selectedObject.label === 'G') ?
+                              {(postcode.selectedObject.label === 'G') ?
                               <svg className={calculatorStyles.labelG} width='48.5' height='17'>
                                   <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
                               </svg> : ''}
                           </li>
                       </ol>
-
 
                         <Map center={position}
                          ref='map'
@@ -481,9 +492,9 @@ class App extends Component {
                             maxZoom={20}
                           />
 
-                          {(this.props.postcode && this.props.postcode.selectedObject && this.props.postcode.selectedObject.geo) ?
+                          {(postcode && postcode.selectedObject && postcode.selectedObject.geo) ?
                             <GeoJsonUpdatable
-                              data={this.props.postcode.selectedObject.geo}
+                              data={postcode.selectedObject.geo}
                               onEachFeature={(feature, layer) => {
                                 layer.setStyle({
                                   'color': '#ffffff',
@@ -501,34 +512,34 @@ class App extends Component {
                     <tbody>
                       <tr>
                         <td>Adres &amp; Woonplaats</td>
-                        <td className="postcode">{adres}</td>
+                        <td className='postcode'>{adres}</td>
                       </tr>
                       <tr>
                         <td>Postcode</td>
-                        <td className="postcode">{(selectedObject.postcode) ?
+                        <td className='postcode'>{(selectedObject.postcode) ?
                             selectedObject.postcode.toUpperCase() : '-'}
                         </td>
                       </tr>
                       <tr>
                         <td style={{ verticalAlign: 'top' }}>Waterlabel</td>
-                        <td className="waterlabel">
-                          <OverlayTrigger trigger="click" placement="bottom" rootClose overlay={
-                            <Popover id='waterlabel' title="Legenda">
+                        <td className='waterlabel'>
+                          <OverlayTrigger trigger='click' placement='bottom' rootClose overlay={
+                            <Popover id='waterlabel' title='Legenda'>
                               <img style={{ width: 125, padding: 15, cursor: 'pointer' }} src={algemeen02} />
                             </Popover>
                           }>
-                            <svg className={svgStyle()} width="48.5" height="17">
-                              <polygon points="0,0 40,0 48.5,8.5 40,17 0,17"></polygon>
-                              <text style={{ 'fill': 'white' }} x="2" y="13">{selectedObject.label}</text>
+                            <svg className={svgStyle()} width='48.5' height='17'>
+                              <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
+                              <text style={{ 'fill': 'white' }} x='2' y='13'>{selectedObject.label}</text>
                             </svg>
                           </OverlayTrigger>
-                          {(this.props.postcode.selectedObject && this.props.postcode.labelHistory.length > 0) ?
+                          {(postcode.selectedObject && postcode.labelHistory.length > 0) ?
                             <div>
-                              {this.props.postcode.labelHistory.map((label, i) => {
+                              {postcode.labelHistory.map((label, i) => {
                                 return <div key={i}>
-                                         <svg className={this.historicalSvgStyle(label[0][0])} width="48.5" height="17">
-                                          <polygon points="0,0 40,0 48.5,8.5 40,17 0,17"></polygon>
-                                          <text style={{ 'fill': 'white' }} x="2" y="13">{label[0][0]}</text>
+                                         <svg className={this.historicalSvgStyle(label[0][0])} width='48.5' height='17'>
+                                          <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
+                                          <text style={{ 'fill': 'white' }} x='2' y='13'>{label[0][0]}</text>
                                          </svg>{label[0][1]}
                                          <span style={{
                                              verticalAlign: 5,
@@ -546,18 +557,18 @@ class App extends Component {
                       </tr>
                       <tr>
                         <td>Bouwjaar</td>
-                        <td className="bouw-jaar">{selectedObject.bouwjaar}</td>
+                        <td className='bouw-jaar'>{selectedObject.bouwjaar}</td>
                       </tr>
                       <tr>
                         <td>Dakoppervlak</td>
-                        <td className="dakopp">{Math.round(selectedObject.sqm)} m²</td>
+                        <td className='dakopp'>{Math.round(selectedObject.sqm)} m²</td>
                       </tr>
                       </tbody>
                     </table>
                     <hr/>
                     <ButtonGroup>
                       <Button bsSize='lg' bsStyle='info' onClick={this.openCalculator}>
-                        <i className="fa fa-tag"></i>&nbsp;Waterlabel aanpassen
+                        <i className='fa fa-tag'></i>&nbsp;Waterlabel aanpassen
                       </Button>
                     </ButtonGroup>
                   </div>
@@ -568,27 +579,59 @@ class App extends Component {
             </Row>
             <Row>
               <Col md={10}>
-                <ul className="list-inline">
-                  <li><a style={{ cursor: 'pointer', color: '#2EADD3' }} onClick={this.openAboutText}>Over Waterlabel</a></li>
-                  <li><a style={{ cursor: 'pointer', color: '#2EADD3' }} onClick={this.openPrivacyText}>Cookies &amp; Privacy</a></li>
-                  <li><a style={{ cursor: 'pointer', color: '#2EADD3' }} onClick={this.openMap}>Bekijk kaart</a></li>
+                <ul className='list-inline'>
+                  <li>
+                    <a style={{ cursor: 'pointer', color: '#2EADD3' }}
+                       onClick={this.openAboutText}>Over Waterlabel
+                    </a>
+                  </li>
+                  <li>
+                    <a style={{ cursor: 'pointer', color: '#2EADD3' }}
+                       onClick={this.openPrivacyText}>Cookies &amp; Privacy
+                    </a>
+                  </li>
+                  <li>
+                    <a style={{ cursor: 'pointer', color: '#2EADD3' }}
+                       onClick={this.openMap}>Bekijk kaart
+                    </a>
+                  </li>
                 </ul>
               </Col>
               <div className='pull-right' style={{ marginRight: 10 }}>
 
-                <OverlayTrigger trigger="click" placement="top" rootClose overlay={
-                  <Popover id='share' title="Deel je Waterlabel">
-                    <a href={`https://twitter.com/intent/tweet?screen_name=Waterlabel&text=${(this.props.postcode.selectedObject) ? `Mijn huis heeft waterlabel ${this.props.postcode.selectedObject.label}.` : ''}%20Check%20ook%20jouw%20waterlabel%20via&url=${encodeURIComponent(window.location.href.toString())}`} className="btn btn-info twitter-mention-button" data-show-count="true">
-                      <i className="fa fa-twitter"></i>&nbsp;Tweet
+                <OverlayTrigger trigger='click' placement='top' rootClose overlay={
+                  <Popover id='share' title='Deel je Waterlabel'>
+                    <a href={`https://twitter.com/intent/tweet?screen_name=Waterlabel&text=${(postcode.selectedObject) ?
+                      `Mijn huis heeft waterlabel ${postcode.selectedObject.label}.` :
+                      ''}%20Check%20ook%20jouw%20waterlabel%20via&url=${encodeURIComponent(window.location.href.toString())}`}
+                      className='btn btn-info twitter-mention-button' data-show-count='true'>
+                        <i className='fa fa-twitter' />&nbsp;Tweet
                     </a>
                   </Popover>
                 }>
-              <a style={{padding: '10px 5px 0 0', color: '#2EADD3', cursor: 'pointer' }}><i className='fa fa-2x fa-share-square'></i></a>
+              <a style={{
+                padding: '10px 5px 0 0',
+                color: '#2EADD3',
+                cursor: 'pointer'}}>
+                <i className='fa fa-2x fa-share-square'/>
+              </a>
               </OverlayTrigger>
 
-                <a href='https://twitter.com/waterlabel/' target='_blank' style={{padding: '10px 5px 0 0', color: '#2EADD3', }}><i className='fa fa-2x fa-twitter-square'></i></a>
-                <a href='https://www.facebook.com/Waterlabel-1029529007100949/' target='_blank' style={{padding: '10px 5px 0 0', color: '#2EADD3',}}><i className='fa fa-2x fa-facebook-square'></i></a>
-                <a href='https://www.youtube.com/watch?v=jARteOPf_aI' target='_blank' style={{padding: '10px 5px 0 0', color: '#2EADD3',}}><i className='fa fa-2x fa-youtube-square'></i></a>
+                <a href='https://twitter.com/waterlabel/'
+                   target='_blank'
+                   style={{padding: '10px 5px 0 0', color: '#2EADD3'}}>
+                  <i className='fa fa-2x fa-twitter-square'></i>
+                </a>
+                <a href='https://www.facebook.com/Waterlabel-1029529007100949/'
+                   target='_blank'
+                   style={{padding: '10px 5px 0 0', color: '#2EADD3'}}>
+                  <i className='fa fa-2x fa-facebook-square'></i>
+                </a>
+                <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
+                   target='_blank'
+                   style={{padding: '10px 5px 0 0', color: '#2EADD3'}}>
+                  <i className='fa fa-2x fa-youtube-square'></i>
+                </a>
               </div>
             </Row>
           </Grid>
@@ -601,8 +644,10 @@ class App extends Component {
           <Modal.Header closeButton>
             <Modal.Title>
               Waterlabel&nbsp;-&nbsp;
-              {(this.props.postcode.selectedObject) ? this.props.postcode.selectedObject.postcode : ''},&nbsp;
-              {(this.props.postcode.selectedObject) ? this.props.postcode.selectedObject.huisnummer : ''}
+              {(postcode.selectedObject) ?
+                postcode.selectedObject.postcode : ''},&nbsp;
+              {(postcode.selectedObject) ?
+                postcode.selectedObject.huisnummer : ''}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -644,7 +689,7 @@ class App extends Component {
             <p>Waterlabel.net maakt gebruik van cookies voor webstatistieken en onderzoek om daarmee inzicht te verkrijgen hoe bezoekers de website gebruiken. Deze informatie helpt ons om de site te verbeteren. Deze “analytics cookies” bevatten een (uniek) nummer. Ze bevatten geen persoonsgegevens.</p>
             <p>Waterlabel.net kan deze cookies niet gebruiken om u persoonlijk te herkennen. Ook kunnen cookies niet worden gebruikt om u op andere websites te herkennen. De verzamelde anonieme gegevens worden niet voor een ander doel gebruikt dan voor verbetering van de website en niet aan derden ter beschikking gesteld.</p>
             <h4 style={{ color: '#2EADD3' }}>Privacybeleid</h4>
-            <p>Persoonsgegevens die u opgeeft, gebruikt Waterlabel alleen voor het doel waarvoor u ze heeft achtergelaten. Daarmee voldoet Waterlabel aan <a href="http://wetten.overheid.nl/BWBR0011468/2016-01-01" target="_blank">de privacywetgeving</a>.</p>
+            <p>Persoonsgegevens die u opgeeft, gebruikt Waterlabel alleen voor het doel waarvoor u ze heeft achtergelaten. Daarmee voldoet Waterlabel aan <a href='http://wetten.overheid.nl/BWBR0011468/2016-01-01' target='_blank'>de privacywetgeving</a>.</p>
             <h4 style={{ color: '#2EADD3' }}>Adblockers</h4>
             <p>Door het gebruik van Adblockers kan de website mogelijk minder goed functioneren.</p>
           </Modal.Body>
@@ -659,13 +704,13 @@ class App extends Component {
           dialogClassName={styles.WideModal}>
           <Modal.Header closeButton>
             <Modal.Title>
-              {(this.props.postcode.selectedObject) ?
-              <svg className={svgStyle()} width="48.5" height="17">
-                <polygon points="0,0 40,0 48.5,8.5 40,17 0,17"></polygon>
-                <text style={{'fill':'white'}} x="2" y="15">{selectedObject.label}</text>
+              {(postcode.selectedObject) ?
+              <svg className={svgStyle()} width='48.5' height='17'>
+                <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
+                <text style={{'fill':'white'}} x='2' y='15'>{selectedObject.label}</text>
               </svg>
               : ''}
-              {(this.props.postcode.selectedObject) ? ` ${this.props.postcode.selectedObject.geocoded.results[0].formatted_address}` : ''}
+              {(postcode.selectedObject) ? ` ${postcode.selectedObject.geocoded.results[0].formatted_address}` : ''}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -711,8 +756,11 @@ class App extends Component {
               <Grid fluid>
                 <Row>
                   <Col md={12}>
-                    <div className="embed-responsive embed-responsive-16by9">
-                      <iframe className="embed-responsive-item" src="https://www.youtube.com/embed/jARteOPf_aI"></iframe>
+                    <div className='embed-responsive embed-responsive-16by9'>
+                      <iframe
+                        className='embed-responsive-item'
+                        src='https://www.youtube.com/embed/jARteOPf_aI'>
+                      </iframe>
                     </div>
                   </Col>
                 </Row>

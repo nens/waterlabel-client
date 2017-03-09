@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap';
 
 import {
   lookupPostcode,
-  setMapLocation,
 } from '../actions.jsx';
 
 
@@ -33,63 +32,81 @@ class SearchWidget extends Component {
   _handleKeyPress(e) {
     const self = this;
     if (e.key === 'Enter') {
-        var rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-        if(rege.test(self.state.postcode) && Number.isInteger(Number(self.state.housenumber))) {
-          this.props.dispatch(lookupPostcode(self.state.postcode, self.state.housenumber));
+        let rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+        if(rege.test(self.state.postcode) &&
+           Number.isInteger(Number(self.state.housenumber))) {
+          this.props.dispatch(
+            lookupPostcode(self.state.postcode, self.state.housenumber)
+          );
         }
     }
   }
 
   _performSearch() {
-    var self = this;
-    var rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-    if(rege.test(self.state.postcode) && Number.isInteger(Number(self.state.housenumber))) {
-      this.props.dispatch(lookupPostcode(self.state.postcode, self.state.housenumber));
+    let self = this;
+    let rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+    if(rege.test(self.state.postcode) &&
+       Number.isInteger(Number(self.state.housenumber))) {
+      this.props.dispatch(
+        lookupPostcode(self.state.postcode, self.state.housenumber)
+      );
     }
   }
 
   _clearInput(e) {
-    if(e.target.value === 'Postcode') this.setState({'postcode': ''});
-    if(e.target.value === 'Nr') this.setState({'huisnummer': ''});
+    if (e.target.value === 'Postcode') {
+      this.setState({
+        'postcode': '',
+      });
+    }
+    if (e.target.value === 'Nr') {
+      this.setState({
+        'huisnummer': '',
+      });
+    }
   }
 
   _handleChangePostcode(e) {
-    this.setState({'postcode': e.target.value});
+    this.setState({
+      'postcode': e.target.value,
+    });
   }
 
   _handleChangeHousenumber(e) {
-  this.setState({'housenumber': e.target.value});
+    this.setState({
+      'housenumber': e.target.value,
+    });
   }
 
   render() {
     return <div/>;
     return (
       <div className={styles.searchAndCheckWidget}>
-        <form className="form-inline" style={{ padding: 7 }}>
+        <form className='form-inline' style={{ padding: 7 }}>
           <Button
             bsStyle='info'
-            tabIndex="3"
+            tabIndex='3'
             style={{ float: 'right', marginLeft: 5 }}
             onClick={this._performSearch}>OK</Button>
           <input
-            tabIndex="2"
+            tabIndex='2'
             style={{ width: 80, marginLeft: 5, float: 'right' }}
-            type="number"
-            min="0"
-            placeholder="Nr"
-            className="form-control"
+            type='number'
+            min='0'
+            placeholder='Nr'
+            className='form-control'
             onFocus={this._clearInput}
             onChange={this._handleChangeHousenumber}
             onKeyPress = {this._handleKeyPress}
-            name="huisnummer"
+            name='huisnummer'
             value={this.state.huisnummer} />
           <input
-            tabIndex="1"
-            id="postcode"
-            type="text"
-            name="postcode"
-            placeholder="Postcode"
-            className="form-control"
+            tabIndex='1'
+            id='postcode'
+            type='text'
+            name='postcode'
+            placeholder='Postcode'
+            className='form-control'
             style={{ width: 145 }}
             onFocus={this._clearInput}
             onChange={this._handleChangePostcode}

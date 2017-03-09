@@ -1,10 +1,10 @@
+import _ from 'underscore';
+import { Map, TileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import CloseButton from './CloseButton.jsx';
-import L from 'leaflet';
-import { Map, TileLayer } from 'react-leaflet';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
+import L from 'leaflet';
 import React, { Component, PropTypes } from 'react';
-import _ from 'underscore';
 
 import {
   fetchChoropleth,
@@ -32,7 +32,8 @@ class WaterlabelMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zoomlevel: (this.props.postcode.maplocation) ? Number(this.props.postcode.maplocation.zoom) : 8,
+      zoomlevel: (this.props.postcode.maplocation) ?
+        Number(this.props.postcode.maplocation.zoom) : 8,
     };
     this._handleZoomEnd = this._handleZoomEnd.bind(this);
     this._handleMoveEnd = this._handleMoveEnd.bind(this);
@@ -40,11 +41,15 @@ class WaterlabelMap extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(fetchChoropleth());
+    this.props.dispatch(
+      fetchChoropleth()
+    );
   }
 
   _handleZoomEnd(e) {
-    this.setState({ zoomlevel: e.target._zoom });
+    this.setState({
+      zoomlevel: e.target._zoom
+    });
   }
 
   _handleMoveEnd(e) {
@@ -117,47 +122,47 @@ class WaterlabelMap extends Component {
     });
 
     layer.bindPopup(`<strong>${feature.properties.name}</strong><br/>
-      <ol style="padding: 0;list-style-type: none;">
+      <ol style='padding: 0;list-style-type: none;'>
           <li>
-              <svg style="fill: rgb(27, 142, 67)" width="108.5" height="17">
-                  <polygon points="0,0 100,0 108.5,8.5 100,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_a}x</text>
+              <svg style='fill: rgb(27, 142, 67)' width='108.5' height='17'>
+                  <polygon points='0,0 100,0 108.5,8.5 100,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_a}x</text>
               </svg>
           </li>
           <li>
-              <svg style="fill: rgb(74, 168, 71)" width="98.5" height="17">
-                  <polygon points="0,0 90,0 98.5,8.5 90,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_b}x</text>
+              <svg style='fill: rgb(74, 168, 71)' width='98.5' height='17'>
+                  <polygon points='0,0 90,0 98.5,8.5 90,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_b}x</text>
               </svg>
           </li>
           <li>
-              <svg style="fill: rgb(157, 186, 58)" width="88.5" height="17">
-                  <polygon points="0,0 80,0 88.5,8.5 80,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_c}x</text>
+              <svg style='fill: rgb(157, 186, 58)' width='88.5' height='17'>
+                  <polygon points='0,0 80,0 88.5,8.5 80,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_c}x</text>
               </svg>
           </li>
           <li>
-              <svg style="fill: rgb(250, 236, 13)" width="78.5" height="17">
-                  <polygon points="0,0 70,0 78.5,8.5 70,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_d}x</text>
+              <svg style='fill: rgb(250, 236, 13)' width='78.5' height='17'>
+                  <polygon points='0,0 70,0 78.5,8.5 70,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_d}x</text>
               </svg>
           </li>
           <li>
-              <svg style="fill: rgb(235, 157, 33)" width="68.5" height="17">
-                  <polygon points="0,0 60,0 68.5,8.5 60,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_e}x</text>
+              <svg style='fill: rgb(235, 157, 33)' width='68.5' height='17'>
+                  <polygon points='0,0 60,0 68.5,8.5 60,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_e}x</text>
               </svg>
           </li>
           <li>
-              <svg style="fill: rgb(207, 101, 39)" width="58.5" height="17">
-                  <polygon points="0,0 50,0 58.5,8.5 50,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_f}x</text>
+              <svg style='fill: rgb(207, 101, 39)' width='58.5' height='17'>
+                  <polygon points='0,0 50,0 58.5,8.5 50,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_f}x</text>
               </svg>
           </li>
           <li>
-              <svg style="fill: rgb(206, 52, 42)" width="48.5" height="17">
-                  <polygon points="0,0 40,0 48.5,8.5 40,17 0,17"></polygon>
-                  <text style="fill:white" x="2" y="13">${feature.properties.label_g}x</text>
+              <svg style='fill: rgb(206, 52, 42)' width='48.5' height='17'>
+                  <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
+                  <text style='fill:white' x='2' y='13'>${feature.properties.label_g}x</text>
               </svg>
           </li>
       </ol>`);
@@ -165,16 +170,18 @@ class WaterlabelMap extends Component {
 
   render() {
 
+    const { dispatch, postcode, choropleth } = this.props;
+
     const initialLocation = {
-      lat: (this.props.postcode &&
-        this.props.postcode.maplocation &&
-        this.props.postcode.maplocation.lat) ?
-        Number(this.props.postcode.maplocation.lat) :
+      lat: (postcode &&
+        postcode.maplocation &&
+        postcode.maplocation.lat) ?
+        Number(postcode.maplocation.lat) :
         52.1741,
-      lng: (this.props.postcode &&
-        this.props.postcode.maplocation &&
-        this.props.postcode.maplocation.lng) ?
-        Number(this.props.postcode.maplocation.lng) :
+      lng: (postcode &&
+        postcode.maplocation &&
+        postcode.maplocation.lng) ?
+        Number(postcode.maplocation.lng) :
         5.2032,
     };
     const position = [initialLocation.lat, initialLocation.lng];
@@ -186,10 +193,10 @@ class WaterlabelMap extends Component {
          onMoveEnd={this._handleMoveEnd}
          zoomControl={false}
          onClick={this._handleMapClick}
-         zoom={(this.props.postcode &&
-           this.props.postcode.maplocation &&
-           this.props.postcode.maplocation.zoom) ?
-            Number(this.props.postcode.maplocation.zoom) :
+         zoom={(postcode &&
+           postcode.maplocation &&
+           postcode.maplocation.zoom) ?
+            Number(postcode.maplocation.zoom) :
            this.state.zoomlevel}
          style={{
            position: 'absolute',
@@ -208,15 +215,15 @@ class WaterlabelMap extends Component {
             url='https://waterlabeltiles.sandbox.lizard.net/bag/{z}/{x}/{y}.png'
           />
         : ''}
-        {(this.state.zoomlevel < 12 && this.props.choropleth.choropleth) ?
+        {(this.state.zoomlevel < 12 && choropleth.choropleth) ?
           <GeoJsonUpdatable
-            data={this.props.choropleth.choropleth}
+            data={choropleth.choropleth}
             onEachFeature={this.onEachFeature.bind(this)}
           />
         : ''}
-        {(this.props.postcode && this.props.postcode.selectedObject && this.props.postcode.selectedObject.geo) ?
+        {(postcode && postcode.selectedObject && postcode.selectedObject.geo) ?
           <GeoJsonUpdatable
-            data={this.props.postcode.selectedObject.geo}
+            data={postcode.selectedObject.geo}
             onEachFeature={(feature, layer) => {
               layer.setStyle({
                 'color': '#ffffff',
