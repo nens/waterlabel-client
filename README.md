@@ -8,7 +8,11 @@ A [Waterlabel](https://www.waterlabel.net/) front-end using [React](https://face
 Local installation
 ------------------
 
-Install [Yarn](https://yarnpkg.com/en/) first if you don't have it set up already.
+You'll need a fairly recent Node.js installation (v6.9.1 or higher) that includes `npm`. On Ubuntu you may need to install the `nodejs-legacy` package.
+
+Install [Yarn](https://yarnpkg.com/en/) first if you don't have it set up already. Should be as easy as `$ npm install -g yarn`.
+
+With Yarn, Node and npm installed, run:
 
 ```bash
 $ yarn install
@@ -79,3 +83,9 @@ Proxy
 
 The file `server.js` proxies requests to `/api` to another webserver.
 This webserver can be configured to suit your needs (ie. point to a local server).
+
+
+Deployment
+----------
+
+For a production deployment, please refer to [waterlabel-site](https://github.com/nens/waterlabel-site/).
