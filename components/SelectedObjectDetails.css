@@ -1,0 +1,62 @@
+.SelectedObjectDetails {
+    border: 1px solid white;
+    width: 295px;
+    margin: 0 0 0 0;
+    padding: 35px 5px 5px 5px;
+    top: 0px;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    -ms-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -ms-border-radius: 5px;
+}
+
+.SelectedObjectDetails h4 {
+	margin: 5px 0 7px 10px;
+}
+
+.labelA {
+ fill: rgb(27, 142, 67);
+}
+
+.labelB {
+ fill: rgb(74, 168, 71);
+}
+
+.labelC {
+ fill: rgb(157, 186, 58);
+}
+
+.labelD {
+ fill: rgb(250, 236, 13);
+}
+
+.labelE {
+ fill: rgb(235, 157, 33);
+}
+
+.labelF {
+ fill: rgb(207, 101, 39);
+}
+
+.labelG {
+ fill: rgb(206, 52, 42);
+}
+
+.SelectedObjectDetails table {
+  width: 100%;
+}
+.SelectedObjectDetails table tr td{
+  padding: 5px;
+
+}
+
+.Gebouwinformatie {
+  font-size: 1em;
+  font-weight: bold;
+}

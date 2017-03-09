@@ -1,0 +1,33 @@
+.searchAndCheckWidget {
+  z-index: 8; /* Position above leaflet */
+  width: 300px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-family: sans-serif;
+  height: 50px;
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  -ms-box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -ms-border-radius: 5px;
+}
+.inputWrapper {
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+}
+.postcode {
+  font-size: 1.1em;
+  height: 30px;
+  width: 100px;
+}
+
+.housenumber {
+  font-size: 1.1em;
+  height: 30px;
+  width: 30px;
+}

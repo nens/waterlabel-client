@@ -1,0 +1,43 @@
+.GroupLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #959595;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+
+.labels {
+  padding: 0 0 10px 0;
+  list-style-type: none;
+  /*transform: scale(1.2, 1.2);*/
+  /*transform-origin: top left;*/
+}
+.labelA {
+ fill: rgb(27, 142, 67);
+}
+
+.labelB {
+ fill: rgb(74, 168, 71);
+}
+
+.labelC {
+ fill: rgb(157, 186, 58);
+}
+
+.labelD {
+ fill: rgb(250, 236, 13);
+}
+
+.labelE {
+ fill: rgb(235, 157, 33);
+}
+
+.labelF {
+ fill: rgb(207, 101, 39);
+}
+
+.labelG {
+ fill: rgb(206, 52, 42);
+}

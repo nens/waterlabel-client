@@ -1,0 +1,23 @@
+.infobox {
+
+}
+
+.infobox h2 {
+  color: #2EADD3;
+  font-size: 1.4em;
+}
+
+.infobox h3 {
+  color: #2EADD3;
+  font-size: 1.2em;
+}
+
+.infobox p {
+  color: #808080;
+}
+
+
+.List li {
+  color: gray;
+  margin: 15px 0 15px 0;
+}
