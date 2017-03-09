@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const definePlugin = new webpack.DefinePlugin({
   'process.env': {
@@ -8,13 +9,30 @@ const definePlugin = new webpack.DefinePlugin({
 });
 
 var config = {
-  // We change to normal source mapping
-  devtool: 'source-map',
+  // We disable sourcemap generation entirely
   entry: './index.jsx',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"production"'
+      },
+    }),
+    new webpack.optimize.DedupePlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Waterlabel',
+      template: 'index.template.html',
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      // sourceMap: false,
+      compress: {
+        warnings: false
+      }
+    }),
+  ],
   module: {
     loaders: [
       {
