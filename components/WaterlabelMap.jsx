@@ -180,7 +180,6 @@ class WaterlabelMap extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-
         <Map center={position}
          ref='map'
          onZoomEnd={this._handleZoomEnd}
