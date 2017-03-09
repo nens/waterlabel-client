@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.8"></a>
+## [0.0.8](https://github.com/nens/waterlabel-client/compare/v0.0.7...v0.0.8) (2017-03-09)
+
+
+### Bug Fixes
+
+* **Cleanup:** Cleaning up ES6 code. ([461493b](https://github.com/nens/waterlabel-client/commit/461493b))
+* **Development:** Fixed eslintrc allowing two blank lines. ([7f1cff8](https://github.com/nens/waterlabel-client/commit/7f1cff8))
+* **Refactor:** Tidying the use of props, sorted lists etc. ([bb97228](https://github.com/nens/waterlabel-client/commit/bb97228))
+
+
+
 <a name="0.0.7"></a>
 ## [0.0.7](https://github.com/nens/waterlabel-client/compare/v0.0.6...v0.0.7) (2017-03-09)
 
