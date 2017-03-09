@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.7"></a>
+## [0.0.7](https://github.com/nens/waterlabel-client/compare/v0.0.6...v0.0.7) (2017-03-09)
+
+
+### Bug Fixes
+
+* **Images:** Shrunk png assets using pngoptim. ([5f98367](https://github.com/nens/waterlabel-client/commit/5f98367))
+* **index.html:** Point to proper Leaflet stylesheet. Fixes drifting of vector geometries on zoom. ([f856816](https://github.com/nens/waterlabel-client/commit/f856816))
+* **package.json:** Forgot to run webpack with -p switch for production builds. ([6b11dba](https://github.com/nens/waterlabel-client/commit/6b11dba))
+
+
+
 <a name="0.0.6"></a>
 ## [0.0.6](https://github.com/nens/waterlabel-client/compare/v0.0.5...v0.0.6) (2017-03-09)
 
