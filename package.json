@@ -1,7 +1,7 @@
 {
-  "name": "waterlabel-frontend",
-  "version": "0.0.3",
-  "description": "Front-end for waterlabel.net",
+  "name": "waterlabel-client",
+  "version": "0.0.4",
+  "description": "Front-end for Waterlabel",
   "scripts": {
     "start": "node server.js",
     "build": "NODE_ENV=production webpack --config webpack.production.config.js",
