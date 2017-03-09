@@ -4,30 +4,23 @@ import calculateWaterlabel from './lib/calculatewaterlabel.jsx';
 import swal from 'sweetalert';
 export const CLEAR_SELECTED_OBJECT = 'CLEAR_SELECTED_OBJECT';
 export const COMPUTE_LABEL = 'COMPUTE_LABEL';
-export const SUBMIT_NEW_LABEL = 'SUBMIT_NEW_LABEL';
-export const SUBMIT_LABEL_SET_FETCHING = 'SUBMIT_LABEL_SET_FETCHING';
-export const REQUEST_CHOROPLETH = 'REQUEST_CHOROPLETH';
 export const RECEIVE_CHOROPLETH = 'RECEIVE_CHOROPLETH';
-export const REQUEST_POSTCODE = 'REQUEST_POSTCODE';
-export const RECEIVE_POSTCODE = 'RECEIVE_POSTCODE';
-export const SET_MAP_LOCATION = 'SET_MAP_LOCATION';
-export const REQUEST_RADIUS_SEARCH = 'REQUEST_RADIUS_SEARCH';
-export const RECEIVE_RADIUS_SEARCH = 'RECEIVE_RADIUS_SEARCH';
-export const REQUEST_HISTORY = 'REQUEST_HISTORY';
 export const RECEIVE_HISTORY = 'RECEIVE_HISTORY';
-require("!style!css!./node_modules/sweetalert/dist/sweetalert.css");
+export const RECEIVE_POSTCODE = 'RECEIVE_POSTCODE';
+export const RECEIVE_RADIUS_SEARCH = 'RECEIVE_RADIUS_SEARCH';
+export const REQUEST_CHOROPLETH = 'REQUEST_CHOROPLETH';
+export const REQUEST_HISTORY = 'REQUEST_HISTORY';
+export const REQUEST_POSTCODE = 'REQUEST_POSTCODE';
+export const REQUEST_RADIUS_SEARCH = 'REQUEST_RADIUS_SEARCH';
+export const SET_MAP_LOCATION = 'SET_MAP_LOCATION';
+export const SUBMIT_LABEL_SET_FETCHING = 'SUBMIT_LABEL_SET_FETCHING';
+export const SUBMIT_NEW_LABEL = 'SUBMIT_NEW_LABEL';
+require('!style!css!./node_modules/sweetalert/dist/sweetalert.css');
+
 
 function submitLabelSetFetching() {
   return {
     type: SUBMIT_LABEL_SET_FETCHING,
-  };
-}
-
-function submitLabelReceive(data) {
-  return {
-    type: SUBMIT_LABEL_RECEIVE,
-    data,
-    receivedAt: Date.now(),
   };
 }
 
@@ -71,7 +64,11 @@ export function computeLabel(values) {
 }
 
 export function clearSelectedObject() {
-  history.pushState(null, null, `#`);
+  history.pushState(
+    null,
+    null,
+    '#'
+  );
   document.getElementById('postcode').focus();
   return {
     type: CLEAR_SELECTED_OBJECT,
@@ -99,10 +96,18 @@ export function radiusSearch(latlngobj) {
     $.ajax({
       url: `/api/v1/mapclick?lat=${latlngobj.lng}&lng=${latlngobj.lat}`,
     }).done((data) => {
-      history.pushState(null, null, `#postcode=${data.postcode}&nr=${data.huisnummer}`);
+      history.pushState(
+        null,
+        null,
+        `#postcode=${data.postcode}&nr=${data.huisnummer}`
+      );
       return dispatch(receiveRadiusSearch(data));
-    }).error((error) => {
-      swal("Locatiebepaling mislukt", "Helaas, niets gevonden.", "error");
+    }).error(() => {
+      swal(
+        'Locatiebepaling mislukt',
+        'Helaas, niets gevonden.',
+        'error'
+      );
       return false;
     });
   };
@@ -139,13 +144,19 @@ export function lookupPostcode(postcode, nr) {
       url: `/api/v1/geocode?postcode=${postcode}&housenumber=${nr}`,
     }).done((data) => {
       if ($.isEmptyObject(data)) {
-        swal("Postcode/huisnummer niet herkend", "Helaas, op de ingevoerde postcode/huisnummer combinatie werd niets gevonden.", "error");
+        swal(
+          'Postcode/huisnummer niet herkend',
+          `Helaas, op de ingevoerde postcode/huisnummer combinatie werd niets
+          gevonden.`,
+          'error');
         return false;
       }
-      else {
-        history.pushState(null, null, `#postcode=${postcode}&nr=${nr}`);
-        return dispatch(receivePostcode(data));
-      }
+      history.pushState(
+        null,
+        null,
+        `#postcode=${postcode}&nr=${nr}`
+      );
+      return dispatch(receivePostcode(data));
     });
   };
 }
@@ -203,7 +214,7 @@ function receiveChoropleth(data) {
           'label_f': feature.city.label_f,
           'label_g': feature.city.label_g,
         },
-        'geometry': feature.city.geom
+        'geometry': feature.city.geom,
       };
     }),
   };
@@ -243,5 +254,6 @@ export function fetchChoroplethIfNeeded() {
     if (shouldFetchChoropleth(getState())) {
       return dispatch(fetchChoropleth());
     }
+    return Promise.resolve();
   };
 }

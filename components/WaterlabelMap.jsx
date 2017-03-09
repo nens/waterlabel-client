@@ -1,7 +1,5 @@
 import _ from 'underscore';
 import { Map, TileLayer } from 'react-leaflet';
-import $ from 'jquery';
-import CloseButton from './CloseButton.jsx';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
 import L from 'leaflet';
 import React, { Component, PropTypes } from 'react';
@@ -48,17 +46,19 @@ class WaterlabelMap extends Component {
 
   _handleZoomEnd(e) {
     this.setState({
-      zoomlevel: e.target._zoom
+      zoomlevel: e.target._zoom,
     });
   }
 
-  _handleMoveEnd(e) {
+  _handleMoveEnd() {
     // console.log('_handleMoveEnd', e.target._initialCenter, e.target._zoom);
   }
 
   _handleMapClick(e) {
     // Center map on clicked position
-    this.refs.map.leafletElement.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng));
+    this.refs.map.leafletElement.panTo(
+      new L.LatLng(e.latlng.lat, e.latlng.lng)
+    );
     this.props.dispatch(radiusSearch({
       'lat': e.latlng.lat,
       'lng': e.latlng.lng,
@@ -67,22 +67,22 @@ class WaterlabelMap extends Component {
 
   onEachFeature(feature, layer) {
     layer.on('mouseover', (e) => {
-      const layer = e.target;
-      layer.setStyle({
+      const _layer = e.target;
+      _layer.setStyle({
         weight: 2,
       });
 
       if (!L.Browser.ie && !L.Browser.opera) {
-        layer.bringToFront();
+        _layer.bringToFront();
       }
     });
 
     layer.on('mouseout', (e) => {
-      const layer = e.target;
-      layer.setStyle({
+      const _layer = e.target;
+      _layer.setStyle({
         weight: 0,
       });
-    })
+    });
 
     layer.setStyle({
       weight: 0,
@@ -126,52 +126,64 @@ class WaterlabelMap extends Component {
           <li>
               <svg style='fill: rgb(27, 142, 67)' width='108.5' height='17'>
                   <polygon points='0,0 100,0 108.5,8.5 100,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_a}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_a}x
+                  </text>
               </svg>
           </li>
           <li>
               <svg style='fill: rgb(74, 168, 71)' width='98.5' height='17'>
                   <polygon points='0,0 90,0 98.5,8.5 90,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_b}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_b}x
+                  </text>
               </svg>
           </li>
           <li>
               <svg style='fill: rgb(157, 186, 58)' width='88.5' height='17'>
                   <polygon points='0,0 80,0 88.5,8.5 80,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_c}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_c}x
+                  </text>
               </svg>
           </li>
           <li>
               <svg style='fill: rgb(250, 236, 13)' width='78.5' height='17'>
                   <polygon points='0,0 70,0 78.5,8.5 70,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_d}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_d}x
+                  </text>
               </svg>
           </li>
           <li>
               <svg style='fill: rgb(235, 157, 33)' width='68.5' height='17'>
                   <polygon points='0,0 60,0 68.5,8.5 60,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_e}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_e}x
+                  </text>
               </svg>
           </li>
           <li>
               <svg style='fill: rgb(207, 101, 39)' width='58.5' height='17'>
                   <polygon points='0,0 50,0 58.5,8.5 50,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_f}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_f}x
+                  </text>
               </svg>
           </li>
           <li>
               <svg style='fill: rgb(206, 52, 42)' width='48.5' height='17'>
                   <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
-                  <text style='fill:white' x='2' y='13'>${feature.properties.label_g}x</text>
+                  <text style='fill:white' x='2' y='13'>
+                    ${feature.properties.label_g}x
+                  </text>
               </svg>
           </li>
       </ol>`);
   }
 
   render() {
-
-    const { dispatch, postcode, choropleth } = this.props;
-
+    const { postcode, choropleth } = this.props;
     const initialLocation = {
       lat: (postcode &&
         postcode.maplocation &&
@@ -241,7 +253,9 @@ class WaterlabelMap extends Component {
 }
 
 WaterlabelMap.propTypes = {
+  choropleth: PropTypes.any,
   dispatch: PropTypes.func,
+  postcode: PropTypes.any,
 };
 
 export default WaterlabelMap;

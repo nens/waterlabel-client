@@ -1,10 +1,10 @@
 /* globals Promise:true */
 import 'babel-polyfill';
+import { Provider } from 'react-redux';
+import App from './components/App.jsx';
+import configureStore from './configureStore.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import configureStore from './configureStore.jsx';
-import App from './components/App.jsx';
 
 const store = configureStore();
 

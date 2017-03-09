@@ -1,7 +1,7 @@
+import { Button } from 'react-bootstrap';
+import $ from 'jquery';
 import React, { Component, PropTypes } from 'react';
 import styles from './SearchWidget.css';
-import $ from 'jquery';
-import { Button } from 'react-bootstrap';
 
 import {
   lookupPostcode,
@@ -32,21 +32,21 @@ class SearchWidget extends Component {
   _handleKeyPress(e) {
     const self = this;
     if (e.key === 'Enter') {
-        let rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-        if(rege.test(self.state.postcode) &&
-           Number.isInteger(Number(self.state.housenumber))) {
-          this.props.dispatch(
-            lookupPostcode(self.state.postcode, self.state.housenumber)
-          );
-        }
+      const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+      if(rege.test(self.state.postcode) &&
+         Number.isInteger(Number(self.state.housenumber))) {
+        this.props.dispatch(
+          lookupPostcode(self.state.postcode, self.state.housenumber)
+        );
+      }
     }
   }
 
   _performSearch() {
-    let self = this;
-    let rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-    if(rege.test(self.state.postcode) &&
-       Number.isInteger(Number(self.state.housenumber))) {
+    const self = this;
+    const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+    if (rege.test(self.state.postcode) &&
+      Number.isInteger(Number(self.state.housenumber))) {
       this.props.dispatch(
         lookupPostcode(self.state.postcode, self.state.housenumber)
       );
@@ -79,7 +79,6 @@ class SearchWidget extends Component {
   }
 
   render() {
-    return <div/>;
     return (
       <div className={styles.searchAndCheckWidget}>
         <form className='form-inline' style={{ padding: 7 }}>

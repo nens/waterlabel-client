@@ -1,4 +1,3 @@
-import guid from './lib/guid.jsx';
 import undoable, { distinctState } from 'redux-undo';
 import { combineReducers } from 'redux';
 import {
@@ -99,7 +98,7 @@ function postcode(state = {
       isFetching: false,
       selectedObject: action.data,
       maplocation: {
-        lat: action.data.lng, // Intentionally flipped!! Comes back flipped from API!
+        lat: action.data.lng, // Intentionally flipped!! (API response inverted)
         lng: action.data.lat,
         zoom: action.data.zoom || 18,
       },

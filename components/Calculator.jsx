@@ -1,8 +1,7 @@
-import L from 'leaflet';
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
-import { Grid, Col, Row, Button, Form, FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock, OverlayTrigger, Popover } from 'react-bootstrap';
-import algemeen02 from '../images/algemeen02.png';
+import { Grid, Col, Row, Button, OverlayTrigger,
+  Popover } from 'react-bootstrap';
 import React, { Component, PropTypes } from 'react';
 import styles from './Calculator.css';
 import swal from 'sweetalert';
@@ -56,18 +55,22 @@ class Calculator extends Component {
     });
   }
 
-  handleSubmitNewLabel(e) {
-    let self = this;
-
-    const { dispatch, postcode, calculator } = this.props;
-
+  handleSubmitNewLabel() {
+    const self = this;
+    const { postcode, calculator } = this.props;
     const re = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (this.refs.email.value === '') {
-      swal('E-mailadres niet ingevuld', 'Je moet een geldig e-maildres opgeven...', 'error');
+      swal(
+        'E-mailadres niet ingevuld',
+        'Je moet een geldig e-maildres opgeven...',
+        'error');
       return false;
     }
     if (!re.test(this.refs.email.value)) {
-      swal('E-mailadres niet geldig', 'Je moet een geldig e-maildres opgeven...', 'error');
+      swal(
+        'E-mailadres niet geldig',
+        'Je moet een geldig e-maildres opgeven...',
+        'error');
       return false;
     }
 
@@ -101,20 +104,24 @@ class Calculator extends Component {
           title: 'We verwerken je Waterlabel',
           text: 'Bedankt voor je bijdrage!',
           type: 'success',
-          customClass: 'areyousure'
+          customClass: 'areyousure',
         });
 
         self.props.closeCalculator();
         self.props.openMap();
       },
       failure: (errMsg) => {
-        swal('Foutmelding', 'Er ging iets verkeerd, laat het ons weten via info@nelen-schuurmans.nl', 'error');
+        swal(
+          'Foutmelding',
+          'Er ging iets verkeerd, laat het ons weten via info@nelen-schuurmans.nl',
+          'error');
         console.log(errMsg);
-      }
+      },
     });
 
     // Skipping posting via Redux for now... no obvious advantage in doing so?
     // dispatch(submitNewLabel(postcode.selectedObject));
+    return true;
   }
 
   handleChange() {
@@ -139,7 +146,7 @@ class Calculator extends Component {
 
   render() {
 
-    const { dispatch, postcode, calculator } = this.props;
+    const { postcode, calculator } = this.props;
 
     const initialLocation = {
       lat: (postcode &&
@@ -179,10 +186,13 @@ class Calculator extends Component {
                           <img
                             style={{ width: '100%' }}
                             src={tt02}/>
-                          Het oppervlak van het dak van de woning of het (hoofd)gebouw.&nbsp;
+                          Het oppervlak van het dak van de woning of het
+                          (hoofd)gebouw.&nbsp;
                           Bij schuine daken telt het horizontale oppervlak.
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{ color: '#337AB7' }}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -197,8 +207,10 @@ class Calculator extends Component {
                 value={
                   (calculator.calculationvalues) ?
                   calculator.calculationvalues.dak_woning :
-                  (calculationvalues.dak_woning) ? Math.round(calculationvalues.dak_woning) :
-                  (postcode.selectedObject) ? Math.round(postcode.selectedObject.sqm) : ''
+                  (calculationvalues.dak_woning) ?
+                    Math.round(calculationvalues.dak_woning) :
+                    (postcode.selectedObject) ?
+                      Math.round(postcode.selectedObject.sqm) : ''
                 }
               />
               <div className='input-group-addon'>m<sup>2</sup></div>
@@ -219,9 +231,13 @@ class Calculator extends Component {
                           <img
                             style={{ width: '100%' }}
                             src={tt03}/>
-                          Het totale dakoppervlak van de schuur, garage, afdak etc. die op het perceel staan. Bij schuine daken telt het horizontale oppervlak.
+                          Het totale dakoppervlak van de schuur, garage, afdak
+                          etc. die op het perceel staan. Bij schuine daken telt
+                          het horizontale oppervlak.
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{ color: '#337AB7' }}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -251,11 +267,15 @@ class Calculator extends Component {
               placement='bottom'
               overlay={<Popover
                         id='helptext-achtertuin'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Achtertuin (m2)'>
-                          <img style={{width:'100%'}} src={tt05}/>De achtertuin ligt achter het huis, gezien vanaf de straat. De garage/schuur telt hier niet mee.
+                          <img style={{ width: '100%' }} src={tt05}/>
+                          De achtertuin ligt achter het huis, gezien vanaf de
+                          straat. De garage/schuur telt hier niet mee.
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -285,11 +305,15 @@ class Calculator extends Component {
               placement='bottom'
               overlay={<Popover
                         id='helptext-voortuin'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Voortuin (m2)'>
-                          <img style={{width:'100%'}} src={tt04}/>De voortuin ligt aan de straat. De garage/schuur telt hier niet mee.
+                          <img style={{ width: '100%' }} src={tt04}/>
+                          De voortuin ligt aan de straat. De garage/schuur telt
+                          hier niet mee.
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -319,11 +343,15 @@ class Calculator extends Component {
               rootClose
               overlay={<Popover
                         id='helptext-totaal'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Perceel (m2)'>
-                          <img style={{width:'100%'}} src={tt01}/>Het perceel is het totale oppervlak van het gebouw en de eventuele achtertuin, voortuin en schuur samen.
+                          <img style={{ width: '100%' }} src={tt01}/>
+                          Het perceel is het totale oppervlak van het gebouw
+                          en de eventuele achtertuin, voortuin en schuur samen.
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -337,7 +365,10 @@ class Calculator extends Component {
                   calculator.calculationvalues.perceel :
                   Math.round(calculationvalues.perceel)
                 } />
-              {(calculator.calculationvalues) ? calculator.calculationvalues.perceel : 0} m<sup>2</sup>
+              {(calculator.calculationvalues) ?
+                calculator.calculationvalues.perceel :
+                0
+              } m<sup>2</sup>
             </div>
           </div>
 
@@ -352,12 +383,26 @@ class Calculator extends Component {
               placement='bottom'
               overlay={<Popover
                         id='helptext-berging-dak-woning'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Berging dak woning (m2)'>
-                          <img style={{width:'100%'}} src={tt06}/>De dakberging is het oppervlak van de woning dat tenminste 2 cm water kan vasthouden. Dit kan bijvoorbeeld dak zijn met beplanting (een groen dak) of met een waterberging (een blauw dak).
-                            <br/><a target='_blank' href='https://www.rainproof.nl/tips/dak'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img style={{ width: '100%' }} src={tt06} />
+                          De dakberging is het oppervlak van de woning dat
+                          tenminste 2 cm water kan vasthouden. Dit kan
+                          bijvoorbeeld dak zijn met beplanting (een groen dak)
+                          of met een waterberging (een blauw dak).
+                          <br/>
+                          <a
+                            target='_blank'
+                            href='https://www.rainproof.nl/tips/dak'>
+                            <button
+                              className='btn btn-xs btn-success'>
+                              <i className='fa fa-lightbulb-o' />&nbsp;Tip
+                            </button>
+                          </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -388,12 +433,25 @@ class Calculator extends Component {
               placement='bottom'
               overlay={<Popover
                         id='helptext-afvoer-dak-woning'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Afvoer dak woning'>
-                          <img style={{width:'100%'}} src={tt07}/>Waar stroomt het water heen?	Het water van een dak stroomt naar de riolering of via een afgekoppelde regenpijp naar de tuin.
-                            <br/><a target='_blank' href='https://www.rainproof.nl/toolbox/maatregelen/regenpijp-afkoppelen'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img style={{ width: '100%' }} src={tt07} />
+                          Waar stroomt het water heen?	Het water van een dak
+                          stroomt naar de riolering of via een afgekoppelde
+                          regenpijp naar de tuin.
+                          <br/>
+                          <a
+                            target='_blank'
+                            href='https://www.rainproof.nl/toolbox/maatregelen/regenpijp-afkoppelen'>
+                            <button className='btn btn-xs btn-success'>
+                              <i className='fa fa-lightbulb-o' />
+                              &nbsp;Tip
+                            </button>
+                          </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -406,7 +464,7 @@ class Calculator extends Component {
                   calculator.calculationvalues.afvoer_dak_woning :
                   calculationvalues.afvoer_dak_woning
                 }>
-                <option value=''></option>
+                <option value='' />
                 <option value='Gemengd stelsel'>Gemengd riool</option>
                 <option value='Regenwater stelsel'>Regenwater riool</option>
                 <option value='Infiltratieriool'>Infiltratie riool</option>
@@ -423,12 +481,29 @@ class Calculator extends Component {
               placement='bottom'
               overlay={<Popover
                         id='helptext-berging-dak-schuur'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Berging dak schuur (m2)'>
-                          <img style={{width:'100%'}} src={tt08}/>De dakberging is het oppervlak van de schuur of garage dat tenminste 2 cm water kan vasthouden. Dit kan bijvoorbeeld dak zijn met beplanting (een groen dak) of met een waterberging (een blauw dak).
-                            <br/><a target='_blank' href='https://www.rainproof.nl/tips/dak'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img
+                            style={{ width: '100%' }}
+                            src={tt08} />
+                          De dakberging is het oppervlak van de schuur of
+                          garage dat tenminste 2 cm water kan vasthouden. Dit
+                          kan bijvoorbeeld dak zijn met beplanting (een groen
+                          dak) of met een waterberging (een blauw dak).
+                          <br/>
+                          <a
+                            target='_blank'
+                            href='https://www.rainproof.nl/tips/dak'>
+                            <button
+                              className='btn btn-xs btn-success'>
+                              <i className='fa fa-lightbulb-o' />
+                              &nbsp;Tip
+                            </button>
+                          </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -459,12 +534,28 @@ class Calculator extends Component {
               placement='bottom'
               overlay={<Popover
                         id='helptext-afvoer-dak-schuur'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Afvoer dak schuur'>
-                          <img style={{width:'100%'}} src={tt09}/>Waar stroomt het water heen? Het water van een dak stroomt naar de riolering of via een afgekoppelde regenpijp naar de tuin.
-                            <br/><a target='_blank' href='https://www.rainproof.nl/toolbox/maatregelen/regenpijp-afkoppelen'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img
+                            style={{ width: '100%' }}
+                            src={tt09} />
+                            Waar stroomt het water heen? Het water van een dak
+                            stroomt naar de riolering of via een afgekoppelde
+                            regenpijp naar de tuin.
+                            <br/>
+                            <a
+                              target='_blank'
+                              href='https://www.rainproof.nl/toolbox/maatregelen/regenpijp-afkoppelen'>
+                              <button
+                                className='btn btn-xs btn-success'>
+                                <i className='fa fa-lightbulb-o' />
+                                &nbsp;Tip
+                              </button>
+                            </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -477,7 +568,7 @@ class Calculator extends Component {
                   calculator.calculationvalues.afvoer_dak_schuur :
                   calculationvalues.afvoer_dak_schuur
                 }>
-                <option value=''></option>
+                <option value='' />
                 <option value='Gemengd stelsel'>Gemengd riool</option>
                 <option value='Regenwater stelsel'>Regenwater riool</option>
                 <option value='Infiltratieriool'>Infiltratie riool</option>
@@ -497,12 +588,26 @@ class Calculator extends Component {
               placement='top'
               overlay={<Popover
                         id='helptext-groene-achtertuin'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Groene achtertuin (m2)'>
-                          <img style={{width:'100%'}} src={tt11}/>Het oppervlak in de achtertuin waar regen direct in de grond kan zakken, zoals gras, kiezels of aarde.
-                          <br/><a target='_blank' href='https://www.rainproof.nl/tips/tuin'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img
+                            style={{ width: '100%' }}
+                            src={tt11} />
+                            Het oppervlak in de achtertuin waar regen direct in
+                            de grond kan zakken, zoals gras, kiezels of aarde.
+                          <br/>
+                          <a
+                            target='_blank'
+                            href='https://www.rainproof.nl/tips/tuin'>
+                            <button
+                              className='btn btn-xs btn-success'>
+                              <i className='fa fa-lightbulb-o' />&nbsp;Tip
+                            </button>
+                          </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -533,12 +638,25 @@ class Calculator extends Component {
               placement='top'
               overlay={<Popover
                         id='helptext-groene-voortuin'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Groene voortuin (m2)'>
-                          <img style={{width:'100%'}} src={tt10}/>Het oppervlak in de voortuin waar regen direct in de grond kan zakken, zoals gras, kiezels of aarde.
-                          <br/><a target='_blank' href='https://www.rainproof.nl/tips/tuin'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img
+                            style={{ width: '100%' }}
+                            src={tt10}/>
+                            Het oppervlak in de voortuin waar regen direct in
+                            de grond kan zakken, zoals gras, kiezels of aarde.
+                          <br/>
+                          <a
+                            target='_blank'
+                            href='https://www.rainproof.nl/tips/tuin'>
+                            <button className='btn btn-xs btn-success'>
+                              <i className='fa fa-lightbulb-o' />&nbsp;Tip
+                            </button>
+                          </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -569,13 +687,30 @@ class Calculator extends Component {
               placement='top'
               overlay={<Popover
                         id='helptext-regenton'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Regenton (Liter)'>
-                          <img style={{width:'100%'}} src={tt12}/>Een regenton voorkomt dat water al tijdens een bui afstroomt.
-                            Zo wordt de piekbelasting afgezwakt. Ook de berging van een vijver of een zwembad kun je hier invullen.
-                          <br/><a target='_blank' href='https://www.rainproof.nl/toolbox/maatregelen/regenton'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                          <img
+                            style={{ width: '100%' }}
+                            src={tt12}/>
+                            Een regenton voorkomt dat water al tijdens een bui
+                            afstroomt.
+                            Zo wordt de piekbelasting afgezwakt. Ook de
+                            berging van een vijver of een zwembad kun je hier
+                            invullen.
+                          <br/>
+                          <a
+                            target='_blank'
+                            href='https://www.rainproof.nl/toolbox/maatregelen/regenton'>
+                            <button
+                              className='btn btn-xs btn-success'>
+                              <i
+                                className='fa fa-lightbulb-o' />&nbsp;Tip
+                            </button>
+                          </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -606,12 +741,25 @@ class Calculator extends Component {
               placement='top'
               overlay={<Popover
                         id='helptext-geveltuin'
-                        style={{zIndex:99999999}}
+                        style={{ zIndex: 99999999 }}
                         title='Geveltuin'>
-                        <strong>Heeft u een geveltuin?</strong> Door een rij tegels te verwijderen langs de gevel aan de straatkant en een tuintje aan te leggen, kan het van de gevel afstromende regenwater in de grond infiltreren.
-                        <br/><a target='_blank' href='https://www.rainproof.nl/toolbox/maatregelen/geveltuintje'><button className='btn btn-xs btn-success'><i className='fa fa-lightbulb-o'></i>&nbsp;Tip</button></a>
+                        <strong>Heeft u een geveltuin?</strong>
+                        Door een rij tegels te verwijderen langs de gevel aan
+                        de straatkant en een tuintje aan te leggen, kan het van
+                        de gevel afstromende regenwater in de grond infiltreren.
+                        <br/>
+                        <a
+                          target='_blank'
+                          href='https://www.rainproof.nl/toolbox/maatregelen/geveltuintje'>
+                          <button
+                            className='btn btn-xs btn-success'>
+                            <i className='fa fa-lightbulb-o' />&nbsp;Tip
+                          </button>
+                        </a>
                        </Popover>}>
-                       <i className='fa fa-question-circle' style={{color:'#337AB7'}}></i>
+                       <i
+                        className='fa fa-question-circle'
+                        style={{ color: '#337AB7' }} />
             </OverlayTrigger>
             </label>
             <div className='col-sm-5'>
@@ -624,7 +772,7 @@ class Calculator extends Component {
                   calculator.calculationvalues.geveltuin :
                   calculationvalues.geveltuin
                 }>
-                <option value=''></option>
+                <option value='' />
                 <option value='Ja'>Ja</option>
                 <option value='Nee'>Nee</option>
               </select>
@@ -634,80 +782,144 @@ class Calculator extends Component {
         <Col md={6}>
             <h2 className={styles.GroupLabel}>Mijn waterlabel</h2>
             <hr/>
-              <span className='' style={{ position: 'absolute', left: 170, fontSize: '5em', fontWeight: 'bold' }}>{calculator.label}</span>
+              <span
+                className=''
+                style={{
+                  position: 'absolute',
+                  left: 170,
+                  fontSize: '5em',
+                  fontWeight: 'bold',
+                }}>{calculator.label}
+              </span>
               <ol className={styles.labels}>
-                  <li>
-                      <svg className={styles.labelA} width='108.5' height='17'>
-                          <polygon points='0,0 100,0 108.5,8.5 100,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>A</text>
-                      </svg>
-                      {(calculator.label === 'A') ?
-                      <svg className={styles.labelA} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
-                  <li>
-                      <svg className={styles.labelB} width='98.5' height='17'>
-                          <polygon points='0,0 90,0 98.5,8.5 90,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>B</text>
-                      </svg>
-                      {(calculator.label === 'B') ?
-                      <svg className={styles.labelB} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
-                  <li>
-                      <svg className={styles.labelC} width='88.5' height='17'>
-                          <polygon points='0,0 80,0 88.5,8.5 80,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>C</text>
-                      </svg>
-                      {(calculator.label === 'C') ?
-                      <svg className={styles.labelC} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
-                  <li>
-                      <svg className={styles.labelD} width='78.5' height='17'>
-                          <polygon points='0,0 70,0 78.5,8.5 70,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>D</text>
-                      </svg>
-                      {(calculator.label === 'D') ?
-                      <svg className={styles.labelD} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
-                  <li>
-                      <svg className={styles.labelE} width='68.5' height='17'>
-                          <polygon points='0,0 60,0 68.5,8.5 60,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>E</text>
-                      </svg>
-                      {(calculator.label === 'E') ?
-                      <svg className={styles.labelE} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
-                  <li>
-                      <svg className={styles.labelF} width='58.5' height='17'>
-                          <polygon points='0,0 50,0 58.5,8.5 50,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>F</text>
-                      </svg>
-                      {(calculator.label === 'F') ?
-                      <svg className={styles.labelF} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
-                  <li>
-                      <svg className={styles.labelG} width='48.5' height='17'>
-                          <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
-                          <text style={{'fill':'white'}} x='2' y='13'>G</text>
-                      </svg>
-                      {(calculator.label === 'G') ?
-                      <svg className={styles.labelG} width='48.5' height='17'>
-                          <text style={{'fill':'black'}} x='10' y='13'>&larr;</text>
-                      </svg> : ''}
-                  </li>
+                <li>
+                  <svg className={styles.labelA} width='108.5' height='17'>
+                    <polygon points='0,0 100,0 108.5,8.5 100,17 0,17' />
+                    <text
+                      style={{ 'fill': 'white' }}
+                      x='2'
+                      y='13'>A
+                    </text>
+                  </svg>
+                  {(calculator.label === 'A') ?
+                  <svg className={styles.labelA} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }}
+                      x='10'
+                      y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
+                <li>
+                  <svg className={styles.labelB} width='98.5' height='17'>
+                    <polygon
+                      points='0,0 90,0 98.5,8.5 90,17 0,17' />
+                    <text
+                      style={{ 'fill': 'white' }}
+                      x='2'
+                      y='13'>B
+                    </text>
+                  </svg>
+                  {(calculator.label === 'B') ?
+                  <svg className={styles.labelB} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }}
+                      x='10'
+                      y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
+                <li>
+                  <svg className={styles.labelC} width='88.5' height='17'>
+                    <polygon
+                      points='0,0 80,0 88.5,8.5 80,17 0,17' />
+                    <text
+                      style={{ 'fill': 'white' }}
+                      x='2'
+                      y='13'>C
+                    </text>
+                  </svg>
+                  {(calculator.label === 'C') ?
+                  <svg className={styles.labelC} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }}
+                      x='10'
+                      y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
+                <li>
+                  <svg className={styles.labelD} width='78.5' height='17'>
+                    <polygon
+                      points='0,0 70,0 78.5,8.5 70,17 0,17' />
+                    <text
+                      style={{ 'fill': 'white' }}
+                      x='2'
+                      y='13'>D
+                    </text>
+                  </svg>
+                  {(calculator.label === 'D') ?
+                  <svg className={styles.labelD} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }}
+                      x='10'
+                      y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
+                <li>
+                  <svg className={styles.labelE} width='68.5' height='17'>
+                    <polygon
+                      points='0,0 60,0 68.5,8.5 60,17 0,17' />
+                    <text
+                      style={{ 'fill': 'white' }}
+                      x='2'
+                      y='13'>E</text>
+                  </svg>
+                  {(calculator.label === 'E') ?
+                  <svg className={styles.labelE} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }}
+                      x='10'
+                      y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
+                <li>
+                  <svg className={styles.labelF} width='58.5' height='17'>
+                    <polygon
+                      points='0,0 50,0 58.5,8.5 50,17 0,17' />
+                    <text
+                      style={{ 'fill': 'white' }}
+                      x='2'
+                      y='13'>F
+                    </text>
+                  </svg>
+                  {(calculator.label === 'F') ?
+                  <svg className={styles.labelF} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }}
+                      x='10'
+                      y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
+                <li>
+                  <svg className={styles.labelG} width='48.5' height='17'>
+                    <polygon
+                      points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                    <text style={{ 'fill': 'white' }} x='2' y='13'>
+                    G
+                    </text>
+                  </svg>
+                  {(calculator.label === 'G') ?
+                  <svg className={styles.labelG} width='48.5' height='17'>
+                    <text
+                      style={{ 'fill': 'black' }} x='10' y='13'>&larr;
+                    </text>
+                  </svg> : ''}
+                </li>
               </ol>
-
 
                 <Map center={position}
                  ref='map'
@@ -736,12 +948,14 @@ class Calculator extends Component {
                     url='//geodata.nationaalgeoregister.nl/kadastralekaartv2/wms'
                     layers='perceel'
                     format='image/png'
-                    transparent={true}
+                    transparent
                     minZoom={3}
                     maxZoom={20}
                   />
 
-                  {(postcode && postcode.selectedObject && postcode.selectedObject.geo) ?
+                  {(postcode &&
+                    postcode.selectedObject &&
+                    postcode.selectedObject.geo) ?
                     <GeoJsonUpdatable
                       data={postcode.selectedObject.geo}
                       onEachFeature={(feature, layer) => {
@@ -782,10 +996,16 @@ class Calculator extends Component {
                         id='inputEmail'
                         placeholder='Jouw e-mailadres'
                       />
-                      <span id='helpBlock' className='help-block' style={{ fontSize: '.85em' }}>
+                      <span
+                        id='helpBlock'
+                        className='help-block'
+                        style={{ fontSize: '.85em' }}>
                         We hebben je e-mailadres alleen nodig ter controle
                       </span>
-                      <Button bsSize='lg' bsStyle='info' onClick={this.handleSubmitNewLabel}>
+                      <Button
+                        bsSize='lg'
+                        bsStyle='info'
+                        onClick={this.handleSubmitNewLabel}>
                         Nieuw label opslaan
                       </Button>
                     </div>
@@ -798,14 +1018,15 @@ class Calculator extends Component {
         </Col>
       </Row>
       </Grid>
-    )
+    );
   }
-
 }
 
 
 Calculator.propTypes = {
+  calculator: PropTypes.any,
   dispatch: PropTypes.func,
+  postcode: PropTypes.any,
 };
 
 export default Calculator;

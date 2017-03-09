@@ -7,7 +7,8 @@ import {
 } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
-import { Grid, Col, Row, Button, Form, FormGroup, ControlLabel, InputGroup, FormControl, HelpBlock, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Grid, Col, Row, Button, Form, FormGroup, ControlLabel, InputGroup,
+  FormControl, HelpBlock, OverlayTrigger, Popover } from 'react-bootstrap';
 import React, { Component, PropTypes } from 'react';
 import styles from './InteractiveCalculator.css';
 
@@ -38,7 +39,9 @@ class InteractiveCalculator extends Component {
 
   _handleMapClick(e) {
     // Center map on clicked position
-    this.refs.map.leafletElement.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng));
+    this.refs.map.leafletElement.panTo(
+      new L.LatLng(e.latlng.lat, e.latlng.lng)
+    );
   }
 
   _onEditPath() {
@@ -99,7 +102,7 @@ class InteractiveCalculator extends Component {
               onCreated={this._onCreate}
               onDeleted={this._onDeleted}
               draw={{
-                rectangle: false
+                rectangle: false,
               }}
             />
             <Circle center={[51.51, -0.06]} radius={200} />

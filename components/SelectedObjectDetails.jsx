@@ -16,18 +16,31 @@ class SelectedObjectDetails extends Component {
 
   render() {
     const { postcode, dispatch } = this.props;
-
     if (postcode && postcode.selectedObject && postcode.selectedObject.gid) {
       const selectedObject = postcode.selectedObject;
 
-      const svgStyle = function() {
-        if (selectedObject.label === 'A') return styles.labelA;
-        if (selectedObject.label === 'B') return styles.labelB;
-        if (selectedObject.label === 'C') return styles.labelC;
-        if (selectedObject.label === 'D') return styles.labelD;
-        if (selectedObject.label === 'E') return styles.labelE;
-        if (selectedObject.label === 'F') return styles.labelF;
-        if (selectedObject.label === 'G') return styles.labelG;
+      const svgStyle = () => {
+        if (selectedObject.label === 'A') {
+          return styles.labelA;
+        }
+        if (selectedObject.label === 'B') {
+          return styles.labelB;
+        }
+        if (selectedObject.label === 'C') {
+          return styles.labelC;
+        }
+        if (selectedObject.label === 'D') {
+          return styles.labelD;
+        }
+        if (selectedObject.label === 'E') {
+          return styles.labelE;
+        }
+        if (selectedObject.label === 'F') {
+          return styles.labelF;
+        }
+        if (selectedObject.label === 'G') {
+          return styles.labelG;
+        }
         return styles.labelG;
       };
       return false;
@@ -39,7 +52,10 @@ class SelectedObjectDetails extends Component {
             position: 'absolute',
             right: 10,
             top: 10,
-          }}><i onClick={() => dispatch(clearSelectedObject())} className='fa fa-close' />
+          }}>
+            <i
+              onClick={() => dispatch(clearSelectedObject())}
+              className='fa fa-close' />
         </div>
         <table className='table-striped'>
         <tbody>
@@ -47,8 +63,10 @@ class SelectedObjectDetails extends Component {
             <td>Waterlabel</td>
             <td className='address-label'>
               <svg className={svgStyle()} width='48.5' height='17'>
-                <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
-                <text style={{ 'fill':'white' }} x='2' y='13'>{selectedObject.label}</text>
+                <polygon points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                <text style={{ 'fill': 'white' }} x='2' y='13'>
+                  {selectedObject.label}
+                </text>
               </svg>
             </td>
           </tr>
@@ -56,8 +74,10 @@ class SelectedObjectDetails extends Component {
             <td>Energielabel</td>
             <td className='address-label'>
               <svg className={svgStyleEnergy()} width='48.5' height='17'>
-                <polygon points='0,0 40,0 48.5,8.5 40,17 0,17'></polygon>
-                <text style={{ 'fill':'white' }} x='2' y='13'>{energielabel}</text>
+                <polygon points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                <text style={{ 'fill': 'white' }} x='2' y='13'>
+                  {energielabel}
+                </text>
               </svg>
             </td>
           </tr>
@@ -74,15 +94,15 @@ class SelectedObjectDetails extends Component {
         </div>
        );
     }
-    else {
-      return <div/>;
-    }
+    return <div/>;
   }
 }
 
 
 SelectedObjectDetails.propTypes = {
   dispatch: PropTypes.func,
+  openCalculator: PropTypes.func,
+  postcode: PropTypes.any,
 };
 
 export default SelectedObjectDetails;
