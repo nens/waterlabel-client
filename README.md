@@ -55,6 +55,7 @@ These commit messages will be used to auto-generate `CHANGELOG.md`.
 
 Have a look at the [buck-trap README](https://github.com/nens/buck-trap/blob/master/README.md) for more information about the release procedure.
 
+Please use ESLint in your editor and set indentation to 2 spaces.
 
 Browser development extensions
 ------------------------------
