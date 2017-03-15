@@ -232,34 +232,49 @@ class App extends Component {
       postcode.selectedObject :
       undefined;
 
-    try {
+    if (selectedObject) {
       geocoded = selectedObject.geocoded.results[0].address_components;
       adres = `${geocoded[1].long_name} ${selectedObject.huisnummer},
         ${geocoded[3].long_name}`;
     }
-    catch (e) {
-      console.log(e);
-    }
 
     const svgStyle = () => {
-      if (selectedObject.label === 'A') { return selectedObjectStyles.labelA; }
-      if (selectedObject.label === 'B') { return selectedObjectStyles.labelB; }
-      if (selectedObject.label === 'C') { return selectedObjectStyles.labelC; }
-      if (selectedObject.label === 'D') { return selectedObjectStyles.labelD; }
-      if (selectedObject.label === 'E') { return selectedObjectStyles.labelE; }
-      if (selectedObject.label === 'F') { return selectedObjectStyles.labelF; }
-      if (selectedObject.label === 'G') { return selectedObjectStyles.labelG; }
+      if (selectedObject.label === 'A') {
+        return selectedObjectStyles.labelA;
+      }
+      if (selectedObject.label === 'B') {
+        return selectedObjectStyles.labelB;
+      }
+      if (selectedObject.label === 'C') {
+        return selectedObjectStyles.labelC;
+      }
+      if (selectedObject.label === 'D') {
+        return selectedObjectStyles.labelD;
+      }
+      if (selectedObject.label === 'E') {
+        return selectedObjectStyles.labelE;
+      }
+      if (selectedObject.label === 'F') {
+        return selectedObjectStyles.labelF;
+      }
+      if (selectedObject.label === 'G') {
+        return selectedObjectStyles.labelG;
+      }
       return selectedObjectStyles.labelG;
     };
 
-    const geolocationButton = ('geolocation' in navigator && window.mobilecheck() === true) ?
+    const geolocationButton = (
+      'geolocation' in navigator &&
+      window.mobilecheck() === true
+    ) ?
       <Button
         onClick={this.handleGeoLocation}
         bsStyle='info'
         bsSize='lg'>
         <i className='fa fa-crosshairs' />
-      </Button> :
-      '';
+      </Button>
+    :
+    '';
 
     const initialLocation = {
       lat: (postcode &&
@@ -289,19 +304,9 @@ class App extends Component {
               <Col md={12}>
                 <img
                   src={logo}
-                  style={{
-                    position: 'absolute',
-                    width: 70,
-                    right: 35,
-                    top: -20,
-                    zIndex: 999,
-                  }}
+                  className={styles.Logo}
                 />
-                <div className='jumbotron'
-                     style={{
-                       backgroundColor: '#fff',
-                       border: '1px solid gainsboro',
-                     }}>
+                <div className={`jumbotron ${styles.Jumbo}`}>
                   <Row>
                     <Col md={9} sm={9} xs={9}>
                       <h1 className={styles.Title}>Mijn Waterlabel&nbsp;
@@ -351,10 +356,12 @@ class App extends Component {
                         <div className='form-group'>
                           <ButtonGroup style={{ marginTop: 25 }}>
                             <Button
+                              disabled={(postcode.isFetching) ? true : false}
                               bsStyle='info'
                               onClick={this.handleSearchButton}
                               bsSize='lg'>
-                              <i className='fa fa-search' />&nbsp;Zoek
+                              <i className='fa fa-search' />&nbsp;
+                              {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
                             </Button>
                             {geolocationButton}
                           </ButtonGroup>
@@ -371,26 +378,14 @@ class App extends Component {
                 {postcode.selectedObject ?
                   <div
                     id='results'
-                    className='jumbotron'
-                    style={{ backgroundColor: '#fff', border: '1px solid gainsboro' }}>
-                    <div
-                      style={{
-                        cursor: 'pointer',
-                        position: 'absolute',
-                        right: 25,
-                        top: 10,
-                      }}>
+                    className={`jumbotron ${styles.Jumbo}`}>
+                    <div className={styles.CloseButton}>
                       <i onClick={() => dispatch(clearSelectedObject())} className='fa fa-close' />
                     </div>
 
                     <h2 className={calculatorStyles.GroupLabel}>{adres}</h2>
                     <hr/>
-                      <span className='' style={{
-                        position: 'absolute',
-                        left: 225,
-                        fontSize: '5em',
-                        fontWeight: 'bold',
-                      }}>
+                      <span className={styles.Label}>
                         {postcode.selectedObject.label}
                       </span>
                       <ol className={calculatorStyles.labels}>
@@ -579,10 +574,7 @@ class App extends Component {
                          boxZoom={false}
                          zoomControl={false}
                          zoom={18}
-                         style={{
-                           width: '100%',
-                           height: '150px',
-                         }}>
+                         className={styles.Map}>
                           <TileLayer
                             attribution='Mapbox'
                             url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png'
@@ -737,24 +729,23 @@ class App extends Component {
               <Col md={10}>
                 <ul className='list-inline'>
                   <li>
-                    <a style={{ cursor: 'pointer', color: '#2EADD3' }}
+                    <a className={styles.InlineLink}
                        onClick={this.openAboutText}>Over Waterlabel
                     </a>
                   </li> &#8226;
                   <li>
-                    <a style={{ cursor: 'pointer', color: '#2EADD3' }}
+                    <a className={styles.InlineLink}
                        onClick={this.openPrivacyText}>Cookies &amp; Privacy
                     </a>
                   </li> &#8226;
                   <li>
-                    <a style={{ cursor: 'pointer', color: '#2EADD3' }}
+                    <a className={styles.InlineLink}
                        onClick={this.openMap}>Bekijk kaart
                     </a>
                   </li>
                 </ul>
               </Col>
               <div className='pull-right' style={{ marginRight: 10 }}>
-
                 <OverlayTrigger trigger='click' placement='top' rootClose overlay={
                   <Popover id='share' title='Deel je Waterlabel'>
                     <a href={`https://twitter.com/intent/tweet?screen_name=Waterlabel&text=${(postcode.selectedObject) ?
@@ -982,7 +973,9 @@ class App extends Component {
               <Grid fluid>
                 <Row>
                   <Col md={12}>
-                    <Row style={{ height: window.innerHeight - 150 }}>
+                    <Row style={{
+                      height: window.innerHeight - 150
+                    }}>
                       <Col>
                         <InteractiveCalculator {...this.props} />
                       </Col>
@@ -993,7 +986,9 @@ class App extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.closeInteractiveCalculator}>Sluiten</Button>
+            <Button onClick={this.closeInteractiveCalculator}>
+              Sluiten
+            </Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -1007,7 +1002,6 @@ App.propTypes = {
 };
 
 function mapStateToProps(state) {
-  // This function maps the Redux state to React Props.
   return {
     choropleth: state.choropleth,
     postcode: state.postcode,
