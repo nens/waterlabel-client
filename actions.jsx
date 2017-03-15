@@ -18,6 +18,31 @@ export const SUBMIT_NEW_LABEL = 'SUBMIT_NEW_LABEL';
 require('!style!css!./node_modules/sweetalert/dist/sweetalert.css');
 
 
+// The following makes sure that the XHR POST requests in this file get a
+// CRSFToken header with the contents of the crsftoken cookie that's set by
+// Django in production. It's doesn't affect the requests in development mode.
+
+function getCookie(cName) {
+  if (document.cookie.length > 0) {
+    let cStart = document.cookie.indexOf(cName + '=');
+    if (cStart !== -1) {
+      cStart = cStart + cName.length + 1;
+      let cEnd = document.cookie.indexOf(';', cStart);
+      if (cEnd === -1) {
+        cEnd = document.cookie.length;
+      }
+      return unescape(document.cookie.substring(cStart, cEnd));
+    }
+  }
+  return '';
+}
+
+$.ajaxSetup({
+  headers: { 'X-CSRFToken': getCookie('csrftoken') },
+});
+// End of XHR Header setup
+
+
 function submitLabelSetFetching() {
   return {
     type: SUBMIT_LABEL_SET_FETCHING,
