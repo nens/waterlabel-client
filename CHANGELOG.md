@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/nens/waterlabel-client/compare/v0.0.8...v0.1.0) (2017-03-15)
+
+
+### Bug Fixes
+
+* **npm:** Adding ESLint config to enable hinting unsupported browser features. ([bd106f3](https://github.com/nens/waterlabel-client/commit/bd106f3))
+
+
+### Features
+
+* **UX:** Search button now becomes temporarily inactive/indicative of loading when clicking it. ([529d8e8](https://github.com/nens/waterlabel-client/commit/529d8e8))
+
+
+
 <a name="0.0.8"></a>
 ## [0.0.8](https://github.com/nens/waterlabel-client/compare/v0.0.7...v0.0.8) (2017-03-09)
 
