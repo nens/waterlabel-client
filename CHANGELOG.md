@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/nens/waterlabel-client/compare/v0.2.0...v0.2.1) (2017-03-22)
+
+
+### Bug Fixes
+
+* **App.jsx:** API response has slightly changed, meaning that props changed a little bit, too. ([92e3620](https://github.com/nens/waterlabel-client/commit/92e3620))
+* **Calculator.jsx:** Fixed props and some details in calculator. ([945961a](https://github.com/nens/waterlabel-client/commit/945961a))
+* **CSS:** Adding a label unknown color. ([56d7363](https://github.com/nens/waterlabel-client/commit/56d7363))
+* **Development:** Use another port for devserver. Reroute /static_media and /api to localhost:5000 (Django). ([ad4a463](https://github.com/nens/waterlabel-client/commit/ad4a463))
+* **Map:** Point to local tiles instead of TileStache. ([7c689cd](https://github.com/nens/waterlabel-client/commit/7c689cd))
+* **Redux:** Determine area/centroid using turfjs. Reduce label and calculationvalues in RECEIVE_POSTCODE action. ([5dbe046](https://github.com/nens/waterlabel-client/commit/5dbe046))
+* **Redux:** New API endpoint for postcode lookup action. Fetch history by id. Point to static choropleth.json instead of API. ([1c4c8d9](https://github.com/nens/waterlabel-client/commit/1c4c8d9))
+* **Yarn:** Add mapbox/geojson-area dependency. ([83ce614](https://github.com/nens/waterlabel-client/commit/83ce614))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/nens/waterlabel-client/compare/v0.1.0...v0.2.0) (2017-03-15)
 
