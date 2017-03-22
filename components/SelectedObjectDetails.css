@@ -48,6 +48,10 @@
  fill: rgb(206, 52, 42);
 }
 
+.labelUnknown {
+  fill: rgb(186, 186, 186);
+}
+
 .SelectedObjectDetails table {
   width: 100%;
 }
