@@ -6,7 +6,7 @@ const express = require('express');
 const request = require('request');
 
 const app = new (express)();
-const port = 5000;
+const port = 3100;
 
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(
@@ -34,8 +34,20 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/static_media', (req, res) => {
+  const url = 'http://localhost:5000/static_media' + req.url;
+  const headers = {
+    'username': process.env.sso_user,
+    'password': process.env.sso_pass,
+  };
+  req.pipe(request({
+    url,
+    headers,
+  })).pipe(res);
+});
+
 app.use('/api', (req, res) => {
-  const url = 'https://waterlabel.sandbox.lizard.net/api' + req.url;
+  const url = 'http://localhost:5000/api' + req.url;
   const headers = {
     'username': process.env.sso_user,
     'password': process.env.sso_pass,
