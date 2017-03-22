@@ -187,13 +187,13 @@ class WaterlabelMap extends Component {
     const initialLocation = {
       lat: (postcode &&
         postcode.maplocation &&
-        postcode.maplocation.lat) ?
-        Number(postcode.maplocation.lat) :
+        postcode.maplocation.lng) ?
+        Number(postcode.maplocation.lng) :
         52.1741,
       lng: (postcode &&
         postcode.maplocation &&
-        postcode.maplocation.lng) ?
-        Number(postcode.maplocation.lng) :
+        postcode.maplocation.lat) ?
+        Number(postcode.maplocation.lat) :
         5.2032,
     };
     const position = [initialLocation.lat, initialLocation.lng];
@@ -224,7 +224,7 @@ class WaterlabelMap extends Component {
         {(!this.state.zoomlevel || this.state.zoomlevel > 15) ?
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
-            url='https://waterlabeltiles.sandbox.lizard.net/bag/{z}/{x}/{y}.png'
+            url='/static_media/waterlabel/{z}/{x}/{y}.png'
           />
         : ''}
         {(this.state.zoomlevel < 12 && choropleth.choropleth) ?

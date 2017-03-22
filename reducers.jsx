@@ -1,5 +1,7 @@
 import undoable, { distinctState } from 'redux-undo';
 import { combineReducers } from 'redux';
+import centroid from 'turf-centroid';
+import geojsonArea from '@mapbox/geojson-area';
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
@@ -19,6 +21,12 @@ function calculator(state = {
   calculationvalues: undefined,
 }, action) {
   switch (action.type) {
+  case RECEIVE_POSTCODE:
+    return Object.assign({}, state, {
+      label: action.data.features[0].properties.labelcode_last,
+      calculationvalues: action.data.calculationvalues,
+    });
+    break;
   case CLEAR_SELECTED_OBJECT:
     return Object.assign({}, state, {
       label: undefined,
@@ -38,7 +46,6 @@ function choropleth(state = {
   isFetching: false,
   choropleth: undefined,
 }, action) {
-  // console.log('reducer indicators() was called with state', state, 'and action', action);
   switch (action.type) {
   case REQUEST_CHOROPLETH:
     return Object.assign({}, state, {
@@ -94,14 +101,17 @@ function postcode(state = {
       isFetching: true,
     });
   case RECEIVE_POSTCODE:
+    const center = centroid(action.data.features[0].geometry);
+    const sqm = geojsonArea.geometry(action.data.features[0].geometry);
     return Object.assign({}, state, {
       isFetching: false,
-      selectedObject: action.data,
+      selectedObject: action.data.features[0],
       maplocation: {
-        lat: action.data.lng, // Intentionally flipped!! (API response inverted)
-        lng: action.data.lat,
-        zoom: action.data.zoom || 18,
+        lat: center.geometry.coordinates[0],
+        lng: center.geometry.coordinates[1],
+        zoom: 18,
       },
+      sqm,
     });
   default:
     return state;

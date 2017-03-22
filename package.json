@@ -16,6 +16,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@mapbox/geojson-area": "mapbox/geojson-area",
     "brfs": "^1.4.3",
     "geojson-area": "0.2.0",
     "jquery": "2.2.1",

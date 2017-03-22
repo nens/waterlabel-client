@@ -109,7 +109,11 @@ class App extends Component {
   }
 
   handleShowHistory() {
-    this.props.dispatch(fetchHistory(this.props.postcode.selectedObject.gid));
+    this.props.dispatch(
+      fetchHistory(
+        this.props.postcode.selectedObject.properties.pk
+      )
+    );
   }
 
 
@@ -228,39 +232,38 @@ class App extends Component {
 
     const selectedObject = (postcode &&
       postcode.selectedObject &&
-      postcode.selectedObject.gid) ?
-      postcode.selectedObject :
+      postcode.selectedObject.properties.pk) ?
+      postcode.selectedObject.properties :
       undefined;
 
     if (selectedObject) {
-      geocoded = selectedObject.geocoded.results[0].address_components;
-      adres = `${geocoded[1].long_name} ${selectedObject.huisnummer},
-        ${geocoded[3].long_name}`;
+      adres = `${selectedObject.street} ${selectedObject.housenumber},
+        ${selectedObject.city}`;
     }
 
     const svgStyle = () => {
-      if (selectedObject.label === 'A') {
+      if (selectedObject.labelcode_last === 'A') {
         return selectedObjectStyles.labelA;
       }
-      if (selectedObject.label === 'B') {
+      if (selectedObject.labelcode_last === 'B') {
         return selectedObjectStyles.labelB;
       }
-      if (selectedObject.label === 'C') {
+      if (selectedObject.labelcode_last === 'C') {
         return selectedObjectStyles.labelC;
       }
-      if (selectedObject.label === 'D') {
+      if (selectedObject.labelcode_last === 'D') {
         return selectedObjectStyles.labelD;
       }
-      if (selectedObject.label === 'E') {
+      if (selectedObject.labelcode_last === 'E') {
         return selectedObjectStyles.labelE;
       }
-      if (selectedObject.label === 'F') {
+      if (selectedObject.labelcode_last === 'F') {
         return selectedObjectStyles.labelF;
       }
-      if (selectedObject.label === 'G') {
+      if (selectedObject.labelcode_last === 'G') {
         return selectedObjectStyles.labelG;
       }
-      return selectedObjectStyles.labelG;
+      return selectedObjectStyles.labelUnknown;
     };
 
     const geolocationButton = (
@@ -278,14 +281,14 @@ class App extends Component {
 
     const initialLocation = {
       lat: (postcode &&
-        postcode.selectedObject &&
-        postcode.selectedObject.lng) ?
-        Number(postcode.selectedObject.lng) :
+        postcode.maplocation &&
+        postcode.maplocation.lng) ?
+        Number(postcode.maplocation.lng) :
         52.1741,
       lng: (postcode &&
-        postcode.selectedObject &&
-        postcode.selectedObject.lat) ?
-        Number(postcode.selectedObject.lat) :
+        postcode.maplocation &&
+        postcode.maplocation.lat) ?
+        Number(postcode.maplocation.lat) :
         5.2032,
     };
 
@@ -333,7 +336,7 @@ class App extends Component {
                             type='text'
                             style={{ textTransform: 'uppercase' }}
                             placeholder={(postcode.selectedObject) ?
-                              postcode.selectedObject.postcode : '3731HS'}
+                              postcode.selectedObject.properties.postalcode : '3731HS'}
                             className='form-control input-lg'
                           />
                         </div>
@@ -347,7 +350,7 @@ class App extends Component {
                             id='huisnummer'
                             type='number'
                             placeholder={(postcode.selectedObject) ?
-                              postcode.selectedObject.huisnummer : 184}
+                              postcode.selectedObject.properties.housenumber : 184}
                             className='form-control input-lg'
                           />
                         </div>
@@ -386,7 +389,7 @@ class App extends Component {
                     <h2 className={calculatorStyles.GroupLabel}>{adres}</h2>
                     <hr/>
                       <span className={styles.Label}>
-                        {postcode.selectedObject.label}
+                        {postcode.selectedObject.properties.labelcode_last}
                       </span>
                       <ol className={calculatorStyles.labels}>
                         <li>
@@ -401,7 +404,7 @@ class App extends Component {
                               y='13'>A
                             </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'A') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'A') ?
                           <svg
                             className={calculatorStyles.labelA}
                             width='48.5'
@@ -425,7 +428,7 @@ class App extends Component {
                                 y='13'>B
                               </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'B') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'B') ?
                           <svg
                             className={calculatorStyles.labelB}
                             width='48.5'
@@ -450,7 +453,7 @@ class App extends Component {
                                 y='13'>C
                               </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'C') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'C') ?
                           <svg
                             className={calculatorStyles.labelC}
                             width='48.5'
@@ -475,7 +478,7 @@ class App extends Component {
                                 y='13'>D
                               </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'D') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'D') ?
                           <svg
                             className={calculatorStyles.labelD}
                             width='48.5'
@@ -500,7 +503,7 @@ class App extends Component {
                                 y='13'>E
                               </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'E') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'E') ?
                           <svg
                             className={calculatorStyles.labelE}
                             width='48.5'
@@ -525,7 +528,7 @@ class App extends Component {
                                 y='13'>F
                               </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'F') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'F') ?
                           <svg
                             className={calculatorStyles.labelF}
                             width='48.5'
@@ -550,7 +553,7 @@ class App extends Component {
                                 y='13'>G
                               </text>
                           </svg>
-                          {(postcode.selectedObject.label === 'G') ?
+                          {(postcode.selectedObject.properties.labelcode_last === 'G') ?
                           <svg
                             className={calculatorStyles.labelG}
                             width='48.5'
@@ -581,7 +584,7 @@ class App extends Component {
                           />
                           <TileLayer
                             attribution='Nelen &amp; Schuurmans'
-                            url='https://waterlabeltiles.sandbox.lizard.net/bag/{z}/{x}/{y}.png'
+                            url='/static_media/waterlabel/{z}/{x}/{y}.png'
                           />
                           <WMSTileLayer
                             attribution='&copy; Kadaster'
@@ -595,9 +598,9 @@ class App extends Component {
 
                           {(postcode &&
                             postcode.selectedObject &&
-                            postcode.selectedObject.geo) ?
+                            postcode.selectedObject.geometry) ?
                             <GeoJsonUpdatable
-                              data={postcode.selectedObject.geo}
+                              data={postcode.selectedObject.geometry}
                               onEachFeature={(feature, layer) => {
                                 layer.setStyle({
                                   'color': '#ffffff',
@@ -620,8 +623,8 @@ class App extends Component {
                       </tr>
                       <tr>
                         <td>Postcode</td>
-                        <td className='postcode'>{(selectedObject.postcode) ?
-                            selectedObject.postcode.toUpperCase() : '-'}
+                        <td className='postcode'>{(postcode.selectedObject.properties.postalcode) ?
+                            postcode.selectedObject.properties.postalcode.toUpperCase() : '-'}
                         </td>
                       </tr>
                       <tr>
@@ -652,7 +655,7 @@ class App extends Component {
                                 style={{ 'fill': 'white' }}
                                 x='2'
                                 y='13'>
-                                {selectedObject.label}
+                                {(postcode.selectedObject.properties.labelcode_last) ? postcode.selectedObject.properties.labelcode_last : '?'}
                               </text>
                             </svg>
                           </OverlayTrigger>
@@ -663,7 +666,7 @@ class App extends Component {
                                 return <div key={i}>
                                          <svg
                                           className={
-                                            this.historicalSvgStyle(label[0][0])
+                                            this.historicalSvgStyle(label.fields.code)
                                           }
                                           width='48.5'
                                           height='17'>
@@ -673,15 +676,15 @@ class App extends Component {
                                               style={{ 'fill': 'white' }}
                                               x='2'
                                               y='13'>
-                                              {label[0][0]}
+                                              {label.fields.code}
                                             </text>
-                                         </svg>{label[0][1]}
+                                         </svg>
                                          <span style={{
                                            verticalAlign: 5,
                                            fontSize: '0.8em',
                                            paddingLeft: 5,
                                          }}>
-                                           {moment(label[1]).format('LL')}
+                                           {moment(label.fields.timestamp).locale('nl').format('LL')}
                                          </span>
                                        </div>;
                               })}
@@ -699,13 +702,13 @@ class App extends Component {
                       <tr>
                         <td>Bouwjaar</td>
                         <td className='bouw-jaar'>
-                          {selectedObject.bouwjaar}
+                          {selectedObject.yearbuilt}
                         </td>
                       </tr>
                       <tr>
                         <td>Dakoppervlak</td>
                         <td className='dakopp'>
-                        {Math.round(selectedObject.sqm)} m<sup>2</sup>
+                        {Math.round(postcode.sqm)} m<sup>2</sup>
                         </td>
                       </tr>
                       </tbody>
@@ -803,11 +806,12 @@ class App extends Component {
           dialogClassName={styles.WideModal}>
           <Modal.Header closeButton>
             <Modal.Title>
-              Waterlabel&nbsp;-&nbsp;
               {(postcode.selectedObject) ?
-                postcode.selectedObject.postcode : ''},&nbsp;
+                postcode.selectedObject.properties.street : ''},&nbsp;
               {(postcode.selectedObject) ?
-                postcode.selectedObject.huisnummer : ''}
+                postcode.selectedObject.properties.housenumber : ''},&nbsp;
+              {(postcode.selectedObject) ?
+                postcode.selectedObject.properties.city : ''}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -893,12 +897,12 @@ class App extends Component {
                   style={{ 'fill': 'white' }}
                   x='2'
                   y='15'>
-                  {selectedObject.label}
+                  {postcode.selectedObject.properties.labelcode_last}
                 </text>
               </svg>
               : ''}
               {(postcode.selectedObject) ?
-              ` ${postcode.selectedObject.geocoded.results[0].formatted_address}` :
+              ` ${postcode.selectedObject.properties.street} ${postcode.selectedObject.properties.housenumber}` :
               ''}
             </Modal.Title>
           </Modal.Header>

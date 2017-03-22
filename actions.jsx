@@ -166,7 +166,7 @@ export function lookupPostcode(postcode, nr) {
     dispatch(clearSelectedObject());
     dispatch(requestPostcode(postcode, nr));
     $.ajax({
-      url: `/api/v1/geocode?postcode=${postcode}&housenumber=${nr}`,
+      url: `/api/v1/building/?postalcode=${postcode.toUpperCase()}&housenumber=${nr}`,
     }).done((data) => {
       if ($.isEmptyObject(data)) {
         swal(
@@ -200,12 +200,12 @@ function receiveHistory(data) {
   };
 }
 
-export function fetchHistory(gid) {
+export function fetchHistory(id) {
   return dispatch => {
     dispatch(requestHistory());
     const historyEndpoint = $.ajax({
       type: 'GET',
-      url: `/api/v1/history?gid=${gid}`,
+      url: `/api/v1/history?id=${id}`,
       success: (data) => {
         return data;
       },
@@ -256,7 +256,7 @@ export function fetchChoropleth() {
     dispatch(requestChoropleth());
     const choroplethEndpoint = $.ajax({
       type: 'GET',
-      url: '/api/v1/choropleth',
+      url: '/static_media/nl.json',
       success: (data) => {
         return data;
       },
