@@ -4,6 +4,7 @@ import calculateWaterlabel from './lib/calculatewaterlabel.jsx';
 import swal from 'sweetalert';
 export const CLEAR_SELECTED_OBJECT = 'CLEAR_SELECTED_OBJECT';
 export const COMPUTE_LABEL = 'COMPUTE_LABEL';
+export const NO_POSTCODE_MATCH = 'NO_POSTCODE_MATCH';
 export const RECEIVE_CHOROPLETH = 'RECEIVE_CHOROPLETH';
 export const RECEIVE_HISTORY = 'RECEIVE_HISTORY';
 export const RECEIVE_POSTCODE = 'RECEIVE_POSTCODE';
@@ -161,6 +162,12 @@ function receivePostcode(data) {
   };
 }
 
+function noPostcodeMatch() {
+  return {
+    type: NO_POSTCODE_MATCH,
+  };
+}
+
 export function lookupPostcode(postcode, nr) {
   return dispatch => {
     dispatch(clearSelectedObject());
@@ -168,13 +175,14 @@ export function lookupPostcode(postcode, nr) {
     $.ajax({
       url: `/api/v1/building/?postalcode=${postcode.toUpperCase()}&housenumber=${nr}`,
     }).done((data) => {
-      if ($.isEmptyObject(data)) {
+      console.log('data', data);
+      if (data.features.length < 1) {
         swal(
           'Postcode/huisnummer niet herkend',
           `Helaas, op de ingevoerde postcode/huisnummer combinatie werd niets
           gevonden.`,
           'error');
-        return false;
+        return dispatch(noPostcodeMatch());
       }
       history.pushState(
         null,

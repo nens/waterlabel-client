@@ -5,6 +5,7 @@ import geojsonArea from '@mapbox/geojson-area';
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
+  NO_POSTCODE_MATCH,
   RECEIVE_CHOROPLETH,
   REQUEST_CHOROPLETH,
   RECEIVE_RADIUS_SEARCH,
@@ -99,6 +100,10 @@ function postcode(state = {
   case REQUEST_POSTCODE:
     return Object.assign({}, state, {
       isFetching: true,
+    });
+  case NO_POSTCODE_MATCH:
+    return Object.assign({}, state, {
+      isFetching: false,
     });
   case RECEIVE_POSTCODE:
     const center = centroid(action.data.features[0].geometry);
