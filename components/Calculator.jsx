@@ -37,7 +37,7 @@ class Calculator extends Component {
   }
 
   componentDidMount() {
-    this.handleChange();
+    // this.handleChange();
     window.addEventListener('hashchange', this.handleChange);
   }
 
@@ -78,9 +78,8 @@ class Calculator extends Component {
 
     $.ajax({
       type: 'POST',
-      url: 'https://waterlabel.sandbox.lizard.net/api/v1/addlabel',
+      url: '/api/v1/newlabel/',
       data: {
-        'id': postcode.selectedObject.gid,
         'email': this.refs.email.value,
         'label': calculator.label,
         'calculationvalues': JSON.stringify({
@@ -150,16 +149,17 @@ class Calculator extends Component {
 
     const initialLocation = {
       lat: (postcode &&
-        postcode.selectedObject &&
-        postcode.selectedObject.lng) ?
-        Number(postcode.selectedObject.lng) :
+        postcode.maplocation &&
+        postcode.maplocation.lng) ?
+        Number(postcode.maplocation.lng) :
         52.1741,
       lng: (postcode &&
-        postcode.selectedObject &&
-        postcode.selectedObject.lat) ?
-        Number(postcode.selectedObject.lat) :
+        postcode.maplocation &&
+        postcode.maplocation.lat) ?
+        Number(postcode.maplocation.lat) :
         5.2032,
     };
+
     const position = [initialLocation.lat, initialLocation.lng];
 
     const calculationvalues = (postcode && postcode.selectedObject) ?
@@ -940,8 +940,8 @@ class Calculator extends Component {
                     url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png'
                   />
                   <TileLayer
-                    attribution='Mapbox'
-                    url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png'
+                    attribution='Nelen &amp; Schuurmans'
+                    url='/static_media/waterlabel/{z}/{x}/{y}.png'
                   />
                   <WMSTileLayer
                     attribution='&copy; Kadaster'
