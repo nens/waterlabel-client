@@ -81,7 +81,9 @@ class Calculator extends Component {
       url: '/api/v1/newlabel/',
       data: {
         'email': this.refs.email.value,
-        'label': calculator.label,
+        'new_label': calculator.label,
+        'postalcode': postcode.selectedObject.properties.postalcode,
+        'housenumber': postcode.selectedObject.properties.housenumber,
         'calculationvalues': JSON.stringify({
           'afvoer_dak_schuur': newCalculationValues.afvoer_dak_schuur,
           'groene_achtertuin': newCalculationValues.groene_achtertuin,
