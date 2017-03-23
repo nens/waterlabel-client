@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/nens/waterlabel-client/compare/v0.2.1...v0.2.2) (2017-03-23)
+
+
+### Bug Fixes
+
+* **Calculator:** Add postcode and housenumber to new label POST. ([1d78d2b](https://github.com/nens/waterlabel-client/commit/1d78d2b))
+* **Redux:** Fixed errormessage and reset input when no postcode match found. ([a1f7d70](https://github.com/nens/waterlabel-client/commit/a1f7d70))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/nens/waterlabel-client/compare/v0.2.0...v0.2.1) (2017-03-22)
 
