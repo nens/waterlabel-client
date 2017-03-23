@@ -221,12 +221,10 @@ class WaterlabelMap extends Component {
             attribution='Mapbox'
             url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png'
           />
-        {(!this.state.zoomlevel || this.state.zoomlevel > 15) ?
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
             url='/static_media/waterlabel/{z}/{x}/{y}.png'
           />
-        : ''}
         {(this.state.zoomlevel < 12 && choropleth.choropleth) ?
           <GeoJsonUpdatable
             data={choropleth.choropleth}
