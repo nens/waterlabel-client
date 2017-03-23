@@ -902,7 +902,7 @@ class App extends Component {
               </svg>
               : ''}
               {(postcode.selectedObject) ?
-              ` ${postcode.selectedObject.properties.street} ${postcode.selectedObject.properties.housenumber}` :
+              ` ${postcode.selectedObject.properties.street} ${postcode.selectedObject.properties.housenumber}, ${postcode.selectedObject.properties.city} ` :
               ''}
             </Modal.Title>
           </Modal.Header>
