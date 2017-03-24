@@ -217,14 +217,18 @@ class WaterlabelMap extends Component {
            width: '100%',
            height: '100%',
          }}>
-          <TileLayer
-            attribution='Mapbox'
-            url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png'
-          />
+         <TileLayer
+           attribution='Mapbox'
+           url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.5641a12c/{z}/{x}/{y}.png'
+         />
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
             url='/static_media/waterlabel/{z}/{x}/{y}.png'
           />
+          <TileLayer
+            attribution='Nelen &amp; Schuurmans'
+            url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.0a5c8e74/{z}/{x}/{y}.png'
+          />          
         {(this.state.zoomlevel < 12 && choropleth.choropleth) ?
           <GeoJsonUpdatable
             data={choropleth.choropleth}

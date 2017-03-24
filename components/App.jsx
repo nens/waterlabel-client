@@ -577,10 +577,11 @@ class App extends Component {
                          boxZoom={false}
                          zoomControl={false}
                          zoom={18}
+                         onClick={this.openMap}
                          className={styles.Map}>
                           <TileLayer
                             attribution='Mapbox'
-                            url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.iaa98k8k/{z}/{x}/{y}.png'
+                            url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.5641a12c/{z}/{x}/{y}.png'
                           />
                           <TileLayer
                             attribution='Nelen &amp; Schuurmans'
@@ -594,6 +595,10 @@ class App extends Component {
                             transparent
                             minZoom={3}
                             maxZoom={20}
+                          />
+                          <TileLayer
+                            attribution='Nelen &amp; Schuurmans'
+                            url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.0a5c8e74/{z}/{x}/{y}.png'
                           />
 
                           {(postcode &&
