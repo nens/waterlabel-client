@@ -122,16 +122,20 @@ export function radiusSearch(latlngobj) {
     $.ajax({
       url: `/api/v1/mapclick?lat=${latlngobj.lng}&lng=${latlngobj.lat}`,
     }).done((data) => {
-      history.pushState(
-        null,
-        null,
-        `#postcode=${data.postcode}&nr=${data.huisnummer}`
-      );
-      return dispatch(receiveRadiusSearch(data));
+      if (data.features.length > 0) {
+        const firstFeature = data.features[0];
+        history.pushState(
+          null,
+          null,
+          `#postcode=${firstFeature.properties.postalcode}&nr=${firstFeature.properties.housenumber}`
+        );
+        return dispatch(receiveRadiusSearch(firstFeature));
+      }
+      return Promise.resolve();
     }).error(() => {
       swal(
-        'Locatiebepaling mislukt',
-        'Helaas, niets gevonden.',
+        'Niets gevonden',
+        'Helaas, geen waterlabels gevonden op deze locatie.',
         'error'
       );
       return false;
