@@ -51,7 +51,7 @@ class WaterlabelMap extends Component {
   }
 
   _handleMoveEnd() {
-    // console.log('_handleMoveEnd', e.target._initialCenter, e.target._zoom);
+    // Not used
   }
 
   _handleMapClick(e) {

@@ -50,10 +50,9 @@ function submitLabelSetFetching() {
   };
 }
 
-export function submitNewLabel(labelObject) {
+export function submitNewLabel() {
   return dispatch => {
     dispatch(submitLabelSetFetching());
-    console.log('labelobject', labelObject);
   };
 }
 
@@ -179,7 +178,6 @@ export function lookupPostcode(postcode, nr) {
     $.ajax({
       url: `/api/v1/building/?postalcode=${postcode.toUpperCase()}&housenumber=${nr}`,
     }).done((data) => {
-      console.log('data', data);
       if (data.features.length < 1) {
         swal(
           'Postcode/huisnummer niet herkend',
@@ -255,7 +253,6 @@ function receiveChoropleth(data) {
       };
     }),
   };
-    // console.log(JSON.stringify(featureCollection));
   return {
     type: RECEIVE_CHOROPLETH,
     data: featureCollection,
