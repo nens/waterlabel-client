@@ -228,16 +228,16 @@ class WaterlabelMap extends Component {
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
             url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.0a5c8e74/{z}/{x}/{y}.png'
-          />          
+          />
         {(this.state.zoomlevel < 12 && choropleth.choropleth) ?
           <GeoJsonUpdatable
             data={choropleth.choropleth}
             onEachFeature={this.onEachFeature.bind(this)}
           />
         : ''}
-        {(postcode && postcode.selectedObject && postcode.selectedObject.geo) ?
+        {(postcode && postcode.selectedObject && postcode.selectedObject.geometry) ?
           <GeoJsonUpdatable
-            data={postcode.selectedObject.geo}
+            data={postcode.selectedObject.geometry}
             onEachFeature={(feature, layer) => {
               layer.setStyle({
                 'color': '#ffffff',

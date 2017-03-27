@@ -957,9 +957,9 @@ class Calculator extends Component {
 
                   {(postcode &&
                     postcode.selectedObject &&
-                    postcode.selectedObject.geo) ?
+                    postcode.selectedObject.geometry) ?
                     <GeoJsonUpdatable
-                      data={postcode.selectedObject.geo}
+                      data={postcode.selectedObject.geometry}
                       onEachFeature={(feature, layer) => {
                         layer.setStyle({
                           'color': '#ffffff',
