@@ -210,8 +210,8 @@ class App extends Component {
   handleGeoLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       this.props.dispatch(radiusSearch({
-        'lng': position.coords.longitude,
         'lat': position.coords.latitude,
+        'lng': position.coords.longitude,
       }));
     }, (error) => {
       console.log(error);
@@ -366,7 +366,7 @@ class App extends Component {
                               <i className='fa fa-search' />&nbsp;
                               {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
                             </Button>
-                            {geolocationButton}
+                            {/* {geolocationButton} */}
                           </ButtonGroup>
                         </div>
                       </Col>
