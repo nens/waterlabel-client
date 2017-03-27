@@ -236,20 +236,20 @@ function requestChoropleth() {
 function receiveChoropleth(data) {
   const featureCollection = {
     'type': 'FeatureCollection',
-    'features': data[1].map((feature) => {
+    'features': data.map((feature) => {
       return {
         'type': 'Feature',
         'properties': {
-          'name': feature.city.name,
-          'label_a': feature.city.label_a,
-          'label_b': feature.city.label_b,
-          'label_c': feature.city.label_c,
-          'label_d': feature.city.label_d,
-          'label_e': feature.city.label_e,
-          'label_f': feature.city.label_f,
-          'label_g': feature.city.label_g,
+          'name': feature.name,
+          'label_a': feature.label_a,
+          'label_b': feature.label_b,
+          'label_c': feature.label_c,
+          'label_d': feature.label_d,
+          'label_e': feature.label_e,
+          'label_f': feature.label_f,
+          'label_g': feature.label_g,
         },
-        'geometry': feature.city.geom,
+        'geometry': JSON.parse(feature.geom),
       };
     }),
   };
