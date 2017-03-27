@@ -22,6 +22,12 @@ function calculator(state = {
   calculationvalues: undefined,
 }, action) {
   switch (action.type) {
+  case RECEIVE_RADIUS_SEARCH:
+    return Object.assign({}, state, {
+      label: '?',
+      calculationvalues: {},
+    });
+    break;
   case RECEIVE_POSTCODE:
     return Object.assign({}, state, {
       label: action.data.features[0].properties.labelcode_last,
@@ -80,8 +86,16 @@ function postcode(state = {
       isFetching: true,
     });
   case RECEIVE_RADIUS_SEARCH:
+    const radius_center = centroid(action.data.geometry);
+    const radius_sqm = geojsonArea.geometry(action.data.geometry);
     return Object.assign({}, state, {
       selectedObject: (action.data) ? action.data : undefined,
+      maplocation: {
+        lat: radius_center.geometry.coordinates[0],
+        lng: radius_center.geometry.coordinates[1],
+        zoom: 18,
+      },
+      sqm: radius_sqm,
       isFetching: false,
     });
   case SET_MAP_LOCATION:
