@@ -1,7 +1,7 @@
 import { ActionCreators } from 'redux-undo';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
-  Popover } from 'react-bootstrap';
+  Popover, Well } from 'react-bootstrap';
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import AboutText from './AboutText.jsx';
@@ -566,7 +566,7 @@ class App extends Component {
                           </svg> : ''}
                         </li>
                       </ol>
-
+                      <Well>
                         <Map center={position}
                          ref='map'
                          dragging={false}
@@ -618,7 +618,7 @@ class App extends Component {
                             />
                           : ''}
                         </Map>
-
+                    </Well>
                     <table
                       className={`table-striped ${styles.ObjectPropertiesTable}`}>
                     <tbody>
