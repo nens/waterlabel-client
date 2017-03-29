@@ -34,6 +34,8 @@ This will run webpack in production mode. The result will be a `bundle.js` file 
 Releasing a new bundle to Github
 --------------------------------
 
+See [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
+
 First make a copy of `deploy/auth.json.example` named `deploy/auth.json`.
 
 Generate [a new Personal Access Token](https://github.com/settings/tokens) on Github first and copy that token into `deploy/auth.json` in the place of `Your-token-that-you-created-on-github`.
