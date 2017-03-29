@@ -34,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/static_media', (req, res) => {
+app.use('/media', (req, res) => {
   const url = 'http://localhost:5000/static_media' + req.url;
   const headers = {
     'username': process.env.sso_user,

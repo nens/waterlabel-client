@@ -585,7 +585,7 @@ class App extends Component {
                           />
                           <TileLayer
                             attribution='Nelen &amp; Schuurmans'
-                            url='/static_media/waterlabel/{z}/{x}/{y}.png'
+                            url='/media/tiles/waterlabel/{z}/{x}/{y}.png'
                           />
                           <WMSTileLayer
                             attribution='&copy; Kadaster'

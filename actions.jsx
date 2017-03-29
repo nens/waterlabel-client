@@ -265,7 +265,7 @@ export function fetchChoropleth() {
     dispatch(requestChoropleth());
     const choroplethEndpoint = $.ajax({
       type: 'GET',
-      url: '/static_media/nl.json',
+      url: '/media/nl.json',
       success: (data) => {
         return data;
       },

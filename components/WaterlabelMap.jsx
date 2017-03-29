@@ -223,7 +223,7 @@ class WaterlabelMap extends Component {
          />
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
-            url='/static_media/waterlabel/{z}/{x}/{y}.png'
+            url='/media/tiles/waterlabel/{z}/{x}/{y}.png'
           />
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
