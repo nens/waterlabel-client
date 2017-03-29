@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/nens/waterlabel-client/compare/v0.2.9...v0.3.0) (2017-03-29)
+
+
+### Bug Fixes
+
+* **Devserver:** Fix proxy path to match deployment environment. ([f2b221d](https://github.com/nens/waterlabel-client/commit/f2b221d))
+* **README:** Add link to 'standard-version commit guidelines'. ([c93659c](https://github.com/nens/waterlabel-client/commit/c93659c))
+* **Redux:** Show popup when no label history is available for a building. ([3901594](https://github.com/nens/waterlabel-client/commit/3901594))
+
+
+### Features
+
+* **UX:** Show 5 second delay to wait for tile regeneration, then open map and reload tiles. ([6651859](https://github.com/nens/waterlabel-client/commit/6651859))
+
+
+
 <a name="0.2.9"></a>
 ## [0.2.9](https://github.com/nens/waterlabel-client/compare/v0.2.8...v0.2.9) (2017-03-29)
 
