@@ -103,13 +103,22 @@ class Calculator extends Component {
       success: () => {
         swal({
           title: 'We verwerken je Waterlabel',
-          text: 'Bedankt voor je bijdrage!',
+          text: 'Bedankt voor je bijdrage! We zijn nu druk bezig om je nieuwe Waterlabel opnieuw op de kaart te zetten. Klik op OK om de nieuwe kaart te bekijken. Dit kan maximaal 5 seconden duren. Een momentje geduld s.v.p...',
           type: 'success',
           customClass: 'areyousure',
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true,
+        }, () => {
+          setTimeout(() => {
+            swal({
+              title: 'Je nieuwe Waterlabel is klaar!',
+              text: 'Bedankt voor het wachten, je Waterlabel is opnieuw gegenereerd. (zo niet, herlaad dan even je browser)',
+              type: 'success',
+            });
+            self.props.closeCalculator();
+            self.props.openMap();
+          }, 5000);
         });
-
-        self.props.closeCalculator();
-        self.props.openMap();
       },
       failure: (errMsg) => {
         swal(
@@ -164,6 +173,8 @@ class Calculator extends Component {
 
     const position = [initialLocation.lat, initialLocation.lng];
 
+    const sqm = postcode.sqm;
+
     const calculationvalues = (postcode && postcode.selectedObject) ?
       postcode.selectedObject.calculationvalues :
       {};
@@ -205,15 +216,9 @@ class Calculator extends Component {
                 min='0'
                 className='form-control'
                 id='dakwoning'
-                onChange={this.handleChange}
-                value={
-                  (calculator.calculationvalues) ?
-                  calculator.calculationvalues.dak_woning :
-                  (calculationvalues.dak_woning) ?
-                    Math.round(calculationvalues.dak_woning) :
-                    (postcode.selectedObject) ?
-                      Math.round(postcode.selectedObject.sqm) : ''
-                }
+                disabled='true'
+                // onChange={this.handleChange}
+                defaultValue={Math.round(sqm)}
               />
               <div className='input-group-addon'>m<sup>2</sup></div>
               </div>
