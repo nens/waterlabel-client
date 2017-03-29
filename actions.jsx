@@ -135,7 +135,7 @@ export function radiusSearch(latlngobj) {
       swal(
         'Niets gevonden',
         'Helaas, geen waterlabels gevonden op deze locatie.',
-        'error'
+        'error',
       );
       return false;
     });
@@ -183,7 +183,8 @@ export function lookupPostcode(postcode, nr) {
           'Postcode/huisnummer niet herkend',
           `Helaas, op de ingevoerde postcode/huisnummer combinatie werd niets
           gevonden.`,
-          'error');
+          'error',
+        );
         return dispatch(noPostcodeMatch());
       }
       history.pushState(
@@ -221,6 +222,14 @@ export function fetchHistory(id) {
       },
     });
     Promise.all([historyEndpoint]).then(([historyResults]) => {
+      if (historyResults.length > 0) {
+        return dispatch(receiveHistory(historyResults));
+      }
+      swal(
+        'Geen labels gevonden',
+        'Helaas, geen eerdere waterlabels gevonden voor deze locatie.',
+        'error',
+      );
       return dispatch(receiveHistory(historyResults));
     });
   };
