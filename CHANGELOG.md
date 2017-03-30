@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/nens/waterlabel-client/compare/v0.4.2...v0.5.0) (2017-03-30)
+
+
+### Features
+
+* **new-radius-reducer:** Radius click now serializes the calculationvalues if present, and this version of the client knows how to reduce that response. ([601b308](https://github.com/nens/waterlabel-client/commit/601b308))
+
+
+
 <a name="0.4.2"></a>
 ## [0.4.2](https://github.com/nens/waterlabel-client/compare/v0.4.1...v0.4.2) (2017-03-30)
 
