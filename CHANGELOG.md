@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.2"></a>
+## [0.4.2](https://github.com/nens/waterlabel-client/compare/v0.4.1...v0.4.2) (2017-03-30)
+
+
+### Bug Fixes
+
+* **Calculator:** Round form values because new API response has strings instead of numbers. ([930309e](https://github.com/nens/waterlabel-client/commit/930309e))
+* **Reducer:** Remove unreachable code. Round sqm. ([3c92c7e](https://github.com/nens/waterlabel-client/commit/3c92c7e))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/nens/waterlabel-client/compare/v0.4.0...v0.4.1) (2017-03-30)
 
