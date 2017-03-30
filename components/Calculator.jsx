@@ -215,9 +215,8 @@ class Calculator extends Component {
                 min='0'
                 className='form-control'
                 id='dakwoning'
-                disabled='true'
-                // onChange={this.handleChange}
-                defaultValue={Math.round(sqm)}
+                onChange={this.handleChange}
+                defaultValue={sqm}
               />
               <div className='input-group-addon'>m<sup>2</sup></div>
               </div>
@@ -257,7 +256,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.dak_schuur_garage :
+                  Math.round(calculator.calculationvalues.dak_schuur_garage) :
                   Math.round(calculationvalues.dak_schuur_garage)
                 } />
                 <div className='input-group-addon'>m<sup>2</sup></div>
@@ -295,7 +294,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.achtertuin :
+                  Math.round(calculator.calculationvalues.achtertuin) :
                   Math.round(calculationvalues.achtertuin)
                 } />
                 <div className='input-group-addon'>m<sup>2</sup></div>
@@ -333,7 +332,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.voortuin :
+                  Math.round(calculator.calculationvalues.voortuin) :
                   Math.round(calculationvalues.voortuin)
                 } />
                 <div className='input-group-addon'>m<sup>2</sup></div>
@@ -368,11 +367,11 @@ class Calculator extends Component {
                 id='perceel'
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.perceel :
+                  Math.round(calculator.calculationvalues.perceel) :
                   Math.round(calculationvalues.perceel)
                 } />
               {(calculator.calculationvalues) ?
-                calculator.calculationvalues.perceel :
+                Math.round(calculator.calculationvalues.perceel) :
                 0
               } m<sup>2</sup>
             </div>
@@ -422,7 +421,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.berging_dak_woning :
+                  Math.round(calculator.calculationvalues.berging_dak_woning) :
                   Math.round(calculationvalues.berging_dak_woning)
                 }
               />
@@ -523,7 +522,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.berging_dak_schuur :
+                  Math.round(calculator.calculationvalues.berging_dak_schuur) :
                   Math.round(calculationvalues.berging_dak_schuur)
                 }
                 />
@@ -627,7 +626,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.groene_achtertuin :
+                  Math.round(calculator.calculationvalues.groene_achtertuin) :
                   Math.round(calculationvalues.groene_achtertuin)
                 }
               />
@@ -676,7 +675,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.groene_voortuin :
+                  Math.round(calculator.calculationvalues.groene_voortuin) :
                   Math.round(calculationvalues.groene_voortuin)
                 }
               />
@@ -730,7 +729,7 @@ class Calculator extends Component {
                 onChange={this.handleChange}
                 value={
                   (calculator.calculationvalues) ?
-                  calculator.calculationvalues.regenton :
+                  Math.round(calculator.calculationvalues.regenton) :
                   Math.round(calculationvalues.regenton)
                 }
               />
