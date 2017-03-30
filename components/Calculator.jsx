@@ -112,11 +112,10 @@ class Calculator extends Component {
           setTimeout(() => {
             swal({
               title: 'Je nieuwe Waterlabel is klaar!',
-              text: 'Bedankt voor het wachten, je Waterlabel is opnieuw gegenereerd. (zo niet, herlaad dan even je browser)',
+              text: 'Bedankt voor het wachten, je Waterlabel is opnieuw gegenereerd.',
               type: 'success',
             });
-            self.props.closeCalculator();
-            self.props.openMap();
+            window.location.reload();
           }, 5000);
         });
       },
