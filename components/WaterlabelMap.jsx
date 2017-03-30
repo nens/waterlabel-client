@@ -13,6 +13,9 @@ function getColor(d) {
   const result = _.max(d, (label) => {
     return label.count;
   });
+  if (result.count === 0) {
+    return '#cccccc';
+  }
   const returnlabels = {
     'A': '#528E47',
     'B': '#6EA84B',
