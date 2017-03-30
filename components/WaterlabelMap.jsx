@@ -69,7 +69,7 @@ class WaterlabelMap extends Component {
     layer.on('mouseover', (e) => {
       const _layer = e.target;
       _layer.setStyle({
-        weight: 2,
+        color: '#ffffff',
       });
 
       if (!L.Browser.ie && !L.Browser.opera) {
@@ -80,14 +80,14 @@ class WaterlabelMap extends Component {
     layer.on('mouseout', (e) => {
       const _layer = e.target;
       _layer.setStyle({
-        weight: 0,
+        color: '#e6e6e6',
       });
     });
 
     layer.setStyle({
-      weight: 0,
+      weight: 2,
       opacity: 1,
-      color: 'white',
+      color: '#e6e6e6',
       fillOpacity: 0.7,
       fillColor: getColor([
         {
@@ -229,7 +229,7 @@ class WaterlabelMap extends Component {
             attribution='Nelen &amp; Schuurmans'
             url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.0a5c8e74/{z}/{x}/{y}.png'
           />
-        {(this.state.zoomlevel < 12 && choropleth.choropleth) ?
+        {(this.state.zoomlevel < 10 && choropleth.choropleth) ?
           <GeoJsonUpdatable
             data={choropleth.choropleth}
             onEachFeature={this.onEachFeature.bind(this)}
