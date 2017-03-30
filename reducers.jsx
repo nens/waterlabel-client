@@ -24,8 +24,8 @@ function calculator(state = {
   switch (action.type) {
   case RECEIVE_RADIUS_SEARCH:
     return Object.assign({}, state, {
-      label: '?',
-      calculationvalues: {},
+      label: action.data.properties.labelcode_last,
+      calculationvalues: action.calculationvalues,
     });
   case RECEIVE_POSTCODE:
     return Object.assign({}, state, {

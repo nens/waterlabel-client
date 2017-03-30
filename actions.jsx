@@ -107,10 +107,11 @@ export function requestRadiusSearch(obj) {
   };
 }
 
-function receiveRadiusSearch(data) {
+function receiveRadiusSearch(data, calculationvalues) {
   return {
     type: RECEIVE_RADIUS_SEARCH,
     data,
+    calculationvalues,
     receivedAt: Date.now(),
   };
 }
@@ -128,7 +129,7 @@ export function radiusSearch(latlngobj) {
           null,
           `#postcode=${firstFeature.properties.postalcode}&nr=${firstFeature.properties.housenumber}`
         );
-        return dispatch(receiveRadiusSearch(firstFeature));
+        return dispatch(receiveRadiusSearch(firstFeature, data.calculationvalues));
       }
       return Promise.resolve();
     }).error(() => {
