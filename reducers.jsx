@@ -27,13 +27,11 @@ function calculator(state = {
       label: '?',
       calculationvalues: {},
     });
-    break;
   case RECEIVE_POSTCODE:
     return Object.assign({}, state, {
       label: action.data.features[0].properties.labelcode_last,
       calculationvalues: action.data.calculationvalues,
     });
-    break;
   case CLEAR_SELECTED_OBJECT:
     return Object.assign({}, state, {
       label: undefined,
@@ -87,7 +85,7 @@ function postcode(state = {
     });
   case RECEIVE_RADIUS_SEARCH:
     const radius_center = centroid(action.data.geometry);
-    const radius_sqm = geojsonArea.geometry(action.data.geometry);
+    const radius_sqm = Math.round(geojsonArea.geometry(action.data.geometry));
     return Object.assign({}, state, {
       selectedObject: (action.data) ? action.data : undefined,
       maplocation: {
@@ -121,7 +119,7 @@ function postcode(state = {
     });
   case RECEIVE_POSTCODE:
     const center = centroid(action.data.features[0].geometry);
-    const sqm = geojsonArea.geometry(action.data.features[0].geometry);
+    const sqm = Math.round(geojsonArea.geometry(action.data.features[0].geometry));
     return Object.assign({}, state, {
       isFetching: false,
       selectedObject: action.data.features[0],
