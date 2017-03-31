@@ -2,6 +2,7 @@ import { ActionCreators } from 'redux-undo';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
   Popover, Well } from 'react-bootstrap';
+import MaskedInput from 'react-maskedinput';
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import AboutText from './AboutText.jsx';
@@ -329,15 +330,15 @@ class App extends Component {
                       <Col md={3}>
                         <div className='form-group'>
                           <label htmlFor='postcode'>Postcode</label>
-                          <input
+                          <MaskedInput
                             ref='postcode'
-                            onKeyPress={this.handleKeyPress}
                             id='postcode'
-                            type='text'
-                            style={{ textTransform: 'uppercase' }}
                             placeholder={(postcode.selectedObject) ?
                               postcode.selectedObject.properties.postalcode : '3731HS'}
+                            style={{ textTransform: 'uppercase' }}
                             className='form-control input-lg'
+                            mask="1111AA"
+                            onKeyPress={this.handleKeyPress}
                           />
                         </div>
                       </Col>

@@ -33,6 +33,7 @@
     "react-dom": "15.1.0",
     "react-leaflet": "^0.11.5",
     "react-leaflet-draw": "",
+    "react-maskedinput": "^3.3.4",
     "react-redux": "^4.2.1",
     "redux": "^3.2.1",
     "redux-localstorage": "",
