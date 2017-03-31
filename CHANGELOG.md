@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.2"></a>
+## [0.6.2](https://github.com/nens/waterlabel-client/compare/v0.6.1...v0.6.2) (2017-03-31)
+
+
+### Bug Fixes
+
+* **Postcode input:** Housenumbers no longer int only. ([f786da7](https://github.com/nens/waterlabel-client/commit/f786da7))
+
+
+
 <a name="0.6.1"></a>
 ## [0.6.1](https://github.com/nens/waterlabel-client/compare/v0.6.0...v0.6.1) (2017-03-31)
 
