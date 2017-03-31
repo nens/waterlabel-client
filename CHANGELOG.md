@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/nens/waterlabel-client/compare/v0.5.1...v0.6.0) (2017-03-31)
+
+
+### Features
+
+* **Postcode input:** Using a masked input field to enforce proper postalcode input. ([af01da6](https://github.com/nens/waterlabel-client/commit/af01da6))
+
+
+
 <a name="0.5.1"></a>
 ## [0.5.1](https://github.com/nens/waterlabel-client/compare/v0.5.0...v0.5.1) (2017-03-30)
 
