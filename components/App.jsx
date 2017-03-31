@@ -176,7 +176,7 @@ class App extends Component {
     if (postcodeFormatted.length === 6 &&
         this.refs.huisnummer.value &&
         rege.test(postcodeFormatted) &&
-        Number.isInteger(Number(huisnummerFormatted))) {
+        huisnummerFormatted.toLowerCase()) {
       this.props.dispatch(
         lookupPostcode(postcodeFormatted, huisnummerFormatted)
       );
@@ -197,7 +197,7 @@ class App extends Component {
       if (postcodeFormatted.length === 6 &&
           this.refs.huisnummer.value &&
           rege.test(postcodeFormatted) &&
-          Number.isInteger(Number(huisnummerFormatted))) {
+          huisnummerFormatted.toLowerCase()) {
         this.props.dispatch(
           lookupPostcode(postcodeFormatted, huisnummerFormatted)
         );
@@ -358,8 +358,7 @@ class App extends Component {
                             ref='huisnummer'
                             onKeyPress={this.handleKeyPress}
                             id='huisnummer'
-                            type='number'
-                            step='1'
+                            type='text'
                             placeholder={(postcode.selectedObject) ?
                               postcode.selectedObject.properties.housenumber : 184}
                             className='form-control input-lg'
