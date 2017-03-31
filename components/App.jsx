@@ -2,7 +2,6 @@ import { ActionCreators } from 'redux-undo';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
   Popover, Well } from 'react-bootstrap';
-import MaskedInput from 'react-maskedinput';
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import AboutText from './AboutText.jsx';
@@ -174,7 +173,9 @@ class App extends Component {
     const postcodeFormatted = this.refs.postcode.value;
     const huisnummerFormatted = this.refs.huisnummer.value;
     const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-    if (rege.test(postcodeFormatted) &&
+    if (postcodeFormatted.length === 6 &&
+        this.refs.huisnummer.value &&
+        rege.test(postcodeFormatted) &&
         Number.isInteger(Number(huisnummerFormatted))) {
       this.props.dispatch(
         lookupPostcode(postcodeFormatted, huisnummerFormatted)
@@ -183,12 +184,19 @@ class App extends Component {
   }
 
   handleKeyPress(e) {
+    if (e.key === ' ') {
+      e.stopPropagation();
+      e.preventDefault();
+      return false;
+    }
     if (e.key === 'Enter') {
       const postcodeFormatted = this.refs.postcode.value;
       const huisnummerFormatted = this.refs.huisnummer.value;
 
       const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-      if (rege.test(postcodeFormatted) &&
+      if (postcodeFormatted.length === 6 &&
+          this.refs.huisnummer.value &&
+          rege.test(postcodeFormatted) &&
           Number.isInteger(Number(huisnummerFormatted))) {
         this.props.dispatch(
           lookupPostcode(postcodeFormatted, huisnummerFormatted)
@@ -330,15 +338,16 @@ class App extends Component {
                       <Col md={3}>
                         <div className='form-group'>
                           <label htmlFor='postcode'>Postcode</label>
-                          <MaskedInput
+                          <input
                             ref='postcode'
+                            onKeyPress={this.handleKeyPress}
                             id='postcode'
+                            type='text'
+                            maxLength='6'
+                            style={{ textTransform: 'uppercase' }}
                             placeholder={(postcode.selectedObject) ?
                               postcode.selectedObject.properties.postalcode : '3731HS'}
-                            style={{ textTransform: 'uppercase' }}
                             className='form-control input-lg'
-                            mask="1111AA"
-                            onKeyPress={this.handleKeyPress}
                           />
                         </div>
                       </Col>
@@ -350,6 +359,7 @@ class App extends Component {
                             onKeyPress={this.handleKeyPress}
                             id='huisnummer'
                             type='number'
+                            step='1'
                             placeholder={(postcode.selectedObject) ?
                               postcode.selectedObject.properties.housenumber : 184}
                             className='form-control input-lg'
