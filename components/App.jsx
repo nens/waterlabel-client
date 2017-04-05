@@ -321,10 +321,12 @@ class App extends Component {
                 <div className={`jumbotron ${styles.Jumbo}`}>
                   <Row>
                     <Col md={9} sm={9} xs={9}>
-                      <h1 className={styles.Title}>Mijn Waterlabel&nbsp;
-                      <i style={{ cursor: 'pointer' }}
-                        onClick={this.openIntro}
-                        className='fa fa-1x fa-info-circle' /></h1>
+                      <h1 className={styles.Title}>Mijn Waterlabel&nbsp;</h1>
+                      {/* <Button onClick={this.openIntro}>
+                        <i style={{ cursor: 'pointer' }}
+                           className='fa fa-1x fa-youtube-play' />&nbsp;
+                           Bekijk introductie video
+                      </Button> */}
                     </Col>
                     <Col md={3} sm={3} xs={3}>
                       &nbsp;
@@ -334,54 +336,64 @@ class App extends Component {
                     <Col md={12}><hr/></Col>
                   </Row>
                   <Row>
-                    <Col md={10}>
-                      <Col md={3}>
-                        <div className='form-group'>
-                          <label htmlFor='postcode'>Postcode</label>
-                          <input
-                            ref='postcode'
-                            onKeyPress={this.handleKeyPress}
-                            id='postcode'
-                            type='text'
-                            maxLength='6'
-                            style={{ textTransform: 'uppercase' }}
-                            placeholder={(postcode.selectedObject) ?
-                              postcode.selectedObject.properties.postalcode : '3731HS'}
-                            className='form-control input-lg'
-                          />
-                        </div>
-                      </Col>
-                      <Col md={2}>
-                        <div className='form-group'>
-                          <label htmlFor='huisnummer'>Huisnummer</label>
-                          <input
-                            ref='huisnummer'
-                            onKeyPress={this.handleKeyPress}
-                            id='huisnummer'
-                            type='text'
-                            placeholder={(postcode.selectedObject) ?
-                              postcode.selectedObject.properties.housenumber : 184}
-                            className='form-control input-lg'
-                          />
-                        </div>
-                      </Col>
-                      <Col md={6}>
-                        <div className='form-group'>
-                          <ButtonGroup style={{ marginTop: 25 }}>
-                            <Button
-                              disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={this.handleSearchButton}
-                              bsSize='lg'>
-                              <i className='fa fa-search' />&nbsp;
-                              {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
-                            </Button>
-                            {/* {geolocationButton} */}
-                          </ButtonGroup>
-                        </div>
-                      </Col>
+                    <Col md={6}>
+                      <Row>
+                        <Col md={4}>
+                          <div className='form-group'>
+                            <label htmlFor='postcode'>Postcode</label>
+                            <input
+                              ref='postcode'
+                              onKeyPress={this.handleKeyPress}
+                              id='postcode'
+                              type='text'
+                              maxLength='6'
+                              style={{ textTransform: 'uppercase' }}
+                              placeholder={(postcode.selectedObject) ?
+                                postcode.selectedObject.properties.postalcode : '3731HS'}
+                              className='form-control input-lg'
+                            />
+                          </div>
+                        </Col>
+                        <Col md={4}>
+                          <div className='form-group'>
+                            <label htmlFor='huisnummer'>Huisnummer</label>
+                            <input
+                              ref='huisnummer'
+                              onKeyPress={this.handleKeyPress}
+                              id='huisnummer'
+                              type='text'
+                              placeholder={(postcode.selectedObject) ?
+                                postcode.selectedObject.properties.housenumber : 184}
+                              className='form-control input-lg'
+                            />
+                          </div>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                          <div className='form-group'>
+                            <ButtonGroup style={{ marginTop: 0 }}>
+                              <Button
+                                disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                onClick={this.handleSearchButton}
+                                bsSize='lg'>
+                                <i className='fa fa-search' />&nbsp;
+                                {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
+                              </Button>
+                              {/* {geolocationButton} */}
+                            </ButtonGroup>
+                          </div>
+                        </Col>
+                      </Row>
                     </Col>
-                    <Col md={6}/>
+                    <Col md={6}>
+                      <div className='embed-responsive embed-responsive-16by9'>
+                        <iframe
+                          className='embed-responsive-item'
+                          src='https://www.youtube.com/embed/jARteOPf_aI' />
+                      </div>
+                    </Col>
                   </Row>
                 </div>
               </Col>
