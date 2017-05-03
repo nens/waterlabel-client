@@ -23,6 +23,19 @@ class AboutText extends Component {
         <Grid fluid>
           <Row>
             <Col xs={12} sm={12} md={9}>
+              <h2>Hoe neem je contact op?</h2>
+              <p>
+              Voor vragen en informatie kun je contact opnemen met Lieke Coppens:
+              <br/>E-mail: <a href="mailto:lieke.coppens@nelen-schuurmans.nl">lieke.coppens@nelen-schuurmans.nl</a>
+              <br/>Mobiel nummer: 06-53752416.
+              </p>
+            </Col>
+            <Col xs={12} sm={12} md={2}>
+              &nbsp;
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} sm={12} md={9}>
               <h2>Wat is het Waterlabel?</h2>
               <p>
               Een huis met een G label, voert regenwater direct af naar de
