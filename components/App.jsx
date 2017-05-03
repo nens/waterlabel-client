@@ -6,7 +6,7 @@ import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import AboutText from './AboutText.jsx';
 import algemeen02 from '../images/algemeen02.png';
-import background from '../images/background.jpg';
+
 import Calculator from './Calculator.jsx';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
@@ -303,7 +303,7 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(${background})`}}>
+      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(http://i.imgur.com/DB14tqg.jpg)`}}>
         <div>
           <Grid>
             <Row>
