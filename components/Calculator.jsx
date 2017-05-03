@@ -976,7 +976,7 @@ class Calculator extends Component {
                   : ''}
                 </Map>
 
-                <h2 className={styles.GroupLabel}>Opslaan?</h2>
+                <h2 className={styles.GroupLabel}>Opslaan</h2>
                 <hr/>
                 <div className='form-horizontal'>
                   <div className='form-group'>

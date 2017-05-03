@@ -1,5 +1,5 @@
 import _ from 'underscore';
-import { Map, TileLayer } from 'react-leaflet';
+import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
 import L from 'leaflet';
 import React, { Component, PropTypes } from 'react';
@@ -224,6 +224,14 @@ class WaterlabelMap extends Component {
            attribution='Mapbox'
            url='https://{s}.tiles.mapbox.com/v3/nelenschuurmans.5641a12c/{z}/{x}/{y}.png'
          />
+         {/* <WMSTileLayer
+           url='http://geodata.nationaalgeoregister.nl/luchtfoto/wms?'
+           layers='Actueel_ortho25'
+           TRANSPARENT='TRUE'
+           format='image/png'
+           version='1.1.1'
+           srs='EPSG:3857'
+         /> */}
           <TileLayer
             attribution='Nelen &amp; Schuurmans'
             url='/media/tiles/waterlabel/{z}/{x}/{y}.png'
