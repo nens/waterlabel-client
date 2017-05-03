@@ -6,6 +6,7 @@ import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import AboutText from './AboutText.jsx';
 import algemeen02 from '../images/algemeen02.png';
+import background from '../images/background.jpg';
 import Calculator from './Calculator.jsx';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
@@ -101,7 +102,6 @@ class App extends Component {
     }
   }
 
-
   handleKeyDown(e) {
     if (e.which === 90 && e.ctrlKey) {
       this.handleUndo();
@@ -115,7 +115,6 @@ class App extends Component {
       )
     );
   }
-
 
   openIntro() {
     this.setState({ showIntro: true });
@@ -304,7 +303,7 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div>
+      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(${background})`}}>
         <div>
           <Grid>
             <Row>
@@ -314,33 +313,38 @@ class App extends Component {
             </Row>
             <Row>
               <Col md={12}>
-                <img
-                  src={logo}
-                  className={styles.Logo}
-                />
+
                 <div className={`jumbotron ${styles.Jumbo}`}>
                   <Row>
                     <Col md={9} sm={9} xs={9}>
-                      <h1 className={styles.Title}>Mijn Waterlabel&nbsp;</h1>
-                      {/* <Button onClick={this.openIntro}>
-                        <i style={{ cursor: 'pointer' }}
-                           className='fa fa-1x fa-youtube-play' />&nbsp;
-                           Bekijk introductie video
-                      </Button> */}
+                      <h1 className={styles.Title}>Waterlabel&nbsp;</h1>
+                      <ul className='list-inline'>
+                        <li>
+                          <a className={styles.InlineLink}
+                             onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
+                          </a>
+                        </li>
+                        <li>&nbsp;</li>
+                        <li>
+                          <a className={styles.InlineLink}
+                             onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
+                          </a>
+                        </li>
+                      </ul>
                     </Col>
                     <Col md={3} sm={3} xs={3}>
                       &nbsp;
                     </Col>
                   </Row>
                   <Row>
-                    <Col md={12}><hr/></Col>
+                    <Col md={12}><br/></Col>
                   </Row>
                   <Row>
                     <Col md={6}>
                       <Row>
                         <Col md={4}>
                           <div className='form-group'>
-                            <label htmlFor='postcode'>Postcode</label>
+                            <label htmlFor='postcode' style={{color:'#fff'}}>Postcode</label>
                             <input
                               ref='postcode'
                               onKeyPress={this.handleKeyPress}
@@ -349,21 +353,21 @@ class App extends Component {
                               maxLength='6'
                               style={{ textTransform: 'uppercase' }}
                               placeholder={(postcode.selectedObject) ?
-                                postcode.selectedObject.properties.postalcode : '3731HS'}
+                                postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
                               className='form-control input-lg'
                             />
                           </div>
                         </Col>
                         <Col md={4}>
                           <div className='form-group'>
-                            <label htmlFor='huisnummer'>Huisnummer</label>
+                            <label htmlFor='huisnummer' style={{color:'#fff'}}>Huisnummer</label>
                             <input
                               ref='huisnummer'
                               onKeyPress={this.handleKeyPress}
                               id='huisnummer'
                               type='text'
                               placeholder={(postcode.selectedObject) ?
-                                postcode.selectedObject.properties.housenumber : 184}
+                                postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
                               className='form-control input-lg'
                             />
                           </div>
@@ -403,7 +407,7 @@ class App extends Component {
                 {postcode.selectedObject ?
                   <div
                     id='results'
-                    className={`jumbotron ${styles.Jumbo}`}>
+                    className={`jumbotron ${styles.JumboWhite}`}>
                     <div className={styles.CloseButton}>
                       <i onClick={() => dispatch(clearSelectedObject())} className='fa fa-close' />
                     </div>
@@ -746,7 +750,7 @@ class App extends Component {
                         bsSize='lg'
                         bsStyle='info'
                         onClick={this.openCalculator}>
-                        <i className='fa fa-tag' />&nbsp;Waterlabel aanpassen
+                        <i className='fa fa-tag' />&nbsp;Berekenen mijn Waterlabel
                       </Button>
                     </ButtonGroup>
                   </div>
@@ -757,50 +761,13 @@ class App extends Component {
             </Row>
             <Row>
               <Col md={10}>
-                <ul className='list-inline'>
-                  <li>
-                    <a className={styles.InlineLink}
-                       onClick={this.openAboutText}>Over Waterlabel
-                    </a>
-                  </li> &#8226;
-                  <li>
-                    <a className={styles.InlineLink}
-                       onClick={this.openPrivacyText}>Cookies &amp; Privacy
-                    </a>
-                  </li> &#8226;
-                  <li>
-                    <a className={styles.InlineLink}
-                       onClick={this.openMap}>Bekijk kaart
-                    </a>
-                  </li>
-                </ul>
               </Col>
               <div className='pull-right' style={{ marginRight: 10 }}>
-                <OverlayTrigger trigger='click' placement='top' rootClose overlay={
-                  <Popover id='share' title='Deel je Waterlabel'>
-                    <a href={`https://twitter.com/intent/tweet?screen_name=Waterlabel&text=${(postcode.selectedObject) ?
-                      `Mijn huis heeft waterlabel ${postcode.selectedObject.label}.` :
-                      ''}%20Check%20ook%20jouw%20waterlabel%20via&url=${encodeURIComponent(window.location.href.toString())}`}
-                      className='btn btn-info twitter-mention-button'
-                      dataShowCount>
-                        <i className='fa fa-twitter' />&nbsp;Tweet
-                    </a>
-                  </Popover>
-                }>
-              <a style={{
-                padding: '10px 5px 0 0',
-                color: '#2EADD3',
-                cursor: 'pointer',
-              }}>
-                <i className='fa fa-2x fa-share-square'/>
-              </a>
-              </OverlayTrigger>
-
                 <a href='https://twitter.com/waterlabel/'
                    target='_blank'
                    style={{
                      padding: '10px 5px 0 0',
-                     color: '#2EADD3',
+                     color: '#fff',
                    }}>
                   <i className='fa fa-2x fa-twitter-square' />
                 </a>
@@ -809,7 +776,7 @@ class App extends Component {
                   target='_blank'
                   style={{
                     padding: '10px 5px 0 0',
-                    color: '#2EADD3',
+                    color: '#fff',
                   }}>
                   <i
                     className='fa fa-2x fa-facebook-square' />
@@ -817,10 +784,13 @@ class App extends Component {
                 <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
                    target='_blank'
                    style={{
-                     padding: '10px 5px 0 0',
-                     color: '#2EADD3',
+                     padding: '10px 0px 0 0',
+                     color: '#fff',
                    }}>
                   <i className='fa fa-2x fa-youtube-square' />
+                </a><br/>
+                <a style={{color:'#fff'}}
+                   onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
                 </a>
               </div>
             </Row>
