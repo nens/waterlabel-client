@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.8.4"></a>
+## [0.8.4](https://github.com/nens/waterlabel-client/compare/v0.8.3...v0.8.4) (2017-05-04)
+
+
+### Bug Fixes
+
+* **About:** Changed telephone number. ([58e8b70](https://github.com/nens/waterlabel-client/commit/58e8b70))
+
+
+
 <a name="0.8.3"></a>
 ## [0.8.3](https://github.com/nens/waterlabel-client/compare/v0.8.2...v0.8.3) (2017-05-04)
 
