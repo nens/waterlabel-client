@@ -303,7 +303,7 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(http://i.imgur.com/DB14tqg.jpg)`}}>
+      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(/static_media/background.jpg)`}}>
         <div>
           <Grid>
             <Row>
@@ -316,7 +316,7 @@ class App extends Component {
 
                 <div className={`jumbotron ${styles.Jumbo}`}>
                   <Row>
-                    <Col md={9} sm={9} xs={9}>
+                    <Col md={12} sm={12} xs={12}>
                       <h1 className={styles.Title}>Waterlabel&nbsp;</h1>
                       <ul className='list-inline'>
                         <li>
@@ -332,9 +332,7 @@ class App extends Component {
                         </li>
                       </ul>
                     </Col>
-                    <Col md={3} sm={3} xs={3}>
-                      &nbsp;
-                    </Col>
+
                   </Row>
                   <Row>
                     <Col md={12}><br/></Col>
@@ -750,7 +748,7 @@ class App extends Component {
                         bsSize='lg'
                         bsStyle='info'
                         onClick={this.openCalculator}>
-                        <i className='fa fa-tag' />&nbsp;Berekenen mijn Waterlabel
+                        <i className='fa fa-tag' />&nbsp;Bereken mijn Waterlabel
                       </Button>
                     </ButtonGroup>
                   </div>
