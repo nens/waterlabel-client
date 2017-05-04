@@ -27,7 +27,7 @@ class AboutText extends Component {
               <p>
               Voor vragen en informatie kun je contact opnemen met Lieke Coppens:
               <br/>E-mail: <a href="mailto:lieke.coppens@nelen-schuurmans.nl">lieke.coppens@nelen-schuurmans.nl</a>
-              <br/>Mobiel nummer: 06-53752416.
+              <br/>Telefoonnummer: 030 2330 200
               </p>
             </Col>
             <Col xs={12} sm={12} md={2}>
