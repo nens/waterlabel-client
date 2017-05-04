@@ -53,6 +53,9 @@
 }
 .JumboWhite {
   background-color: #fff;
+  -webkit-box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.45);
+  -moz-box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.45);
+  box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.45);
 }
 
 .CloseButton {
