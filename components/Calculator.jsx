@@ -398,7 +398,7 @@ class Calculator extends Component {
                           <br/>
                           <a
                             target='_blank'
-                            href='https://www.rainproof.nl/tips/dak'>
+                            href='https://www.huisjeboompjebeter.nl/acties/groen-dak-huis'>
                             <button
                               className='btn btn-xs btn-success'>
                               <i className='fa fa-lightbulb-o' />&nbsp;Tip
@@ -447,7 +447,7 @@ class Calculator extends Component {
                           <br/>
                           <a
                             target='_blank'
-                            href='https://www.rainproof.nl/toolbox/maatregelen/regenpijp-afkoppelen'>
+                            href='https://www.huisjeboompjebeter.nl/acties/regenpijp-afkoppelen'>
                             <button className='btn btn-xs btn-success'>
                               <i className='fa fa-lightbulb-o' />
                               &nbsp;Tip
@@ -498,7 +498,7 @@ class Calculator extends Component {
                           <br/>
                           <a
                             target='_blank'
-                            href='https://www.rainproof.nl/tips/dak'>
+                            href='https://www.huisjeboompjebeter.nl/acties/groen-dak-schuur'>
                             <button
                               className='btn btn-xs btn-success'>
                               <i className='fa fa-lightbulb-o' />
@@ -550,7 +550,7 @@ class Calculator extends Component {
                             <br/>
                             <a
                               target='_blank'
-                              href='https://www.rainproof.nl/toolbox/maatregelen/regenpijp-afkoppelen'>
+                              href='https://www.huisjeboompjebeter.nl/acties/regenpijp-afkoppelen'>
                               <button
                                 className='btn btn-xs btn-success'>
                                 <i className='fa fa-lightbulb-o' />
@@ -603,7 +603,7 @@ class Calculator extends Component {
                           <br/>
                           <a
                             target='_blank'
-                            href='https://www.rainproof.nl/tips/tuin'>
+                            href='https://www.huisjeboompjebeter.nl/acties/tegels-eruit-groen-erin'>
                             <button
                               className='btn btn-xs btn-success'>
                               <i className='fa fa-lightbulb-o' />&nbsp;Tip
@@ -653,7 +653,7 @@ class Calculator extends Component {
                           <br/>
                           <a
                             target='_blank'
-                            href='https://www.rainproof.nl/tips/tuin'>
+                            href='https://www.huisjeboompjebeter.nl/acties/tegels-eruit-groen-erin'>
                             <button className='btn btn-xs btn-success'>
                               <i className='fa fa-lightbulb-o' />&nbsp;Tip
                             </button>
@@ -705,7 +705,7 @@ class Calculator extends Component {
                           <br/>
                           <a
                             target='_blank'
-                            href='https://www.rainproof.nl/toolbox/maatregelen/regenton'>
+                            href='https://www.huisjeboompjebeter.nl/acties/regenwateropslag'>
                             <button
                               className='btn btn-xs btn-success'>
                               <i
@@ -755,7 +755,7 @@ class Calculator extends Component {
                         <br/>
                         <a
                           target='_blank'
-                          href='https://www.rainproof.nl/toolbox/maatregelen/geveltuintje'>
+                          href='https://www.huisjeboompjebeter.nl/acties/geveltuintje-aanleggen'>
                           <button
                             className='btn btn-xs btn-success'>
                             <i className='fa fa-lightbulb-o' />&nbsp;Tip
