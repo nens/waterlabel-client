@@ -770,7 +770,7 @@ class App extends Component {
                   <i className='fa fa-2x fa-twitter-square' />
                 </a>
                 <a
-                  href='https://www.facebook.com/Waterlabel-1029529007100949/'
+                  href='https://www.facebook.com/Waterlabel-421181284911824/'
                   target='_blank'
                   style={{
                     padding: '10px 5px 0 0',
