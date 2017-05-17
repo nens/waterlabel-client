@@ -9,6 +9,7 @@ import algemeen07 from '../images/algemeen07.png';
 import algemeen08 from '../images/algemeen08.png';
 import algemeen09 from '../images/algemeen09.png';
 import algemeen10 from '../images/algemeen10.png';
+import algemeen11 from '../images/algemeen11.png';
 
 class AboutText extends Component {
 
@@ -247,6 +248,7 @@ class AboutText extends Component {
               <img style={{ width: 250, padding: 15 }} src={algemeen09} />
               <img style={{ width: 250, padding: 15 }} src={algemeen06} />
               <img style={{ width: 250, padding: 15 }} src={algemeen10} />
+              <img style={{ width: 250, padding: 15 }} src={algemeen11} />
             </Col>
           </Row>
         </Grid>
