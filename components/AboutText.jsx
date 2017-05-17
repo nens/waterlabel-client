@@ -9,7 +9,7 @@ import algemeen07 from '../images/algemeen07.png';
 import algemeen08 from '../images/algemeen08.png';
 import algemeen09 from '../images/algemeen09.png';
 import algemeen10 from '../images/algemeen10.png';
-import algemeen10 from '../images/algemeen11.png';
+import algemeen11 from '../images/algemeen11.png';
 
 class AboutText extends Component {
 
