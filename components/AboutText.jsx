@@ -95,7 +95,7 @@ class AboutText extends Component {
                   van de regenpijp naar het riool.
                 </p>
                 <p>
-                  Kijk vooral eens op één van de websites hiernaast voor goede
+                  Kijk vooral eens op de website van huisjeboompjebeter voor goede
                   maatregelen in jouw omgeving.
                 </p>
             </Col>
@@ -106,26 +106,15 @@ class AboutText extends Component {
                 padding: 15,
                 border: '1px solid #ccc',
               }}>
-                <p>Tips:</p>
+                <p>Tip:</p>
                 <ul className='list-unstyled'>
                   <li>
                     <a
-                      href="http://www.huisjeboompjebeter.nl/"
+                      href="https://www.huisjeboompjebeter.nl/acties/"
                       target="_blank">huisjeboompjebeter.nl
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="http://www.rainproof.nl/"
-                      target="_blank">rainproof.nl
-                    </a>
-                  </li>
-                  <li>
-                    <a href="http://www.waterklaar.nl/"
-                       target="_blank">waterklaar.nl
-                    </a>
-                  </li>
-                </ul>
+                  </ul>
               </div>
             </Col>
           </Row>
@@ -246,6 +235,10 @@ class AboutText extends Component {
                 Waterschap Amstel, Gooi en Vecht heeft zich als eerste
                 waterschap aangesloten bij de ontwikkelaars van het
                 Waterlabel.
+              </p>
+              <p>
+                Het Waterlabel werkt samen met Huisjeboompjebeter om effectieve maatregelen aan te dragen.
+                Zo werken we allen samen aan klimaatbestendigheid. 
               </p>
             </Col>
             <Col md={12}>
