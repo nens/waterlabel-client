@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/nens/waterlabel-client/compare/v0.8.5...v0.9.0) (2017-07-14)
+
+
+### Features
+
+* **Waterlabel:** Adding &berekening=open to url shows calculator immediately. ([be7bbb9](https://github.com/nens/waterlabel-client/commit/be7bbb9))
+
+
+
 <a name="0.8.5"></a>
 ## [0.8.5](https://github.com/nens/waterlabel-client/compare/v0.8.4...v0.8.5) (2017-05-17)
 
