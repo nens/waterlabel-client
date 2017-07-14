@@ -90,6 +90,8 @@ class App extends Component {
     const zoom = (parsed.zoom) ? parsed.zoom : undefined;
     const postcode = (parsed.postcode) ? parsed.postcode : undefined;
     const nr = (parsed.nr) ? parsed.nr : undefined;
+    const berekening = (parsed.berekening) ? parsed.berekening : undefined;
+
 
     if (lat && lng && zoom && !postcode && !nr) {
       // this.props.dispatch(setMapLocation({
@@ -99,6 +101,12 @@ class App extends Component {
 
     if (!lat && !lng && !zoom && postcode && nr) {
       this.props.dispatch(lookupPostcode(postcode, nr));
+    }
+
+    if (!lat && !lng && !zoom && postcode && nr && berekening) {
+      this.setState({
+        showCalculator: true,
+      });      
     }
   }
 
