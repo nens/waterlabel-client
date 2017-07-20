@@ -106,7 +106,7 @@ class App extends Component {
     if (!lat && !lng && !zoom && postcode && nr && berekening) {
       this.setState({
         showCalculator: true,
-      });      
+      });
     }
   }
 
@@ -923,7 +923,7 @@ class App extends Component {
                     />
                   </Col>
                 </Row>
-                <Row style={{ height: window.innerHeight - 150 }}>
+                <Row style={{ height: window.innerHeight - 200 }}>
                   <Col>
                     <WaterlabelMap
                       {...this.props} />
@@ -933,6 +933,12 @@ class App extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
+            <Button onClick={() => {
+              this.closeMap();
+              setTimeout(() => {
+                window.location.href=`${window.location.href}&berekening=open`;
+              }, 100);
+            }}>Naar berekening</Button>
             <Button onClick={this.closeMap}>Sluiten</Button>
           </Modal.Footer>
         </Modal>
