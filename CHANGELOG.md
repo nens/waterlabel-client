@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/nens/waterlabel-client/compare/v0.9.1...v0.10.0) (2017-07-20)
+
+
+### Bug Fixes
+
+* **eslint:** Now using prettier.js config. ([d6f0441](https://github.com/nens/waterlabel-client/commit/d6f0441))
+* **webpack:** higher limit for loader. ([2ba443a](https://github.com/nens/waterlabel-client/commit/2ba443a))
+
+
+### Features
+
+* **Calculator:** Adds texts, rearranged components, adds street view. ([24929a5](https://github.com/nens/waterlabel-client/commit/24929a5))
+* **Map:** Adds button on map view to navigate directly to calculator. ([0e550bd](https://github.com/nens/waterlabel-client/commit/0e550bd))
+
+
+
 <a name="0.9.1"></a>
 ## [0.9.1](https://github.com/nens/waterlabel-client/compare/v0.9.0...v0.9.1) (2017-07-14)
 
