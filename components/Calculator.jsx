@@ -220,7 +220,7 @@ class Calculator extends Component {
           <Col md={6}>
             <div className={styles.Intro}>
               <p>
-                Beste inwoner, jouw perceel heeft waterlabel {calculator.label}.
+                Beste bewoner, jouw perceel heeft waterlabel {calculator.label}.
               </p>
               <p>
                 Het waterlabel biedt inzicht in hoe je jouw perceel
@@ -1114,7 +1114,7 @@ class Calculator extends Component {
                 </div>
               </Col>
             </Row>
-
+            <hr/>
             <Tabs defaultActiveKey={1} id="streetview-or-map">
               <Tab eventKey={1} title="Kaart">
                 <Map
@@ -1169,7 +1169,7 @@ class Calculator extends Component {
                     : ""}
                 </Map>
               </Tab>
-              <Tab eventKey={2} title="Street View">
+              <Tab eventKey={2} title="Street View" style={{overflow:'hidden'}}>
                 <img
                   height="200"
                   src={`https://maps.googleapis.com/maps/api/streetview?size=400x200&location=${streetviewLocation}&key=AIzaSyCxIGhh1oj5dz99JPkIEagUq63UbEb-CYs`}
