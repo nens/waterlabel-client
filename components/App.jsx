@@ -933,12 +933,14 @@ class App extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => {
-              this.closeMap();
-              setTimeout(() => {
-                window.location.href=`${window.location.href}&berekening=open`;
-              }, 100);
-            }}>Naar berekening</Button>
+            {(this.props.postcode.selectedObject) ?
+              <Button onClick={() => {
+                this.closeMap();
+                setTimeout(() => {
+                  window.location.href=`${window.location.href}&berekening=open`;
+                }, 100);
+              }}>Naar berekening</Button> : null
+             }
             <Button onClick={this.closeMap}>Sluiten</Button>
           </Modal.Footer>
         </Modal>
