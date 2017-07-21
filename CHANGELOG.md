@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.10.1"></a>
+## [0.10.1](https://github.com/nens/waterlabel-client/compare/v0.10.0...v0.10.1) (2017-07-21)
+
+
+### Bug Fixes
+
+* **App.jsx:** Show 'ga naar berekening' only when an object is selected. ([0e386c6](https://github.com/nens/waterlabel-client/commit/0e386c6))
+* **Calculator.jsx:** inwoner->bewoner, add <hr/>, prevent streetview image from bleeding over the edge. ([f1d34ff](https://github.com/nens/waterlabel-client/commit/f1d34ff))
+
+
+
 <a name="0.10.0"></a>
 # [0.10.0](https://github.com/nens/waterlabel-client/compare/v0.9.1...v0.10.0) (2017-07-20)
 
