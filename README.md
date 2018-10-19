@@ -78,7 +78,7 @@ $ npm start
 
 This will start a development server with Hot Module Replacement turned on.
 
-It defaults to run on [http://localhost:5000](http://localhost:5000).
+It defaults to run on [http://localhost:5050](http://localhost:5050).
 
 
 Proxy
