@@ -4,21 +4,21 @@ import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
   Popover, Well } from 'react-bootstrap';
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
-import AboutText from './AboutText.jsx';
+import AboutText from './AboutText';
 import algemeen02 from '../images/algemeen02.png';
 
-import Calculator from './Calculator.jsx';
+import Calculator from './Calculator';
 import calculatorStyles from './Calculator.css';
-import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
-import InteractiveCalculator from './InteractiveCalculator.jsx';
+import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
+import InteractiveCalculator from './InteractiveCalculator';
 import logo from '../images/logowaterlabel.svg';
 import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
-import SelectedObjectDetails from './SelectedObjectDetails.jsx';
+import SelectedObjectDetails from './SelectedObjectDetails';
 import selectedObjectStyles from './SelectedObjectDetails.css';
 import styles from './App.css';
-import WaterlabelMap from './WaterlabelMap.jsx';
+import WaterlabelMap from './WaterlabelMap';
 require('!style!css!../node_modules/sweetalert/dist/sweetalert.css');
 
 import {
@@ -26,7 +26,7 @@ import {
   fetchHistory,
   lookupPostcode,
   radiusSearch,
-} from '../actions.jsx';
+} from '../actions';
 
 class App extends Component {
 
@@ -252,6 +252,8 @@ class App extends Component {
       postcode.selectedObject.properties :
       undefined;
 
+    console.log('selectedObject', selectedObject);
+
     if (selectedObject) {
       adres = `${selectedObject.street} ${selectedObject.housenumber},
         ${selectedObject.city}`;
@@ -311,18 +313,22 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(/static_media/background.jpg)`}}>
-        <div>
+      // <div style={{height:'100vh',backgroundSize:'cover',backgroundImage: `url(/static_media/background.jpg)`}}>
+      <div>
+        <div style={{height:'100vh'}}>
           <Grid>
-            <Row>
+            {/* <Row>
               <Col md={12}>
                 <h2 />
               </Col>
-            </Row>
-            <Row>
+            </Row> */}
+           
+            <Row> 
               <Col md={12}>
 
-                <div className={`jumbotron ${styles.Jumbo}`}>
+                <div 
+                  className={`jumbotron ${styles.Jumbo}`}
+                >
                   <Row>
                     <Col md={12} sm={12} xs={12}>
                       <h1 className={styles.Title}>Waterlabel&nbsp;</h1>
@@ -342,9 +348,9 @@ class App extends Component {
                     </Col>
 
                   </Row>
-                  <Row>
+                  {/* <Row>
                     <Col md={12}><br/></Col>
-                  </Row>
+                  </Row> */}
                   <Row>
                     <Col md={6}>
                       <Row>
@@ -397,18 +403,122 @@ class App extends Component {
                         </Col>
                       </Row>
                     </Col>
-                    <Col md={6}>
+                    {/* <Col md={6}>
                       <div className='embed-responsive embed-responsive-16by9'>
                         <iframe
                           className='embed-responsive-item'
                           src='https://www.youtube.com/embed/jARteOPf_aI' />
                       </div>
-                    </Col>
+                    </Col> */}
                   </Row>
+                  {/* { selectedObject  */}
+                  { postcode.selectedObject
+                  ?
+                  <div className={"form-group " +  styles.FoundAddress}>
+                    
+                    <Row>
+                      <Col md={12}>
+                      <span style={{fontSize: 'larger'}}>Uw adres: </span>
+                      </Col>
+                    </Row>
+                    <Row style={{marginTop: "10px"}}>
+                      {/* <Col md={8}>
+                        <Row> */}
+                          <Col md={12}>
+                              <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
+                              {/* <span style={{paddingLeft: '5px'}}>{selectedObject.housenumber}</span> */}
+                          </Col>
+                          {/* <Col md={6}>
+                              <div style={{color:'#fff'}}>{selectedObject.housenumber}</div>
+                          </Col> */}
+                        {/* </Row> */}
+                      {/* </Col> */}
+
+                    </Row>
+                    <Row>
+                      <Col md={6}>
+                          <span>{selectedObject.postalcode}</span>
+                      </Col>
+                      {/* <Col md={8}>
+                        <Row>
+                          <Col md={6}>
+                              <div style={{color:'#fff'}}>{selectedObject.postalcode}</div>
+                          </Col>
+                          <Col md={6}>
+                              <div style={{color:'#fff'}}>{selectedObject.city}</div>
+                          </Col>
+                        </Row>
+                      </Col> */}
+                    </Row>
+                    <Row>
+                      <Col md={6}>
+                          <span>{selectedObject.city}</span>
+                      </Col>
+                    </Row>
+                    <Row style={{marginTop: "10px"}}>
+                      {/* <Col md={12}>
+                        <div className={styles.ChangeButton}>
+                          <i onClick={() => dispatch(clearSelectedObject())} style={{color:'#fff'}}>wijzig adres</i>
+                        </div>
+                      </Col> */}
+                      <Col md={12}>
+                          <div className='form-group'>
+                            <ButtonGroup style={{ marginTop: 0 }}>
+                              <Button
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                onClick={() => dispatch(clearSelectedObject())}
+                                bsSize='lg'>
+                                <i className='fa fa-search' />&nbsp; Wijzig adres
+                              </Button>
+                              {/* {geolocationButton} */}
+                            </ButtonGroup>
+                          </div>
+                        </Col>
+                    </Row>
+                  </div>
+                  :
+                  ''
+                  }
+                  {/* <Row style={{marginTop: "10px"}}>
+                    <Col md={12}>
+                      <div className='pull-right'>
+                      <a href='https://twitter.com/waterlabel/'
+                        target='_blank'
+                        style={{
+                          padding: '10px 5px 0 0',
+                          color: '#fff',
+                        }}>
+                        <i className='fa fa-2x fa-twitter-square' />
+                      </a>
+                      <a
+                        href='https://www.facebook.com/Waterlabel-421181284911824/'
+                        target='_blank'
+                        style={{
+                          padding: '10px 5px 0 0',
+                          color: '#fff',
+                        }}>
+                        <i
+                          className='fa fa-2x fa-facebook-square' />
+                      </a>
+                      <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
+                        target='_blank'
+                        style={{
+                          padding: '10px 0px 0 0',
+                          color: '#fff',
+                        }}>
+                        <i className='fa fa-2x fa-youtube-square' />
+                      </a><br/>
+                      <a style={{color:'#fff'}}
+                        onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
+                      </a>
+                    </div>
+                    </Col>
+                  </Row> */}
                 </div>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col md={12}>
                 {postcode.selectedObject ?
                   <div
@@ -764,11 +874,12 @@ class App extends Component {
                   ''
                 }
               </Col>
-            </Row>
+            </Row> */}
             <Row>
-              <Col md={10}>
-              </Col>
-              <div className='pull-right' style={{ marginRight: 10 }}>
+              {/* <Col md={10}>
+              </Col> */}
+              <Col md={12}>
+                <div className='pull-right' style={{ marginRight: 10 }}>
                 <a href='https://twitter.com/waterlabel/'
                    target='_blank'
                    style={{
@@ -799,11 +910,12 @@ class App extends Component {
                    onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
                 </a>
               </div>
+              </Col>
             </Row>
           </Grid>
         </div>
 
-        <Modal
+        {/* <Modal
           show={this.state.showCalculator}
           onHide={this.closeCalculator}
           dialogClassName={styles.WideModal}>
@@ -974,7 +1086,7 @@ class App extends Component {
           </Modal.Footer>
         </Modal>
 
-        <Modal
+        <Modal 
           show={this.state.showInteractiveCalculator}
           onHide={this.closeInteractiveCalculator}
           dialogClassName={styles.WideModal}>
@@ -1006,6 +1118,7 @@ class App extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        */}
       </div>
     );
   }
