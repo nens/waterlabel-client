@@ -8,6 +8,7 @@ import AboutText from './AboutText';
 import algemeen02 from '../images/algemeen02.png';
 
 import Calculator from './Calculator';
+import Tabs from './Tabs';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
 import InteractiveCalculator from './InteractiveCalculator';
@@ -253,6 +254,7 @@ class App extends Component {
       undefined;
 
     console.log('selectedObject', selectedObject);
+    console.log('postcode.selectedObject', postcode.selectedObject);
 
     if (selectedObject) {
       adres = `${selectedObject.street} ${selectedObject.housenumber},
@@ -346,76 +348,79 @@ class App extends Component {
                         </li>
                       </ul>
                     </Col>
-
                   </Row>
-                  {/* <Row>
-                    <Col md={12}><br/></Col>
-                  </Row> */}
-                  <Row>
-                    <Col md={6}>
-                      <Row>
-                        <Col md={4}>
-                          <div className='form-group'>
-                            <label htmlFor='postcode' style={{color:'#fff'}}>Postcode</label>
-                            <input
-                              ref='postcode'
-                              onKeyPress={this.handleKeyPress}
-                              id='postcode'
-                              type='text'
-                              maxLength='6'
-                              style={{ textTransform: 'uppercase' }}
-                              placeholder={(postcode.selectedObject) ?
-                                postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
-                              className='form-control input-lg'
-                            />
-                          </div>
-                        </Col>
-                        <Col md={4}>
-                          <div className='form-group'>
-                            <label htmlFor='huisnummer' style={{color:'#fff'}}>Huisnummer</label>
-                            <input
-                              ref='huisnummer'
-                              onKeyPress={this.handleKeyPress}
-                              id='huisnummer'
-                              type='text'
-                              placeholder={(postcode.selectedObject) ?
-                                postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
-                              className='form-control input-lg'
-                            />
-                          </div>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={12}>
-                          <div className='form-group'>
-                            <ButtonGroup style={{ marginTop: 0 }}>
-                              <Button
-                                disabled={(postcode.isFetching) ? true : false}
-                                bsStyle='info'
-                                onClick={this.handleSearchButton}
-                                bsSize='lg'>
-                                <i className='fa fa-search' />&nbsp;
-                                {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
-                              </Button>
-                              {/* {geolocationButton} */}
-                            </ButtonGroup>
-                          </div>
-                        </Col>
-                      </Row>
-                    </Col>
-                    {/* <Col md={6}>
-                      <div className='embed-responsive embed-responsive-16by9'>
-                        <iframe
-                          className='embed-responsive-item'
-                          src='https://www.youtube.com/embed/jARteOPf_aI' />
-                      </div>
-                    </Col> */}
-                  </Row>
-                  {/* { selectedObject  */}
-                  { postcode.selectedObject
-                  ?
-                  <div className={"form-group " +  styles.FoundAddress}>
-                    
+                  {/* { selectedObject 
+                  { ! postcode.selectedObject
+                  ? */}
+                  <div style={ postcode.selectedObject ? {display: 'none'} : {} }>
+                    {/* <Row>
+                      <Col md={12}><br/></Col>
+                    </Row> */}
+                  
+                    <Row>
+                      <Col md={6}>
+                        <Row>
+                          <Col md={4}>
+                            <div className='form-group'>
+                              <label htmlFor='postcode' style={{color:'#fff'}}>Postcode</label>
+                              <input
+                                ref='postcode'
+                                onKeyPress={this.handleKeyPress}
+                                id='postcode'
+                                type='text'
+                                maxLength='6'
+                                style={{ textTransform: 'uppercase' }}
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                          <Col md={4}>
+                            <div className='form-group'>
+                              <label htmlFor='huisnummer' style={{color:'#fff'}}>Huisnummer</label>
+                              <input
+                                ref='huisnummer'
+                                onKeyPress={this.handleKeyPress}
+                                id='huisnummer'
+                                type='text'
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md={12}>
+                            <div className='form-group'>
+                              <ButtonGroup style={{ marginTop: 0 }}>
+                                <Button
+                                  disabled={(postcode.isFetching) ? true : false}
+                                  bsStyle='info'
+                                  onClick={this.handleSearchButton}
+                                  bsSize='lg'>
+                                  <i className='fa fa-search' />&nbsp;
+                                  {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
+                                </Button>
+                                {/* {geolocationButton} */}
+                              </ButtonGroup>
+                            </div>
+                          </Col>
+                        </Row>
+                      </Col>
+                      {/* <Col md={6}>
+                        <div className='embed-responsive embed-responsive-16by9'>
+                          <iframe
+                            className='embed-responsive-item'
+                            src='https://www.youtube.com/embed/jARteOPf_aI' />
+                        </div>
+                      </Col> */}
+                    </Row>
+                  </div>
+                  { postcode.selectedObject 
+                  ? 
+                  <div className={"form-group " +  styles.FoundAddress} >
                     <Row>
                       <Col md={12}>
                       <span style={{fontSize: 'larger'}}>Uw adres: </span>
@@ -463,13 +468,13 @@ class App extends Component {
                       </Col> */}
                       <Col md={12}>
                           <div className='form-group'>
-                            <ButtonGroup style={{ marginTop: 0 }}>
+                            <ButtonGroup style={{ marginTop: 10 }}>
                               <Button
                                 // disabled={(postcode.isFetching) ? true : false}
                                 bsStyle='info'
                                 onClick={() => dispatch(clearSelectedObject())}
                                 bsSize='lg'>
-                                <i className='fa fa-search' />&nbsp; Wijzig adres
+                                <i className='fa fa-edit' />&nbsp; Wijzig adres
                               </Button>
                               {/* {geolocationButton} */}
                             </ButtonGroup>
@@ -480,6 +485,7 @@ class App extends Component {
                   :
                   ''
                   }
+                  <Tabs></Tabs>
                   {/* <Row style={{marginTop: "10px"}}>
                     <Col md={12}>
                       <div className='pull-right'>

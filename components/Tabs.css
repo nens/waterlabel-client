@@ -1,0 +1,45 @@
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  -moz-transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  z-index: 99999999999;
+}
+
+/* 
+.Jumbo {
+  background-color: transparent;
+}
+ */
+
+.closeButton:hover {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -moz-transition: all .2s ease;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+
+.Tab {
+  border-color: white;
+  border-style: solid;
+  padding-right: 30px !important;
+  margin-left: -1px !important;
+  margin-right: -1px !important;
+}
+
+.SelectedTab {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-width: 2px;
+  border-bottom-width: 0px;
+}
+.NotSelectedTab {
+  border-width: 0px;
+  border-bottom-width: 2px;
+}
