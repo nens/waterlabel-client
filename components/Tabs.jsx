@@ -28,7 +28,7 @@ class Tabs extends Component {
               className={styles.Tab + ' '  + (this.state.selectedTab === 'daken'? styles.SelectedTab  : styles.NotSelectedTab)}
               // style={{paddingRight: '20px'}}
             >
-              <a className={AppStyles.InlineLink}
+              <a className={styles.InlineLink}
                   onClick={() => this.setState({selectedTab: 'daken'})}><i className='fa fa-industry'></i>&nbsp;Daken
               </a>
             </li>
@@ -36,13 +36,13 @@ class Tabs extends Component {
               className={styles.Tab + ' '  + (this.state.selectedTab === 'terrein'? styles.SelectedTab  : styles.NotSelectedTab)} 
               // style={{paddingRight: '20px'}}
             >
-              <a className={AppStyles.InlineLink}
+              <a className={styles.InlineLink}
                   onClick={()=>this.setState({selectedTab: 'terrein'})}><i className='fa fa-tree'></i>&nbsp;terrein
               </a>
             </li>
             {/* <li className={styles.NotSelectedTab}>&nbsp;</li> */}
             <li className={styles.Tab + ' '  + (this.state.selectedTab === 'extra'? styles.SelectedTab  : styles.NotSelectedTab)}>
-              <a className={AppStyles.InlineLink}
+              <a className={styles.InlineLink}
                   onClick={()=>this.setState({selectedTab: 'extra'})}><i className='fa fa-circle'></i>&nbsp;extra
               </a>
             </li>
