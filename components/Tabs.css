@@ -1,38 +1,8 @@
-.closeButton {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  cursor: pointer;
-  -moz-transition: all .2s ease;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-  z-index: 99999999999;
-}
-
-/* 
-.Jumbo {
-  background-color: transparent;
-}
- */
-
-.closeButton:hover {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg);
-  -moz-transition: all .2s ease;
-  -webkit-transition: all .2s ease;
-  transition: all .2s ease;
-}
-
-/*_______________above this line maybe not needed?____*/
-
 .Tab {
   border-color: white;
   border-style: solid;
   margin-left: -1px !important;
   margin-right: -1px !important;
-  box-sizing: border-box;
 }
 
 .SelectedTab {
@@ -42,7 +12,10 @@
   border-bottom-width: 0px;
   /* padding left and right is the same as with class=NotSelectedTab 
   except that 2px of border left right  are substracted here.
-  this ensures that the elements dont jump in place when selection is changed */
+  this ensures that the elements dont jump in place when selection is changed.
+  Other attempted approaches: border-style-left:hidden (elements still jumped), border-color-left: transparent(bottom border gets pointy diagonal edge causing one pixel to show)
+  Not tried approach: use box-sizing: border box with fixed width element (li)
+  */
   padding-right: 28px !important; 
   padding-left: 4px !important;
 }
@@ -60,7 +33,8 @@
   color: #fff;
   text-decoration: none;
 }
-.InlineLink:hover { 
+.InlineLink:hover {
+  /*this is to overwrite the defaults*/ 
   color: #fff;
   text-decoration: none;
 }

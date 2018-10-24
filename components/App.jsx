@@ -427,65 +427,95 @@ class App extends Component {
                       </Col>
                     </Row>
                     <Row style={{marginTop: "10px"}}>
-                      {/* <Col md={8}>
-                        <Row> */}
+                      <Col md={6} sm={6} xs={6} >
+                        <Row>
                           <Col md={12}>
                               <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
-                              {/* <span style={{paddingLeft: '5px'}}>{selectedObject.housenumber}</span> */}
-                          </Col>
-                          {/* <Col md={6}>
-                              <div style={{color:'#fff'}}>{selectedObject.housenumber}</div>
-                          </Col> */}
-                        {/* </Row> */}
-                      {/* </Col> */}
-
-                    </Row>
-                    <Row>
-                      <Col md={6}>
-                          <span>{selectedObject.postalcode}</span>
-                      </Col>
-                      {/* <Col md={8}>
-                        <Row>
-                          <Col md={6}>
-                              <div style={{color:'#fff'}}>{selectedObject.postalcode}</div>
-                          </Col>
-                          <Col md={6}>
-                              <div style={{color:'#fff'}}>{selectedObject.city}</div>
                           </Col>
                         </Row>
-                      </Col> */}
-                    </Row>
-                    <Row>
-                      <Col md={6}>
-                          <span>{selectedObject.city}</span>
-                      </Col>
-                    </Row>
-                    <Row style={{marginTop: "10px"}}>
-                      {/* <Col md={12}>
-                        <div className={styles.ChangeButton}>
-                          <i onClick={() => dispatch(clearSelectedObject())} style={{color:'#fff'}}>wijzig adres</i>
-                        </div>
-                      </Col> */}
-                      <Col md={12}>
-                          <div className='form-group'>
-                            <ButtonGroup style={{ marginTop: 10 }}>
-                              <Button
-                                // disabled={(postcode.isFetching) ? true : false}
-                                bsStyle='info'
-                                onClick={() => dispatch(clearSelectedObject())}
-                                bsSize='lg'>
-                                <i className='fa fa-edit' />&nbsp; Wijzig adres
-                              </Button>
-                              {/* {geolocationButton} */}
-                            </ButtonGroup>
-                          </div>
+                      <Row>
+                        <Col md={12}>
+                            <span>{selectedObject.postalcode}</span>
                         </Col>
+                        {/* <Col md={8}>
+                          <Row>
+                            <Col md={6}>
+                                <div style={{color:'#fff'}}>{selectedObject.postalcode}</div>
+                            </Col>
+                            <Col md={6}>
+                                <div style={{color:'#fff'}}>{selectedObject.city}</div>
+                            </Col>
+                          </Row>
+                        </Col> */}
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                            <span>{selectedObject.city}</span>
+                        </Col>
+                      </Row>
+                      {/* <Row style={{marginTop: "10px"}}> */}
+                        {/* <Col md={12}>
+                          <div className={styles.ChangeButton}>
+                            <i onClick={() => dispatch(clearSelectedObject())} style={{color:'#fff'}}>wijzig adres</i>
+                          </div>
+                        </Col> */}
+                        {/* <Col md={12}>
+                            <div className='form-group'>
+                              <ButtonGroup style={{ marginTop: 10 }}>
+                                <Button
+                                  // disabled={(postcode.isFetching) ? true : false}
+                                  bsStyle='info'
+                                  onClick={() => dispatch(clearSelectedObject())}
+                                  bsSize='lg'>
+                                  <i className='fa fa-edit' />&nbsp; Wijzig adres
+                                </Button>
+                              </ButtonGroup>
+                            </div>
+                          </Col> */}
+                        {/* </Row> */}
+                      </Col>
+                      <Col md={6} sm={6} xs={6}>
+                        <div className='form-group'>
+                          <ButtonGroup style={{ marginTop: 10 }}>
+                            <Button
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => dispatch(clearSelectedObject())}
+                              bsSize='lg'>
+                              <i className='fa fa-edit' />&nbsp; Ander adres
+                            </Button>
+                          </ButtonGroup>
+                        </div>
+                      </Col>
                     </Row>
                   </div>
                   :
                   ''
                   }
-                  <Tabs></Tabs>
+
+                  { postcode.selectedObject 
+                  ? 
+                  <div>
+                    <div className={"form-group " +  styles.FoundAddress} >
+                      <Row>
+                        <Col md={12}>
+                          <hr style={{marginTop: '5px'}}/>
+                          {/* height: 12px; border: 0; box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5); */}
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={12}>
+                        <span style={{fontSize: 'larger'}}>Uw gegevens: </span>
+                        </Col>
+                      </Row>
+                    </div>
+                    <Tabs></Tabs>
+                  </div>
+
+                  :
+                  ''
+                  }
+                  
                   {/* <Row style={{marginTop: "10px"}}>
                     <Col md={12}>
                       <div className='pull-right'>
