@@ -63,7 +63,11 @@
       -moz-background-size: cover;
       -o-background-size: cover;
       background-size: cover;
-      background: url(/static_media/background.jpg) no-repeat center center fixed;
+      background: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.0)
+      ), url(/static_media/background.jpg) no-repeat center center fixed;
+      
     }
     body, html {
       height: 100vh;
