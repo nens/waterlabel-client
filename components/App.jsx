@@ -366,7 +366,7 @@ class App extends Component {
                         </p>
                       </div>
                       <h3 style={{color:'white'}}>
-                        Vind uw Waterlabel:
+                        Bereken uw Waterlabel:
                       </h3>
                     </Col>
                   </Row>
