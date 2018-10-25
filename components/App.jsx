@@ -349,6 +349,27 @@ class App extends Component {
                       </ul>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col md={12}>
+                      <div style={{
+                        backgroundColor: 'rgba(0,0,0,0.3)',
+                        padding: '8px',
+                        borderRadius: '4px',
+                        }}
+                      >
+                        <p style={{color:'white'}}>
+                          Uw Waterlabel geeft aan hoeveel regenwater 
+                          uw woning vasthoudt. <br/>
+                          Houdt uw woning veel regenwater vast? <br/> 
+                          Dan is dit goed voor het millieu <br/> 
+                          Omgeving en riool overstromen dan minder snel.
+                        </p>
+                      </div>
+                      <h3 style={{color:'white'}}>
+                        Vind uw Waterlabel:
+                      </h3>
+                    </Col>
+                  </Row>
                   {/* { selectedObject 
                   { ! postcode.selectedObject
                   ? */}
