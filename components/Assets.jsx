@@ -24,7 +24,22 @@ class Assets extends Component {
       ],
       assets: [
         {
+          category: 'daken',
           type: 'Normaal verhard dak (0 mm)',
+          area: 10,
+          storage: 100,
+          drainage: 'riool'
+        },
+        {
+          category: 'terrein',
+          type: 'klinkers',
+          area: 10,
+          storage: 100,
+          drainage: 'riool'
+        },
+        {
+          category: 'extra',
+          type: 'regenton',
           area: 10,
           storage: 100,
           drainage: 'riool'
@@ -40,6 +55,10 @@ class Assets extends Component {
 
   drawRows (rows) {
     return rows.map((e,i)=> {
+      console.log(this.props.selectedTab, e.category);
+      if (this.props.selectedTab !== e.category) {
+        return '';
+      }
       return (
         // <div key={e.type + ' ' + e.area + ' ' + e.storage + ' ' + e.drainage}>
         <div key={i}>
@@ -218,6 +237,7 @@ class Assets extends Component {
                   onClick={()=>{
                     let tmpAssets = this.state.assets;
                     tmpAssets.push({
+                      category: this.props.selectedTab,
                       type: 'select type',
                       area: 0,
                       storage: 0,
@@ -226,7 +246,7 @@ class Assets extends Component {
                     this.setState({assets: tmpAssets})
                   }}
                 >
-                  + Voeg Dak toe
+                  + Nieuw Item
                 </button>
               </Col>
             </Row>
@@ -245,21 +265,58 @@ class Assets extends Component {
               </Row>
             </Col>
           </Row>
+          {
+            !this.state.editMode 
+            ?
           <Row>
             <Col md={12} sm={12} xs={12} >
               <div className='form-group'>
-                <ButtonGroup style={{ marginTop: 10 }}>
+                {/* <ButtonGroup style={{ marginTop: 10 }}> */}
                   <Button
+                    style={{width:'100%',marginTop: 10}}
                     // disabled={(postcode.isFetching) ? true : false}
                     bsStyle='info'
                     onClick={() => this.setState({editMode:true})}
                     bsSize='lg'>
                     <i className='fa fa-edit' />&nbsp; Wijzig Gegevens
                   </Button>
-                </ButtonGroup>
+                {/* </ButtonGroup> */}
+              </div>
+            </Col>
+            <Col md={12} sm={12} xs={12} >
+              <div className='form-group'>
+                {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                  <Button
+                    style={{width:'100%',marginTop: 10}}
+                    // disabled={(postcode.isFetching) ? true : false}
+                    bsStyle='info'
+                    // onClick={() => this.setState({editMode:false})}
+                    bsSize='lg'>
+                    <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
+                  </Button>
+                {/* </ButtonGroup> */}
               </div>
             </Col>
           </Row>
+          :
+          <Row>
+            <Col md={12} sm={12} xs={12} >
+              <div className='form-group'>
+                {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                  <Button
+                    style={{width:'100%',marginTop: 10}}
+                    // disabled={(postcode.isFetching) ? true : false}
+                    bsStyle='info'
+                    onClick={() => this.setState({editMode:false})}
+                    bsSize='lg'>
+                    <i className='fa fa-save' />&nbsp; Opslaan
+                  </Button>
+                {/* </ButtonGroup> */}
+              </div>
+            </Col>
+            
+          </Row>
+          }
         </div>
       
     );

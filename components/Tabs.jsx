@@ -54,7 +54,7 @@ class Tabs extends Component {
           </ul>
         </Col>
       </Row>
-      <Assets/>
+      <Assets selectedTab={this.state.selectedTab}/>
       </div>
     );
   }

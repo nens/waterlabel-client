@@ -334,7 +334,7 @@ class App extends Component {
                   <Row>
                     <Col md={12} sm={12} xs={12}>
                       <h1 className={styles.Title}>Waterlabel&nbsp;</h1>
-                      <ul className='list-inline'>
+                      {/* <ul className='list-inline'>
                         <li>
                           <a className={styles.InlineLink}
                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
@@ -346,9 +346,10 @@ class App extends Component {
                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
                           </a>
                         </li>
-                      </ul>
+                      </ul> */}
                     </Col>
                   </Row>
+                  
                   <Row>
                     <Col md={12}>
                       <div style={{
@@ -365,8 +366,30 @@ class App extends Component {
                           Omgeving en riool overstromen dan minder snel.
                         </p>
                       </div>
+                     </Col>
+                    </Row>
+                    <Row style={{marginTop:'10px'}}>
+                      <Col md={12} sm={12} xs={12}>
+                        <ul className='list-inline'>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
+                            </a>
+                          </li>
+                          <li>&nbsp;</li>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
+                            </a>
+                          </li>
+                        </ul>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={12}>
                       <h3 style={{color:'white'}}>
-                        Bereken uw Waterlabel:
+                        {/* Bereken uw Waterlabel: */}
+                        Mijn Waterlabel
                       </h3>
                     </Col>
                   </Row>
@@ -412,11 +435,11 @@ class App extends Component {
                             </div>
                           </Col>
                         </Row>
-                        <Row>
+                        {/* <Row>
                           <Col md={12}>
                             <div className='form-group'>
-                              <ButtonGroup style={{ marginTop: 0 }}>
                                 <Button
+                                  style={{ marginTop: 0, width: '100%' }}
                                   disabled={(postcode.isFetching) ? true : false}
                                   bsStyle='info'
                                   onClick={this.handleSearchButton}
@@ -424,11 +447,9 @@ class App extends Component {
                                   <i className='fa fa-search' />&nbsp;
                                   {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
                                 </Button>
-                                {/* {geolocationButton} */}
-                              </ButtonGroup>
                             </div>
                           </Col>
-                        </Row>
+                        </Row> */}
                       </Col>
                       {/* <Col md={6}>
                         <div className='embed-responsive embed-responsive-16by9'>
@@ -438,15 +459,30 @@ class App extends Component {
                         </div>
                       </Col> */}
                     </Row>
+                    <Row>
+                      <Col md={12}>
+                        <div className='form-group'>
+                            <Button
+                              style={{ marginTop: 0, width: '100%' }}
+                              disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={this.handleSearchButton}
+                              bsSize='lg'>
+                              <i className='fa fa-search' />&nbsp;
+                              {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
+                            </Button>
+                        </div>
+                      </Col>
+                    </Row>
                   </div>
                   { postcode.selectedObject 
                   ? 
                   <div className={"form-group " +  styles.FoundAddress} >
-                    <Row>
+                    {/* <Row>
                       <Col md={12}>
                       <span style={{fontSize: 'larger'}}>Uw adres: </span>
                       </Col>
-                    </Row>
+                    </Row> */}
                     <Row style={{marginTop: "10px"}}>
                       <Col md={6} sm={6} xs={6} >
                         <Row>
@@ -495,7 +531,7 @@ class App extends Component {
                           </Col> */}
                         {/* </Row> */}
                       </Col>
-                      <Col md={6} sm={6} xs={6}>
+                      {/* <Col md={6} sm={6} xs={6}>
                         <div className='form-group'>
                           <ButtonGroup style={{ marginTop: 10 }}>
                             <Button
@@ -506,6 +542,22 @@ class App extends Component {
                               <i className='fa fa-edit' />&nbsp; Ander adres
                             </Button>
                           </ButtonGroup>
+                        </div>
+                      </Col> */}
+                    </Row>
+                    <Row>
+                      <Col md={12} sm={12} xs={12}>
+                        <div className='form-group'>
+                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                            <Button
+                              style={{ marginTop: 10 , width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => dispatch(clearSelectedObject())}
+                              bsSize='lg'>
+                              <i className='fa fa-edit' />&nbsp; Wijzig adres
+                            </Button>
+                          {/* </ButtonGroup> */}
                         </div>
                       </Col>
                     </Row>
@@ -526,7 +578,8 @@ class App extends Component {
                       </Row>
                       <Row>
                         <Col md={12}>
-                        <span style={{fontSize: 'larger'}}>Uw gegevens: </span>
+                        {/* <span style={{fontSize: 'larger'}}>Mijn gegevens: </span> */}
+                        <h3 style={{color: 'white'}}>Mijn gegevens: </h3>
                         </Col>
                       </Row>
                     </div>
