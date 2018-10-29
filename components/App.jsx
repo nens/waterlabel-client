@@ -453,7 +453,7 @@ class App extends Component {
                       </Col> */}
                     </Row>
                     <Row>
-                      <Col md={12}>
+                      <Col md={6} sm={12} xs={12} >
                         <div className='form-group'>
                             <Button
                               style={{ marginTop: 0, width: '100%' }}
@@ -539,7 +539,7 @@ class App extends Component {
                       </Col> */}
                     </Row>
                     <Row>
-                      <Col md={12} sm={12} xs={12}>
+                      <Col md={6} sm={12} xs={12}>
                         <div className='form-group'>
                           {/* <ButtonGroup style={{ marginTop: 10 }}> */}
                             <Button
@@ -987,7 +987,7 @@ class App extends Component {
                    target='_blank'
                    style={{
                      padding: '10px 5px 0 0',
-                     color: '#fff',
+                    //  color: '#fff',
                    }}>
                   <i className='fa fa-2x fa-twitter-square' />
                 </a>
@@ -996,7 +996,7 @@ class App extends Component {
                   target='_blank'
                   style={{
                     padding: '10px 5px 0 0',
-                    color: '#fff',
+                    // color: '#fff',
                   }}>
                   <i
                     className='fa fa-2x fa-facebook-square' />
@@ -1005,11 +1005,11 @@ class App extends Component {
                    target='_blank'
                    style={{
                      padding: '10px 0px 0 0',
-                     color: '#fff',
+                    //  color: '#fff',
                    }}>
                   <i className='fa fa-2x fa-youtube-square' />
                 </a><br/>
-                <a style={{color:'#fff'}}
+                <a
                    onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
                 </a>
               </div>

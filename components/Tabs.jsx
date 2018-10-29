@@ -31,7 +31,7 @@ class Tabs extends Component {
               onClick={() => this.setState({selectedTab: 'daken'})}
             >
               <a className={styles.InlineLink}>
-                <i className='fa fa-industry'></i>&nbsp;Daken
+                <i className='fa fa-home'></i>&nbsp;Dak
               </a>
             </li>
             <li
@@ -39,7 +39,7 @@ class Tabs extends Component {
               onClick={()=>this.setState({selectedTab: 'terrein'})}
             >
               <a className={styles.InlineLink}>
-                  <i className='fa fa-tree'></i>&nbsp;terrein
+                  <i className='fa fa-tree'></i>&nbsp;Terrein
               </a>
             </li>
             {/* <li className={styles.NotSelectedTab}>&nbsp;</li> */}
@@ -48,7 +48,12 @@ class Tabs extends Component {
               onClick={()=>this.setState({selectedTab: 'extra'})}
             >
               <a className={styles.InlineLink}>
-                <i className='fa fa-circle'></i>&nbsp;extra
+                <i className='fa fa-circle'></i>&nbsp;Extra
+              </a>
+            </li>
+            <li style={{}} className={styles.Tab + ' ' + styles.NotSelectedTab}>
+              <a className={styles.InlineLink}>
+                <i></i>&nbsp;
               </a>
             </li>
           </ul>

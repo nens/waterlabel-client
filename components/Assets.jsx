@@ -293,7 +293,7 @@ class Assets extends Component {
             !this.state.editMode 
             ?
           <Row>
-            <Col md={12} sm={12} xs={12} >
+            <Col md={6} sm={12} xs={12} >
               <div className='form-group'>
                 {/* <ButtonGroup style={{ marginTop: 10 }}> */}
                   <Button
@@ -307,7 +307,7 @@ class Assets extends Component {
                 {/* </ButtonGroup> */}
               </div>
             </Col>
-            <Col md={12} sm={12} xs={12} >
+            <Col md={6} sm={12} xs={12} >
               <div className='form-group'>
                 {/* <ButtonGroup style={{ marginTop: 10 }}> */}
                   <Button
