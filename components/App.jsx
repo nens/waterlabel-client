@@ -315,9 +315,8 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      // <div style={{height:'100vh',backgroundSize:'cover',backgroundImage: `url(/static_media/background.jpg)`}}>
       <div>
-        <div style={{height:'100vh'}}>
+        <div>
           <Grid>
             {/* <Row>
               <Col md={12}>
