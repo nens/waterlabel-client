@@ -315,9 +315,9 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div>
-        <div>
-          <Grid>
+      <div className="height-hundred-percent">
+        <div className="height-hundred-percent">
+          <Grid className={styles.BackgroundColor + ' ' + "height-hundred-percent"}>
             {/* <Row>
               <Col md={12}>
                 <h2 />
@@ -332,7 +332,7 @@ class App extends Component {
                 >
                   <Row>
                     <Col md={12} sm={12} xs={12}>
-                      <h1 className={styles.Title}>Waterlabel&nbsp;</h1>
+                      <h1>Waterlabel&nbsp;</h1>
                       {/* <ul className='list-inline'>
                         <li>
                           <a className={styles.InlineLink}
@@ -351,20 +351,14 @@ class App extends Component {
                   
                   <Row>
                     <Col md={12}>
-                      <div style={{
-                        backgroundColor: 'rgba(0,0,0,0.3)',
-                        padding: '8px',
-                        borderRadius: '4px',
-                        }}
-                      >
-                        <p style={{color:'white'}}>
+                
+                        <p>
                           Uw Waterlabel geeft aan hoeveel regenwater 
                           uw woning vasthoudt. <br/>
                           Houdt uw woning veel regenwater vast? <br/> 
                           Dan is dit goed voor het millieu <br/> 
                           Omgeving en riool overstromen dan minder snel.
                         </p>
-                      </div>
                      </Col>
                     </Row>
                     <Row style={{marginTop:'10px'}}>
@@ -386,10 +380,10 @@ class App extends Component {
                     </Row>
                     <Row>
                       <Col md={12}>
-                      <h3 style={{color:'white'}}>
+                      <h2>
                         {/* Bereken uw Waterlabel: */}
                         Mijn Waterlabel
-                      </h3>
+                      </h2>
                     </Col>
                   </Row>
                   {/* { selectedObject 
@@ -405,7 +399,7 @@ class App extends Component {
                         <Row>
                           <Col md={4}>
                             <div className='form-group'>
-                              <label htmlFor='postcode' style={{color:'#fff'}}>Postcode</label>
+                              <label htmlFor='postcode'>Postcode</label>
                               <input
                                 ref='postcode'
                                 onKeyPress={this.handleKeyPress}
@@ -421,7 +415,7 @@ class App extends Component {
                           </Col>
                           <Col md={4}>
                             <div className='form-group'>
-                              <label htmlFor='huisnummer' style={{color:'#fff'}}>Huisnummer</label>
+                              <label htmlFor='huisnummer'>Huisnummer</label>
                               <input
                                 ref='huisnummer'
                                 onKeyPress={this.handleKeyPress}
@@ -578,7 +572,7 @@ class App extends Component {
                       <Row>
                         <Col md={12}>
                         {/* <span style={{fontSize: 'larger'}}>Mijn gegevens: </span> */}
-                        <h3 style={{color: 'white'}}>Mijn gegevens: </h3>
+                        <h2>Mijn gegevens: </h2>
                         </Col>
                       </Row>
                     </div>

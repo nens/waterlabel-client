@@ -1,5 +1,31 @@
+.BackgroundColor {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.BackgroundColor h1,
+.BackgroundColor h2,
+.BackgroundColor h3,
+.BackgroundColor li,
+.BackgroundColor a {
+  color: #2eadd3;
+}
+
+.BackgroundColor li:hover,
+.BackgroundColor a:hover {
+  color: black;
+}
+
+.BackgroundColor p,
+.BackgroundColor span,
+.BackgroundColor label {
+  color: #808080;
+}
+
+
+
+
 .FoundAddress {
-  color: #fff;
+  color: #808080;
   font-weight: bold;
   font-size: large;
 }
