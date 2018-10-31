@@ -1,5 +1,5 @@
 .Tab {
-  border-color: white;
+  /* border-color: white; */
   border-style: solid;
   /* margin-left: -1px !important;
   margin-right: -1px !important;*/
@@ -34,7 +34,7 @@
 .InlineLink {
   font-size: 1.3em;
   cursor: pointer;
-  color: #fff;
+  /* color: #fff; */
   text-decoration: none;
 }
 .InlineLink:hover {

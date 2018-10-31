@@ -25,6 +25,11 @@
   border-color: #808080;
 }
 
+.BackgroundColor hr {
+  background-color: #808080;
+  height: 1px;
+}
+
 
 
 

@@ -332,7 +332,7 @@ class App extends Component {
                 >
                   <Row>
                     <Col md={12} sm={12} xs={12}>
-                      <h1>Waterlabel&nbsp;</h1>
+                      <h1>Label opslag water&nbsp;</h1>
                       {/* <ul className='list-inline'>
                         <li>
                           <a className={styles.InlineLink}
@@ -349,7 +349,7 @@ class App extends Component {
                     </Col>
                   </Row>
                   
-                  <Row>
+                  {/* <Row>
                     <Col md={12}>
                 
                         <p>
@@ -360,7 +360,7 @@ class App extends Component {
                           Omgeving en riool overstromen dan minder snel.
                         </p>
                      </Col>
-                    </Row>
+                    </Row> */}
                     <Row style={{marginTop:'10px'}}>
                       <Col md={12} sm={12} xs={12}>
                         <ul className='list-inline'>
@@ -548,7 +548,7 @@ class App extends Component {
                               bsStyle='info'
                               onClick={() => dispatch(clearSelectedObject())}
                               bsSize='lg'>
-                              <i className='fa fa-edit' />&nbsp; Wijzig adres
+                              <i className='fa fa-edit' />&nbsp; Ander adres
                             </Button>
                           {/* </ButtonGroup> */}
                         </div>

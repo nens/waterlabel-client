@@ -96,7 +96,7 @@ class Assets extends Component {
           }
           <Row>
             <Col md={12}>
-              <hr style={{margin: '5px'}} className={appStyles.SeperatorAddress}/>
+              <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
             </Col>
           </Row>
           
@@ -127,92 +127,92 @@ class Assets extends Component {
   drawEditColumns(e, i) {
     return (
       <Row>
-        <Col md={3} sm={3} xs={3}>
-          <select 
-            value={e.type} 
-            className="form-control"
-            onChange={(e) => {
-              const defaultStorage = this.state.rootTypes.find(
-                item => item.type === e.target.value   
-              ).storage; 
+        <Col md={12}>
+          <Row>
+            <Col md={11} sm={11} xs={11}>
+              <h3>{e.type}</h3>
+            </Col>
+            <Col md={1} sm={1} xs={1}>
+              <button 
+                style={{
+                  borderStyle: 'none',
+                  color: 'red',
+                  backgroundColor: 'transparent',
+                  fontWeight: 'bold',
+                  fontSize: 'larger'  
+                }}
+                title="Verwijder Item"
+                onClick={()=>{
+                  let tmpAssets = this.state.assets;
+                  tmpAssets.splice(i, 1);
+                  this.setState({assets: tmpAssets})
 
-              let tmpAssets = this.state.assets;
-              tmpAssets[i].type = e.target.value;
-              console.log(defaultStorage);
-              tmpAssets[i].storage = defaultStorage;
-              this.setState({assets: tmpAssets})
-            }}
-          >
-            {this.state.rootTypes.map(
-              (e)=>{
-                return <option value={e.type}>{e.type}</option>
-              }
-            )}
-          </select>
-        </Col>
-        <Col md={3} sm={3} xs={3}>
-        <input 
-          value={e.area} 
-          className="form-control"
-          onChange={(e) => {
-            let tmpAssets = this.state.assets;
-            tmpAssets[i].area = parseInt(e.target.value) || '';
-            this.setState({assets: tmpAssets})
-          }}
-        />
-        </Col>
-        <Col md={3} sm={3} xs={3}>
-        <input 
-          value={e.storage} 
-          className="form-control"
-          onChange={(e) => {
-            if (
-              RegExp('^[1-9][0-9]*([,|.])?[0-9]?$').test(e.target.value)
-              || e.target.value == ''  
-            ) 
-            {
-              let tmpAssets = this.state.assets;
-              tmpAssets[i].storage = e.target.value;
-              this.setState({assets : tmpAssets})
-            }
-          }}
-        />
-        </Col>
-        <Col md={2} sm={2} xs={2}>
-        <div className={CustomSelect.Container}>
-        <select 
-          value={e.drainage} 
-          className="form-control"
-          onChange={(e) => {
-            let tmpAssets = this.state.assets;
-            tmpAssets[i].drainage = e.target.value;
-            this.setState({assets: tmpAssets})
-          }}
-        >
-          <option value="riool">riool</option>
-          <option value="riool">tuin</option>
-        </select>
-        </div>
-        </Col>
-        <Col md={1} sm={1} xs={1}>
-          <button 
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.2)',
-              borderStyle: 'none',
-              color: 'white',
-              fontWeight: 'bold',
-              fontSize: 'larger'  
-            }}
-            title="Verwijder Item"
-            onClick={()=>{
-              let tmpAssets = this.state.assets;
-              tmpAssets.splice(i, 1);
-              this.setState({assets: tmpAssets})
-
-            }}
-          >
-          x
-          </button>
+                }}
+              >
+              x
+              </button>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6} sm={12} xs={12}>
+              <label>
+                Oppervlakte (m<sup>2</sup>): 
+              </label>
+            </Col>
+              
+            <Col md={6} sm={12} xs={12}>
+                  <input 
+                    value={e.area} 
+                    className="form-control"
+                    onChange={(e) => {
+                      let tmpAssets = this.state.assets;
+                      tmpAssets[i].area = parseInt(e.target.value) || '';
+                      this.setState({assets: tmpAssets})
+                    }}
+                  />
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6} sm={12} xs={12}>
+              <label>
+                Berging: 
+              </label>
+            </Col>
+            <Col md={3} sm={3} xs={3}>
+            <input 
+              value={e.storage} 
+              className="form-control"
+              onChange={(e) => {
+                if (
+                  RegExp('^[1-9][0-9]*([,|.])?[0-9]?$').test(e.target.value)
+                  || e.target.value == ''  
+                ) 
+                {
+                  let tmpAssets = this.state.assets;
+                  tmpAssets[i].storage = e.target.value;
+                  this.setState({assets : tmpAssets})
+                }
+              }}
+            />
+            </Col>
+            <Col md={2} sm={2} xs={2}>
+              <div className={CustomSelect.Container}>
+                <select 
+                  value={e.drainage} 
+                  className="form-control"
+                  onChange={(e) => {
+                    let tmpAssets = this.state.assets;
+                    tmpAssets[i].drainage = e.target.value;
+                    this.setState({assets: tmpAssets})
+                  }}
+                >
+                  <option value="riool">riool</option>
+                  <option value="riool">tuin</option>
+                </select>
+              </div>
+            </Col>
+            
+          </Row>
         </Col>
       </Row>
     );
@@ -225,44 +225,19 @@ class Assets extends Component {
 
     return (
         <div className={"form-group " + styles.AssetsReadOnly}style={{marginTop: '24px'}}>
-          <Row>
-            <Col md={3} sm={3} xs={3}>
-              <span style={{fontWeight: 'bold'}}>Type</span>
-            </Col>
-            <Col md={3} sm={3} xs={3}>
-              <span style={{fontWeight: 'bold'}}>Oppervlak m2</span>
-            </Col>
-            <Col md={3} sm={3} xs={3}>
-              <span style={{fontWeight: 'bold'}}>Berging mm</span>
-            </Col>
-            <Col md={3} sm={3} xs={3}>
-              <span style={{fontWeight: 'bold'}}>Afvoer naar</span>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <hr style={{margin: '5px'}} className={appStyles.SeperatorAddress}/>
-            </Col>
-          </Row>
-          {this.drawRows(this.state.assets)}
           {
             this.state.editMode 
             ?
             <Row>
-              <Col md={12}>
-                <button
-                  style={{
-                    width: '100%',
-                    backgroundColor: 'transparent',
-                    borderRadius: '4px',
-                    fontSize: 'larger',
-                    fontWeight: 'bold',
-                  }}
-                  onClick={()=>{
+              <Col md={6} SM={12} XS={12}>
+                <select 
+                  value={""} 
+                  className="form-control"
+                  onChange={(e)=>{
                     let tmpAssets = this.state.assets;
-                    tmpAssets.push({
+                    tmpAssets.unshift({
                       category: this.props.selectedTab,
-                      type: 'select type',
+                      type: e.target.value,
                       area: 0,
                       storage: 0,
                       drainage: 'riool'
@@ -270,13 +245,25 @@ class Assets extends Component {
                     this.setState({assets: tmpAssets})
                   }}
                 >
-                  + Nieuw Item
-                </button>
+                  <option value="" disabled >+ Voeg Toe</option>
+                  {this.state.rootTypes.map(
+                    (e)=>{
+                      return <option value={e.type}>{e.type}</option>
+                    }
+                  )}
+                </select>
               </Col>
             </Row>
             :
             ''
           }
+          <Row>
+            <Col md={12}>
+              <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
+            </Col>
+          </Row>
+          {this.drawRows(this.state.assets)}
+          
           <Row style={{marginTop:'10px'}}>
             <Col md={6} sm={6} xs={6}>
               <Row>
@@ -302,7 +289,7 @@ class Assets extends Component {
                     bsStyle='info'
                     onClick={() => this.setState({editMode:true})}
                     bsSize='lg'>
-                    <i className='fa fa-edit' />&nbsp; Wijzig Gegevens
+                    <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
                   </Button>
                 {/* </ButtonGroup> */}
               </div>
@@ -324,7 +311,7 @@ class Assets extends Component {
           </Row>
           :
           <Row>
-            <Col md={12} sm={12} xs={12} >
+            <Col md={6} sm={12} xs={12} >
               <div className='form-group'>
                 {/* <ButtonGroup style={{ marginTop: 10 }}> */}
                   <Button
