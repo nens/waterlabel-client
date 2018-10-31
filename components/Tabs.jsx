@@ -11,7 +11,7 @@ class Tabs extends Component {
     super(props);
     // this._handleClick = this._handleClick.bind(this);
     this.state = {
-      selectedTab: 'daken' // daken | terrein | extra
+      selectedTab: 'dak' // daken | terrein | extra
     };
   }
 
@@ -27,8 +27,8 @@ class Tabs extends Component {
         <Col md={12} sm={12} xs={12}>
           <ul className='list-inline' style={{marginLeft:'0px'}}>
             <li 
-              className={styles.Tab + ' '  + (this.state.selectedTab === 'daken'? styles.SelectedTab  : styles.NotSelectedTab)}
-              onClick={() => this.setState({selectedTab: 'daken'})}
+              className={styles.Tab + ' '  + (this.state.selectedTab === 'dak'? styles.SelectedTab  : styles.NotSelectedTab)}
+              onClick={() => this.setState({selectedTab: 'dak'})}
             >
               <a className={styles.InlineLink}>
                 <i className='fa fa-home'></i>&nbsp;Dak
@@ -51,11 +51,11 @@ class Tabs extends Component {
                 <i className='fa fa-circle'></i>&nbsp;Extra
               </a>
             </li>
-            <li style={{}} className={styles.Tab + ' ' + styles.NotSelectedTab}>
+            {/* <li style={{}} className={styles.Tab + ' ' + styles.NotSelectedTab}>
               <a className={styles.InlineLink}>
                 <i></i>&nbsp;
               </a>
-            </li>
+            </li> */}
           </ul>
         </Col>
       </Row>

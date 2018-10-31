@@ -17,17 +17,18 @@
   Other attempted approaches: border-style-left:hidden (elements still jumped), border-color-left: transparent(bottom border gets pointy diagonal edge causing one pixel to show)
   Not tried approach: use box-sizing: border box with fixed width element (li)
   */
-  padding-right: 29px !important; 
+  padding-right: 9px !important; 
   padding-left: 5px !important;
   margin-left: -1px !important;
-  margin-right: -1px !important;
+  /* margin-right: -1px !important; */
 }
 
 .NotSelectedTab {
   border-width: 0px;
   border-bottom-width: 1px;
-  padding-right: 30px !important;
+  padding-right: 10px !important;
   padding-left: 6px !important;
+  margin-left: -1px !important;
 }
 
 

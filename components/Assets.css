@@ -1,4 +1,7 @@
-.AssetsReadOnly {
+.Assets {
   font-size: large;
-  color: #FFF
+}
+
+.AssetsReadOnly {
+  cursor: not-allowed;
 }

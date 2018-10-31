@@ -369,12 +369,12 @@ class App extends Component {
                               onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
                             </a>
                           </li>
-                          <li>&nbsp;</li>
+                          {/* <li>&nbsp;</li>
                           <li>
                             <a className={styles.InlineLink}
                               onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
                             </a>
-                          </li>
+                          </li> */}
                         </ul>
                       </Col>
                     </Row>

@@ -48,7 +48,7 @@ class Assets extends Component {
       ],
       assets: [
         {
-          category: 'daken',
+          category: 'dak',
           type: 'Normaal verhard dak (0 mm)',
           area: 10,
           storage: 100,
@@ -85,61 +85,43 @@ class Assets extends Component {
       }
       return (
         // <div key={e.type + ' ' + e.area + ' ' + e.storage + ' ' + e.drainage}>
-        <div key={i}>
-          
-          {
-            this.state.editMode 
-            ?
-            this.drawEditColumns(e, i)
-            :
-            this.drawNonEditColumns(e)
-          }
-          <Row>
-            <Col md={12}>
-              <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
-            </Col>
-          </Row>
-          
-        </div>
+        <Row key={i}>
+          <Col md={12}>
+            
+            {this.drawEditColumn(e, i)}
+            <Row>
+              <Col md={12}>
+                <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       );
     })
   }
 
-  drawNonEditColumns(e) {
-    return (
-      <Row>
-        <Col md={3} sm={3} xs={3}>
-          <span>{e.type}</span>
-        </Col>
-        <Col md={3} sm={3} xs={3}>
-          <span>{e.area}</span>
-        </Col>
-        <Col md={3} sm={3} xs={3}>
-          <span>{e.storage}</span>
-        </Col>
-        <Col md={3} sm={3} xs={3}>
-          <span>{e.drainage}</span>
-        </Col>
-      </Row>
-    );
-  }
 
-  drawEditColumns(e, i) {
+  drawEditColumn(e, i) {
     return (
       <Row>
         <Col md={12}>
+          {/* <Row>
+
+          </Row> */}
           <Row>
-            <Col md={11} sm={11} xs={11}>
-              <h3>{e.type}</h3>
-            </Col>
-            <Col md={1} sm={1} xs={1}>
+            <Col md={12} sm={12} xs={12}>
+              
+            {/* </Col>
+            <Col md={1} sm={1} xs={1}> */}
+             { this.state.editMode ?
               <button 
                 style={{
                   borderStyle: 'none',
                   color: 'red',
                   backgroundColor: 'transparent',
                   fontWeight: 'bold',
-                  fontSize: 'larger'  
+                  fontSize: 'larger',
+                  float: 'right' 
                 }}
                 title="Verwijder Item"
                 onClick={()=>{
@@ -151,34 +133,40 @@ class Assets extends Component {
               >
               x
               </button>
+              :
+              ''
+              }
+              <h3 style={{display: 'inline-block', marginTop:'5px'}}>{e.type}</h3>
             </Col>
           </Row>
           <Row>
-            <Col md={6} sm={12} xs={12}>
-              <label>
+            <Col md={4} sm={12} xs={12}>
+              <label >
                 Oppervlakte (m<sup>2</sup>): 
               </label>
             </Col>
               
-            <Col md={6} sm={12} xs={12}>
-                  <input 
-                    value={e.area} 
-                    className="form-control"
-                    onChange={(e) => {
-                      let tmpAssets = this.state.assets;
-                      tmpAssets[i].area = parseInt(e.target.value) || '';
-                      this.setState({assets: tmpAssets})
-                    }}
-                  />
+            <Col md={4} sm={12} xs={12}>
+              <input 
+                value={e.area} 
+                className="form-control"
+                onChange={(e) => {
+                  let tmpAssets = this.state.assets;
+                  tmpAssets[i].area = parseInt(e.target.value) || '';
+                  this.setState({assets: tmpAssets})
+                }}
+                readOnly={!this.state.editMode}
+                disabled={!this.state.editMode}
+              />
             </Col>
           </Row>
           <Row>
-            <Col md={6} sm={12} xs={12}>
+            <Col md={4} sm={12} xs={12}>
               <label>
-                Berging: 
+                Berging (mm): 
               </label>
             </Col>
-            <Col md={3} sm={3} xs={3}>
+            <Col md={4} sm={12} xs={12}>
             <input 
               value={e.storage} 
               className="form-control"
@@ -193,18 +181,30 @@ class Assets extends Component {
                   this.setState({assets : tmpAssets})
                 }
               }}
+              readOnly={!this.state.editMode}
+              disabled={!this.state.editMode}
             />
             </Col>
-            <Col md={2} sm={2} xs={2}>
+          </Row>
+
+          <Row>
+            <Col md={4} sm={12} xs={12}>
+              <label>
+                Afvoer naar: 
+              </label>
+            </Col>
+            <Col md={4} sm={12} xs={12}>
               <div className={CustomSelect.Container}>
                 <select 
                   value={e.drainage} 
-                  className="form-control"
+                  className={"form-control"+" "+styles.AssetsReadOnly}
                   onChange={(e) => {
                     let tmpAssets = this.state.assets;
                     tmpAssets[i].drainage = e.target.value;
                     this.setState({assets: tmpAssets})
                   }}
+                  readOnly={!this.state.editMode}
+                  disabled={!this.state.editMode}
                 >
                   <option value="riool">riool</option>
                   <option value="riool">tuin</option>
@@ -220,11 +220,11 @@ class Assets extends Component {
 
   render() {
 
-    const totalArea = this.state.assets.reduce((acc,e) =>  acc + (e.area || 0), 0);
+    const totalArea = this.state.assets.filter(e=>e.category===this.props.selectedTab).reduce((acc,e) =>  acc + (e.area || 0), 0);
     console.log('totalArea',totalArea);
 
     return (
-        <div className={"form-group " + styles.AssetsReadOnly}style={{marginTop: '24px'}}>
+        <div className={"form-group " + styles.Assets}style={{marginTop: '24px'}}>
           {
             this.state.editMode 
             ?
@@ -257,6 +257,27 @@ class Assets extends Component {
             :
             ''
           }
+          { this.props.selectedTab === 'dak'?
+            <Row>
+            <Col md={12}>
+              <h3>Opgegeven daken:</h3>
+            </Col>
+            </Row>
+            :
+            this.props.selectedTab === 'terrein'?
+            <Row>
+            <Col md={12}>
+              <h3>Opgegeven terrein:</h3>
+            </Col>
+            </Row>
+            :
+            <Row>
+            <Col md={12}>
+              <h3>Opgegeven extra items:</h3>
+            </Col>
+            </Row>
+          }
+          
           <Row>
             <Col md={12}>
               <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
