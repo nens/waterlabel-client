@@ -350,6 +350,41 @@ class App extends Component {
                       </ul> */}
                     </Col>
                   </Row>
+                  <Row>
+                    <Col md={12}>
+                      <div className='pull-right' style={{ marginRight: 10 }}>
+                      <a href='https://twitter.com/waterlabel/'
+                        target='_blank'
+                        style={{
+                          padding: '10px 5px 0 0',
+                          //  color: '#fff',
+                        }}>
+                        <i className='fa fa-2x fa-twitter-square' />
+                      </a>
+                      <a
+                        href='https://www.facebook.com/Waterlabel-421181284911824/'
+                        target='_blank'
+                        style={{
+                          padding: '10px 5px 0 0',
+                          // color: '#fff',
+                        }}>
+                        <i
+                          className='fa fa-2x fa-facebook-square' />
+                      </a>
+                      <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
+                        target='_blank'
+                        style={{
+                          padding: '10px 0px 0 0',
+                          //  color: '#fff',
+                        }}>
+                        <i className='fa fa-2x fa-youtube-square' />
+                      </a><br/>
+                      <a
+                        onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
+                      </a>
+                    </div>
+                    </Col>
+                  </Row>
                   
                   {/* <Row>
                     <Col md={12}>
@@ -561,6 +596,7 @@ class App extends Component {
                       </Col>
                       {! this.state.editMode ?
                       <div>
+                      
                       <Col md={6} sm={12} xs={12} >
                         <div className='form-group'>
                           {/* <ButtonGroup> */}
@@ -568,9 +604,9 @@ class App extends Component {
                               style={{width:'100%'}}
                               // disabled={(postcode.isFetching) ? true : false}
                               bsStyle='info'
-                              onClick={() => this.setState({editMode:true})}
+                              // onClick={() => this.setState({editMode:false})}
                               bsSize='lg'>
-                              <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
+                              <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
                             </Button>
                           {/* </ButtonGroup> */}
                         </div>
@@ -582,9 +618,9 @@ class App extends Component {
                               style={{width:'100%'}}
                               // disabled={(postcode.isFetching) ? true : false}
                               bsStyle='info'
-                              // onClick={() => this.setState({editMode:false})}
+                              onClick={() => this.setState({editMode:true})}
                               bsSize='lg'>
-                              <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
+                              <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
                             </Button>
                           {/* </ButtonGroup> */}
                         </div>
@@ -607,6 +643,7 @@ class App extends Component {
                         </div>
                       </Col>
                       }
+                      
                     </Row>
                     {
             !this.state.editMode 
@@ -675,42 +712,6 @@ class App extends Component {
                   :
                   ''
                   }
-                  
-                  {/* <Row style={{marginTop: "10px"}}>
-                    <Col md={12}>
-                      <div className='pull-right'>
-                      <a href='https://twitter.com/waterlabel/'
-                        target='_blank'
-                        style={{
-                          padding: '10px 5px 0 0',
-                          color: '#fff',
-                        }}>
-                        <i className='fa fa-2x fa-twitter-square' />
-                      </a>
-                      <a
-                        href='https://www.facebook.com/Waterlabel-421181284911824/'
-                        target='_blank'
-                        style={{
-                          padding: '10px 5px 0 0',
-                          color: '#fff',
-                        }}>
-                        <i
-                          className='fa fa-2x fa-facebook-square' />
-                      </a>
-                      <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
-                        target='_blank'
-                        style={{
-                          padding: '10px 0px 0 0',
-                          color: '#fff',
-                        }}>
-                        <i className='fa fa-2x fa-youtube-square' />
-                      </a><br/>
-                      <a style={{color:'#fff'}}
-                        onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
-                      </a>
-                    </div>
-                    </Col>
-                  </Row> */}
                 </div>
               </Col>
             </Row>
@@ -1071,16 +1072,13 @@ class App extends Component {
                 }
               </Col>
             </Row> */}
-            <Row>
-              {/* <Col md={10}>
-              </Col> */}
+            {/* <Row>
               <Col md={12}>
                 <div className='pull-right' style={{ marginRight: 10 }}>
                 <a href='https://twitter.com/waterlabel/'
                    target='_blank'
                    style={{
                      padding: '10px 5px 0 0',
-                    //  color: '#fff',
                    }}>
                   <i className='fa fa-2x fa-twitter-square' />
                 </a>
@@ -1089,7 +1087,6 @@ class App extends Component {
                   target='_blank'
                   style={{
                     padding: '10px 5px 0 0',
-                    // color: '#fff',
                   }}>
                   <i
                     className='fa fa-2x fa-facebook-square' />
@@ -1098,7 +1095,6 @@ class App extends Component {
                    target='_blank'
                    style={{
                      padding: '10px 0px 0 0',
-                    //  color: '#fff',
                    }}>
                   <i className='fa fa-2x fa-youtube-square' />
                 </a><br/>
@@ -1107,7 +1103,7 @@ class App extends Component {
                 </a>
               </div>
               </Col>
-            </Row>
+            </Row> */}
           </Grid>
         </div>
 

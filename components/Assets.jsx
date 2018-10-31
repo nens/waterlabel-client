@@ -321,7 +321,7 @@ class Assets extends Component {
     console.log('totalArea',totalArea);
 
     return (
-        <div className={"form-group " + styles.Assets}style={{marginTop: '24px'}}>
+        <div className={"form-group " + styles.Assets}style={{marginTop: '-4px'}}>
           {
             this.props.editMode 
             ?
