@@ -9,6 +9,7 @@ import algemeen02 from '../images/algemeen02.png';
 
 import Calculator from './Calculator';
 import Tabs from './Tabs';
+import Assets from './Assets';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
 import InteractiveCalculator from './InteractiveCalculator';
@@ -40,6 +41,7 @@ class App extends Component {
       showIntro: false,
       showMap: false,
       showPrivacyText: false,
+      editMode: false,
     };
     this.closeAboutText = this.closeAboutText.bind(this);
     this.closeCalculator = this.closeCalculator.bind(this);
@@ -538,37 +540,126 @@ class App extends Component {
                         </div>
                       </Col> */}
                     </Row>
-                    <Row>
+                    <Row style={{marginTop: 10 }}>
                       <Col md={6} sm={12} xs={12}>
                         <div className='form-group'>
                           {/* <ButtonGroup style={{ marginTop: 10 }}> */}
                             <Button
-                              style={{ marginTop: 10 , width:'100%'}}
+                              style={{ width:'100%'}}
                               // disabled={(postcode.isFetching) ? true : false}
                               bsStyle='info'
-                              onClick={() => dispatch(clearSelectedObject())}
+                              onClick={() => 
+                                {
+                                  this.setState({editMode:false})
+                                  dispatch(clearSelectedObject())}
+                                }
                               bsSize='lg'>
                               <i className='fa fa-edit' />&nbsp; Ander adres
                             </Button>
                           {/* </ButtonGroup> */}
                         </div>
                       </Col>
+                      {! this.state.editMode ?
+                      <div>
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                          {/* <ButtonGroup> */}
+                            <Button
+                              style={{width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => this.setState({editMode:true})}
+                              bsSize='lg'>
+                              <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                          {/* <ButtonGroup> */}
+                            <Button
+                              style={{width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              // onClick={() => this.setState({editMode:false})}
+                              bsSize='lg'>
+                              <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      </div>
+                      :
+
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                            <Button
+                              style={{width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => this.setState({editMode:false})}
+                              bsSize='lg'>
+                              <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      }
                     </Row>
+                    {
+            !this.state.editMode 
+            ?
+          <Row>
+            
+                  
+            
+            {/* <Col md={6} sm={12} xs={12} >
+              <div className='form-group'>
+                  <Button
+                    style={{width:'100%'}}
+                    // disabled={(postcode.isFetching) ? true : false}
+                    bsStyle='info'
+                    // onClick={() => this.setState({editMode:false})}
+                    bsSize='lg'>
+                    <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
+                  </Button>
+              </div>
+            </Col> */}
+          </Row>
+          :
+          <Row>
+            {/* <Col md={6} sm={12} xs={12} >
+              <div className='form-group'>
+                  <Button
+                    style={{width:'100%'}}
+                    // disabled={(postcode.isFetching) ? true : false}
+                    bsStyle='info'
+                    onClick={() => this.setState({editMode:false})}
+                    bsSize='lg'>
+                    <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                  </Button>
+              </div>
+            </Col> */}
+            
+          </Row>
+          }
                   </div>
                   :
                   ''
                   }
+                 
 
                   { postcode.selectedObject 
                   ? 
                   <div>
                     <div className={"form-group " +  styles.FoundAddress} >
-                      <Row>
+                      {/* <Row>
                         <Col md={12}>
                           <hr style={{marginTop: '5px'}}/>
-                          {/* height: 12px; border: 0; box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5); */}
                         </Col>
-                      </Row>
+                      </Row> */}
                       <Row>
                         <Col md={12}>
                         {/* <span style={{fontSize: 'larger'}}>Mijn gegevens: </span> */}
@@ -576,7 +667,9 @@ class App extends Component {
                         </Col>
                       </Row>
                     </div>
-                    <Tabs></Tabs>
+                    <Tabs
+                      drawAssets={selectedTab=>{return <Assets selectedTab={selectedTab} editMode={this.state.editMode}/>}}
+                    ></Tabs>
                   </div>
 
                   :

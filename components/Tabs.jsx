@@ -59,7 +59,8 @@ class Tabs extends Component {
           </ul>
         </Col>
       </Row>
-      <Assets selectedTab={this.state.selectedTab}/>
+      {/* <Assets selectedTab={this.state.selectedTab}/> */}
+      {this.props.drawAssets(this.state.selectedTab)}
       </div>
     );
   }
