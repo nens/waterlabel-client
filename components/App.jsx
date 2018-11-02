@@ -494,16 +494,287 @@ class App extends Component {
                               <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
                           </Col>
                         </Row>
-                      <Row>
-                        <Col md={12}>
-                            <span>{selectedObject.postalcode}</span>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={12}>
-                            <span>{selectedObject.city}</span>
-                        </Col>
-                      </Row>
+                        <Row>
+                          <Col md={12}>
+                              <span>{selectedObject.postalcode}</span>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md={12}>
+                              <span>{selectedObject.city}</span>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col md={6} sm={6} xs={6}>
+                        <table
+                            // className={`table-striped ${styles.ObjectPropertiesTable}`}
+                            className={`${styles.ObjectPropertiesTable}`}
+                            >
+                          <tbody>
+                            <tr>
+                              <td style={{ verticalAlign: 'top' }}>Label Opslag Water: </td>
+                              <td className='waterlabel'>
+                                <OverlayTrigger
+                                  trigger='click'
+                                  placement='bottom'
+                                  rootClose
+                                  overlay={
+                                  <Popover id='waterlabel' title='Legenda'>
+                                    <img
+                                      style={{
+                                        width: 125,
+                                        padding: 15,
+                                        cursor: 'pointer',
+                                      }}
+                                      src={algemeen02} />
+                                  </Popover>
+                                }>
+                                  <svg
+                                    className={svgStyle()}
+                                    width='48.5'
+                                    height='17'>
+                                    <polygon
+                                      points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                                    <text
+                                      style={{ 'fill': 'white' }}
+                                      x='2'
+                                      y='13'>
+                                      {(postcode.selectedObject.properties.labelcode_last) ? postcode.selectedObject.properties.labelcode_last : '?'}
+                                    </text>
+                                  </svg>
+                                </OverlayTrigger>
+                                {(postcode.selectedObject &&
+                                  postcode.labelHistory.length > 0) ?
+                                  <div>
+                                    {postcode.labelHistory.map((label, i) => {
+                                      return <div key={i}>
+                                              <svg
+                                                className={
+                                                  this.historicalSvgStyle(label.fields.code)
+                                                }
+                                                width='48.5'
+                                                height='17'>
+                                                <polygon
+                                                  points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                                                  <text
+                                                    style={{ 'fill': 'white' }}
+                                                    x='2'
+                                                    y='13'>
+                                                    {label.fields.code}
+                                                  </text>
+                                              </svg>
+                                              <span style={{
+                                                verticalAlign: 5,
+                                                fontSize: '0.8em',
+                                                paddingLeft: 5,
+                                              }}>
+                                                {moment(label.fields.timestamp).locale('nl').format('LL')}
+                                              </span>
+                                            </div>;
+                                    })}
+                                  </div>
+                                  :
+                                  <Button
+                                    bsSize='xsmall'
+                                    className='pull-right'
+                                    onClick={this.handleShowHistory}>
+                                    Toon oude labels
+                                  </Button>
+                                }
+                              </td>
+                            </tr>
+                            {/* <tr>
+                              <td>
+                                <a style={{fontSize:'normal'}}>
+                                  Toon overige Labels
+                                </a>
+                              </td>
+                            </tr> */}
+                            </tbody>
+                          </table>
+                          <a style={{fontSize:'initial'}}>
+                            Toon overige Labels
+                          </a>
+                      </Col>
+                      <Col md={6} sm={6} xs={6} style={{display:'none'}}>
+                        <span className={styles.Label}>
+                          {postcode.selectedObject.properties.labelcode_last}
+                        </span>
+                        <ol className={calculatorStyles.labels}>
+                          <li>
+                            <svg className={calculatorStyles.labelA}
+                                width='108.5'
+                                height='17'>
+                              <polygon
+                                points='0,0 100,0 108.5,8.5 100,17 0,17' />
+                              <text
+                                style={{ 'fill': 'white' }}
+                                x='2'
+                                y='13'>A
+                              </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'A') ?
+                            <svg
+                              className={calculatorStyles.labelA}
+                              width='48.5'
+                              height='17'>
+                              <text style={{ 'fill': 'black' }}
+                                    x='10'
+                                    y='13'>&larr;
+                              </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelB}
+                              width='98.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 90,0 98.5,8.5 90,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>B
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'B') ?
+                            <svg
+                              className={calculatorStyles.labelB}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelC}
+                              width='88.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 80,0 88.5,8.5 80,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>C
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'C') ?
+                            <svg
+                              className={calculatorStyles.labelC}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelD}
+                              width='78.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 70,0 78.5,8.5 70,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>D
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'D') ?
+                            <svg
+                              className={calculatorStyles.labelD}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelE}
+                              width='68.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 60,0 68.5,8.5 60,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>E
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'E') ?
+                            <svg
+                              className={calculatorStyles.labelE}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelF}
+                              width='58.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 50,0 58.5,8.5 50,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>F
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'F') ?
+                            <svg
+                              className={calculatorStyles.labelF}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelG}
+                              width='48.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>G
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'G') ?
+                            <svg
+                              className={calculatorStyles.labelG}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                        </ol>
                       </Col>
                     </Row>
                     <Row style={{marginTop: 10 }}>
