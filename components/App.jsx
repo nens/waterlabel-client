@@ -320,12 +320,6 @@ class App extends Component {
       <div className="height-hundred-percent">
         <div className="height-hundred-percent">
           <Grid className={styles.BackgroundColor + ' ' + "height-hundred-percent"}>
-            {/* <Row>
-              <Col md={12}>
-                <h2 />
-              </Col>
-            </Row> */}
-           
             <Row> 
               <Col md={12}>
 
@@ -335,19 +329,6 @@ class App extends Component {
                   <Row>
                     <Col md={12} sm={12} xs={12}>
                       <h1>Label opslag water&nbsp;</h1>
-                      {/* <ul className='list-inline'>
-                        <li>
-                          <a className={styles.InlineLink}
-                             onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
-                          </a>
-                        </li>
-                        <li>&nbsp;</li>
-                        <li>
-                          <a className={styles.InlineLink}
-                             onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
-                          </a>
-                        </li>
-                      </ul> */}
                     </Col>
                   </Row>
                   <Row>
@@ -357,7 +338,6 @@ class App extends Component {
                         target='_blank'
                         style={{
                           padding: '10px 5px 0 0',
-                          //  color: '#fff',
                         }}>
                         <i className='fa fa-2x fa-twitter-square' />
                       </a>
@@ -366,7 +346,6 @@ class App extends Component {
                         target='_blank'
                         style={{
                           padding: '10px 5px 0 0',
-                          // color: '#fff',
                         }}>
                         <i
                           className='fa fa-2x fa-facebook-square' />
@@ -375,7 +354,6 @@ class App extends Component {
                         target='_blank'
                         style={{
                           padding: '10px 0px 0 0',
-                          //  color: '#fff',
                         }}>
                         <i className='fa fa-2x fa-youtube-square' />
                       </a><br/>
@@ -388,7 +366,6 @@ class App extends Component {
                   
                   {/* <Row>
                     <Col md={12}>
-                
                         <p>
                           Uw Waterlabel geeft aan hoeveel regenwater 
                           uw woning vasthoudt. <br/>
@@ -418,19 +395,11 @@ class App extends Component {
                     <Row>
                       <Col md={12}>
                       <h2>
-                        {/* Bereken uw Waterlabel: */}
                         Mijn label
                       </h2>
                     </Col>
                   </Row>
-                  {/* { selectedObject 
-                  { ! postcode.selectedObject
-                  ? */}
                   <div style={ postcode.selectedObject ? {display: 'none'} : {} }>
-                    {/* <Row>
-                      <Col md={12}><br/></Col>
-                    </Row> */}
-                  
                     <Row>
                       <Col md={6}>
                         <Row>
@@ -450,7 +419,6 @@ class App extends Component {
                               />
                             </div>
                           </Col>
-                          
                           <Col md={5} sd={5} xs={7}>
                             <div className='form-group'>
                               <label htmlFor='huisnummer'>Huisnummer</label>
@@ -479,7 +447,6 @@ class App extends Component {
                               />
                             </div>
                           </Col>
-                          
                         </Row>
                         <Row>
                           <Col md={12}>
@@ -499,29 +466,7 @@ class App extends Component {
                               </div>
                             </Col>
                           </Row>
-                        {/* <Row>
-                          <Col md={12}>
-                            <div className='form-group'>
-                                <Button
-                                  style={{ marginTop: 0, width: '100%' }}
-                                  disabled={(postcode.isFetching) ? true : false}
-                                  bsStyle='info'
-                                  onClick={this.handleSearchButton}
-                                  bsSize='lg'>
-                                  <i className='fa fa-search' />&nbsp;
-                                  {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
-                                </Button>
-                            </div>
-                          </Col>
-                        </Row> */}
                       </Col>
-                      {/* <Col md={6}>
-                        <div className='embed-responsive embed-responsive-16by9'>
-                          <iframe
-                            className='embed-responsive-item'
-                            src='https://www.youtube.com/embed/jARteOPf_aI' />
-                        </div>
-                      </Col> */}
                     </Row>
                     <Row>
                       <Col md={6} sm={12} xs={12} >
@@ -542,11 +487,6 @@ class App extends Component {
                   { postcode.selectedObject 
                   ? 
                   <div className={"form-group " +  styles.FoundAddress} >
-                    {/* <Row>
-                      <Col md={12}>
-                      <span style={{fontSize: 'larger'}}>Uw adres: </span>
-                      </Col>
-                    </Row> */}
                     <Row style={{marginTop: "10px"}}>
                       <Col md={6} sm={6} xs={6} >
                         <Row>
@@ -558,56 +498,13 @@ class App extends Component {
                         <Col md={12}>
                             <span>{selectedObject.postalcode}</span>
                         </Col>
-                        {/* <Col md={8}>
-                          <Row>
-                            <Col md={6}>
-                                <div style={{color:'#fff'}}>{selectedObject.postalcode}</div>
-                            </Col>
-                            <Col md={6}>
-                                <div style={{color:'#fff'}}>{selectedObject.city}</div>
-                            </Col>
-                          </Row>
-                        </Col> */}
                       </Row>
                       <Row>
                         <Col md={12}>
                             <span>{selectedObject.city}</span>
                         </Col>
                       </Row>
-                      {/* <Row style={{marginTop: "10px"}}> */}
-                        {/* <Col md={12}>
-                          <div className={styles.ChangeButton}>
-                            <i onClick={() => dispatch(clearSelectedObject())} style={{color:'#fff'}}>wijzig adres</i>
-                          </div>
-                        </Col> */}
-                        {/* <Col md={12}>
-                            <div className='form-group'>
-                              <ButtonGroup style={{ marginTop: 10 }}>
-                                <Button
-                                  // disabled={(postcode.isFetching) ? true : false}
-                                  bsStyle='info'
-                                  onClick={() => dispatch(clearSelectedObject())}
-                                  bsSize='lg'>
-                                  <i className='fa fa-edit' />&nbsp; Wijzig adres
-                                </Button>
-                              </ButtonGroup>
-                            </div>
-                          </Col> */}
-                        {/* </Row> */}
                       </Col>
-                      {/* <Col md={6} sm={6} xs={6}>
-                        <div className='form-group'>
-                          <ButtonGroup style={{ marginTop: 10 }}>
-                            <Button
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={() => dispatch(clearSelectedObject())}
-                              bsSize='lg'>
-                              <i className='fa fa-edit' />&nbsp; Ander adres
-                            </Button>
-                          </ButtonGroup>
-                        </div>
-                      </Col> */}
                     </Row>
                     <Row style={{marginTop: 10 }}>
                       <Col md={6} sm={12} xs={12}>
@@ -682,23 +579,7 @@ class App extends Component {
                     {
             !this.state.editMode 
             ?
-          <Row>
-            
-                  
-            
-            {/* <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%'}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    // onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
-                  </Button>
-              </div>
-            </Col> */}
-          </Row>
+          ''
           :
           <Row>
             {/* <Col md={6} sm={12} xs={12} >
@@ -726,14 +607,8 @@ class App extends Component {
                   ? 
                   <div>
                     <div className={"form-group " +  styles.FoundAddress} >
-                      {/* <Row>
-                        <Col md={12}>
-                          <hr style={{marginTop: '5px'}}/>
-                        </Col>
-                      </Row> */}
                       <Row>
                         <Col md={12}>
-                        {/* <span style={{fontSize: 'larger'}}>Mijn gegevens: </span> */}
                         <h2>Mijn gegevens: </h2>
                         </Col>
                       </Row>
@@ -1106,42 +981,11 @@ class App extends Component {
                 }
               </Col>
             </Row> */}
-            {/* <Row>
-              <Col md={12}>
-                <div className='pull-right' style={{ marginRight: 10 }}>
-                <a href='https://twitter.com/waterlabel/'
-                   target='_blank'
-                   style={{
-                     padding: '10px 5px 0 0',
-                   }}>
-                  <i className='fa fa-2x fa-twitter-square' />
-                </a>
-                <a
-                  href='https://www.facebook.com/Waterlabel-421181284911824/'
-                  target='_blank'
-                  style={{
-                    padding: '10px 5px 0 0',
-                  }}>
-                  <i
-                    className='fa fa-2x fa-facebook-square' />
-                </a>
-                <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
-                   target='_blank'
-                   style={{
-                     padding: '10px 0px 0 0',
-                   }}>
-                  <i className='fa fa-2x fa-youtube-square' />
-                </a><br/>
-                <a
-                   onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
-                </a>
-              </div>
-              </Col>
-            </Row> */}
+            
           </Grid>
         </div>
 
-        {/* <Modal
+        <Modal
           show={this.state.showCalculator}
           onHide={this.closeCalculator}
           dialogClassName={styles.WideModal}>
@@ -1344,7 +1188,7 @@ class App extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        */}
+       
       </div>
     );
   }
