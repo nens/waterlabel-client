@@ -97,6 +97,7 @@ class Assets extends Component {
     if (this.props.selectedTab==='dak') {
       return (
         <div>
+        { e.type==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
         { this.createAreaRow(e,i) }
         { this.createStorageRow( e,i)}
         { this.createDrainageRow( e,i)}
@@ -105,6 +106,7 @@ class Assets extends Component {
     } else if (this.props.selectedTab==='terrein') {
       return (
       <div>
+      { e.type==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
       { this.createAreaRow(e,i) }
       { this.createInfiltrationRow(e,i)}
       { this.createStorageRow( e,i)}
@@ -113,12 +115,40 @@ class Assets extends Component {
     } else { // selectedTab === extra
       return (
       <div>
+      { e.type==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
       { this.createInfiltrationRow(e,i)}
       { this.createStorageRow( e,i)}
       </div>
       )
     }
     
+  }
+
+  createFreeTextRow (e,i) {
+    return (
+      <Row>
+        <Col md={4} sm={12} xs={12}>
+          <label >
+            Naam van nieuw type: 
+          </label>
+        </Col>
+          
+        <Col md={4} sm={12} xs={12}>
+          <input 
+            value={e.customName} 
+            className="form-control"
+            onChange={(e) => {
+              let tmpAssets = this.state.assets;
+              tmpAssets[i].customName = e.target.value || '';
+              this.setState({assets: tmpAssets})
+            }}
+            readOnly={!this.props.editMode}
+            disabled={!this.props.editMode}
+            placeholder={"beschrijf hier uw voorziening"}
+          />
+        </Col>
+      </Row>
+    );
   }
 
   createAreaRow (e,i) {
@@ -165,8 +195,8 @@ class Assets extends Component {
               tmpAssets[i].infiltration = parseInt(e.target.value) || '';
               this.setState({assets: tmpAssets})
             }}
-            readOnly={!this.props.editMode}
-            disabled={!this.props.editMode}
+            readOnly={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
+            disabled={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
           />
         </Col>
       </Row>
@@ -196,8 +226,8 @@ class Assets extends Component {
                   this.setState({assets : tmpAssets})
                 }
               }}
-              readOnly={!this.props.editMode}
-              disabled={!this.props.editMode}
+              readOnly={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
+              disabled={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
             />
             </Col>
           </Row>
@@ -299,7 +329,16 @@ class Assets extends Component {
               :
               ''
               }
-              <h4 style={{display: 'inline-block', marginTop:'5px'}}>{e.type}</h4>
+              <h4 style={{display: 'inline-block', marginTop:'5px'}}>
+                {
+                e.type==='Voeg nieuw type toe' ? 
+                "Nieuw type"
+                :
+                e.type
+                }
+              </h4>
+              
+              
             </Col>
           </Row>
           {/* Should area show -> not for type extra */}
