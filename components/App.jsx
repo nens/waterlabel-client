@@ -488,7 +488,7 @@ class App extends Component {
                   ? 
                   <div className={"form-group " +  styles.FoundAddress} >
                     <Row style={{marginTop: "10px"}}>
-                      <Col md={6} sm={6} xs={6} >
+                      <Col md={6} sm={12} xs={12} >
                         <Row>
                           <Col md={12}>
                               <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
@@ -505,7 +505,7 @@ class App extends Component {
                           </Col>
                         </Row>
                       </Col>
-                      <Col md={6} sm={6} xs={6}>
+                      <Col md={6} sm={12} xs={12}>
                         <table
                             // className={`table-striped ${styles.ObjectPropertiesTable}`}
                             className={`${styles.ObjectPropertiesTable}`}
