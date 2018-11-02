@@ -419,7 +419,7 @@ class App extends Component {
                       <Col md={12}>
                       <h2>
                         {/* Bereken uw Waterlabel: */}
-                        Mijn Waterlabel
+                        Mijn label
                       </h2>
                     </Col>
                   </Row>
@@ -450,7 +450,8 @@ class App extends Component {
                               />
                             </div>
                           </Col>
-                          <Col md={4}>
+                          
+                          <Col md={5} sd={5} xs={7}>
                             <div className='form-group'>
                               <label htmlFor='huisnummer'>Huisnummer</label>
                               <input
@@ -464,7 +465,40 @@ class App extends Component {
                               />
                             </div>
                           </Col>
+                          <Col md={3} sd={3} xs={5}>
+                            <div className='form-group'>
+                              <label htmlFor='toevoeging'>Toevoeging</label>
+                              <input
+                                ref='toevoeging'
+                                onKeyPress={this.handleKeyPress}
+                                id='toevoeging'
+                                type='text'
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.housenumber : 'BIJV. A'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                          
                         </Row>
+                        <Row>
+                          <Col md={12}>
+                              <div className='form-group'>
+                                <label htmlFor='straatnaam'>Straatnaam</label>
+                                <input
+                                  ref='straatnaam'
+                                  onKeyPress={this.handleKeyPress}
+                                  id='straatnaam'
+                                  type='text'
+                                  maxLength='6'
+                                  style={{ textTransform: 'uppercase' }}
+                                  placeholder={(postcode.selectedObject) ?
+                                    postcode.selectedObject.properties.streetname : 'bijv. Dorpstraat'}
+                                  className='form-control input-lg'
+                                />
+                              </div>
+                            </Col>
+                          </Row>
                         {/* <Row>
                           <Col md={12}>
                             <div className='form-group'>
@@ -606,7 +640,7 @@ class App extends Component {
                               bsStyle='info'
                               // onClick={() => this.setState({editMode:false})}
                               bsSize='lg'>
-                              <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
+                              <i className='fa fa-print' />&nbsp;Label Afdrukken
                             </Button>
                           {/* </ButtonGroup> */}
                         </div>
