@@ -332,7 +332,22 @@ class App extends Component {
                     </Col>
                   </Row>
                   <Row>
-                    <Col md={12}>
+                    <Col md={6} sm={12} xs={12}>
+                        <ul className='list-inline'>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
+                            </a>
+                          </li>
+                          {/* <li>&nbsp;</li>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
+                            </a>
+                          </li> */}
+                        </ul>
+                      </Col>
+                    <Col md={6} sm={12} xs={12}>
                       <div className='pull-right' style={{ marginRight: 10 }}>
                       <a href='https://twitter.com/waterlabel/'
                         target='_blank'
@@ -375,23 +390,23 @@ class App extends Component {
                         </p>
                      </Col>
                     </Row> */}
-                    <Row style={{marginTop:'10px'}}>
+                    {/* <Row style={{marginTop:'10px'}}>
                       <Col md={12} sm={12} xs={12}>
                         <ul className='list-inline'>
                           <li>
                             <a className={styles.InlineLink}
-                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
+                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
                             </a>
                           </li>
-                          {/* <li>&nbsp;</li>
+                          <li>&nbsp;</li>
                           <li>
                             <a className={styles.InlineLink}
                               onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
                             </a>
-                          </li> */}
+                          </li>
                         </ul>
                       </Col>
-                    </Row>
+                    </Row> */}
                     <Row>
                       <Col md={12}>
                       <h2>
@@ -1287,7 +1302,7 @@ class App extends Component {
           onHide={this.closeAboutText}
           dialogClassName={styles.WideModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Over Waterlabel</Modal.Title>
+            <Modal.Title>Over label Opslag Water</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AboutText />
