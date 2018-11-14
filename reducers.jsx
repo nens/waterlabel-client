@@ -2,6 +2,7 @@ import undoable, { distinctState } from 'redux-undo';
 import { combineReducers } from 'redux';
 import centroid from 'turf-centroid';
 import geojsonArea from '@mapbox/geojson-area';
+import {assetTypes} from './reducers_asset_types'
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
@@ -163,24 +164,7 @@ function addressSearchResults( state = {
   }
 }
 
-function assetTypes(state={
-  fetchingState: 'NOT_SEND', // NOT_SEND FETCHING RECEIVED
-  assets: [],
-}, action) {
-  switch (action.type) {
-    case FETCH_ASSET_TYPES:
-      return Object.assign({}, state, {
-        fetchingState: 'FETCHING'
-      });
-    case RECEIVE_ASSET_TYPES:
-      return Object.assign({}, state, {
-        fetchingState: 'RECEIVED',
-        assets: action.data,
-      });
-    default:
-      return state;
-  }
-}
+
 
 function postcode(state = {
   isFetching: false,
