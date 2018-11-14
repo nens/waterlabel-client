@@ -2,7 +2,8 @@ import undoable, { distinctState } from 'redux-undo';
 import { combineReducers } from 'redux';
 import centroid from 'turf-centroid';
 import geojsonArea from '@mapbox/geojson-area';
-import {assetTypes} from './reducers_asset_types'
+import {assetTypes} from './reducers_asset_types';
+import {addressSearchTerms} from './reducers_address_search_terms'
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
@@ -84,33 +85,7 @@ function choropleth(state = {
   }
 }
 
-function addressSearchTerms ( state = {
-  postcode: '',
-  number: '',
-  street: '',
-  city: '',
-}, action) {
-  switch (action.type) {
-    case SET_POSTCODE_QUERY:
-      return Object.assign({}, state, {
-        postcode: action.data,
-      });
-    case SET_NUMBER_QUERY:
-      return Object.assign({}, state, {
-        number: action.data,
-      });
-    case SET_STREET_QUERY:
-      return Object.assign({}, state, {
-        street: action.data,
-      });
-    case SET_CITY_QUERY:
-      return Object.assign({}, state, {
-        city: action.data,
-      });
-    default:
-      return state;
-  }
-}
+
 
 function addressSearchResults( state = {
     isFetching: false,
@@ -247,6 +222,7 @@ const rootReducer = combineReducers({
   choropleth,
   postcode,
   assetTypes,
+  addressSearchTerms,
 });
 
 export default rootReducer;

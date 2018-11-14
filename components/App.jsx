@@ -1495,6 +1495,8 @@ function mapStateToProps(state) {
     choropleth: state.choropleth,
     postcode: state.postcode,
     calculator: state.calculator.present,
+    assetTypes: state.assetTypes,
+    addressSearchTerms: state.addressSearchTerms,
   };
 }
 

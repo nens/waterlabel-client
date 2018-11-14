@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import {
   FETCH_ASSET_TYPES,
   RECEIVE_ASSET_TYPES,
