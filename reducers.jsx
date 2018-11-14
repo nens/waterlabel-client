@@ -15,7 +15,24 @@ import {
   RECEIVE_HISTORY,
   REQUEST_HISTORY,
   SET_MAP_LOCATION,
+
+  SET_POSTCODE_QUERY,
+  SET_NUMBER_QUERY,
+  SET_STREET_QUERY,
+  SET_CITY_QUERY,
+
+  REQUEST_BUILDINGS,
+  RECEIVE_BUILDINGS,
+  DISMISS_NO_BUILDINGS_FOUND,
+  SELECT_ADDRESS_FROM_RESULTS,
+  RESET_ADDRESS_QUERY,
+  RESET_SELECTED_ADDRESS,
 } from './actions.jsx';
+
+import {
+  FETCH_ASSET_TYPES,
+  RECEIVE_ASSET_TYPES,
+} from './actions_asset_types.jsx'
 
 function calculator(state = {
   label: undefined,
@@ -66,8 +83,108 @@ function choropleth(state = {
   }
 }
 
+function addressSearchTerms ( state = {
+  postcode: '',
+  number: '',
+  street: '',
+  city: '',
+}, action) {
+  switch (action.type) {
+    case SET_POSTCODE_QUERY:
+      return Object.assign({}, state, {
+        postcode: action.data,
+      });
+    case SET_NUMBER_QUERY:
+      return Object.assign({}, state, {
+        number: action.data,
+      });
+    case SET_STREET_QUERY:
+      return Object.assign({}, state, {
+        street: action.data,
+      });
+    case SET_CITY_QUERY:
+      return Object.assign({}, state, {
+        city: action.data,
+      });
+    default:
+      return state;
+  }
+}
+
+function addressSearchResults( state = {
+    isFetching: false,
+    // hasFetched should be marked true if isFetching returns to false.
+    // in case allresults is empty and hasFetched is true -> show popup no results found
+    // when dismiss popup hasFatched becomes false again
+    hasFetched: false,  
+    allResults: [],
+    selectedResult: null,
+  }, action) {
+  switch (action.type) {
+    case REQUEST_BUILDINGS:
+      return Object.assign({}, state, {
+        isFetching: true,
+      });
+    case RECEIVE_BUILDINGS:
+      // only update state if it was actually fetching.
+      // this might not be the case if the user used the back button after a fetch
+      if (state.isFetching) {
+        return Object.assign({}, state, {
+          allResults: action.data,
+          isFetching: false,
+          hasFetched: true,
+        });
+      } 
+      else {
+        return state;
+      }
+     
+    case DISMISS_NO_BUILDINGS_FOUND:
+      return Object.assign({}, state, {
+        hasFetched: false,
+      });
+    case SELECT_ADDRESS_FROM_RESULTS:
+      return Object.assign({}, state, {
+        selectedResult: action.data,
+      });
+    case RESET_ADDRESS_QUERY:
+      return Object.assign({}, state, {
+        allResults: [],
+        isFetching: false,
+        hasFetched: false,
+      });
+    case RESET_SELECTED_ADDRESS:
+      return Object.assign({}, state, {
+        selectedResult: null,
+      });
+      
+    default:
+      return state;
+  }
+}
+
+function assetTypes(state={
+  fetchingState: 'NOT_SEND', // NOT_SEND FETCHING RECEIVED
+  assets: [],
+}, action) {
+  switch (action.type) {
+    case FETCH_ASSET_TYPES:
+      return Object.assign({}, state, {
+        fetchingState: 'FETCHING'
+      });
+    case RECEIVE_ASSET_TYPES:
+      return Object.assign({}, state, {
+        fetchingState: 'RECEIVED',
+        assets: action.data,
+      });
+    default:
+      return state;
+  }
+}
+
 function postcode(state = {
   isFetching: false,
+  foundObjects: undefined,
   selectedObject: undefined,
   maplocation: undefined,
   labelHistory: [],
@@ -76,6 +193,7 @@ function postcode(state = {
   case CLEAR_SELECTED_OBJECT:
     return Object.assign({}, state, {
       selectedObject: undefined,
+      foundObjects: undefined,
       maplocation: undefined,
       labelHistory: [],
     });
@@ -120,8 +238,10 @@ function postcode(state = {
   case RECEIVE_POSTCODE:
     const center = centroid(action.data.features[0].geometry);
     const sqm = Math.round(geojsonArea.geometry(action.data.features[0].geometry));
+    const houseAddresses = []
     return Object.assign({}, state, {
       isFetching: false,
+      foundObjects: action.results,
       selectedObject: action.data.features[0],
       maplocation: {
         lat: center.geometry.coordinates[0],
@@ -142,6 +262,7 @@ const rootReducer = combineReducers({
   }),
   choropleth,
   postcode,
+  assetTypes,
 });
 
 export default rootReducer;

@@ -22,13 +22,16 @@ import selectedObjectStyles from './SelectedObjectDetails.css';
 import styles from './App.css';
 import WaterlabelMap from './WaterlabelMap';
 require('!style!css!../node_modules/sweetalert/dist/sweetalert.css');
-
 import {
   clearSelectedObject,
   fetchHistory,
   lookupPostcode,
   radiusSearch,
 } from '../actions';
+import {
+  fetchAssetTypes,
+  receiveAssetTypes,
+} from '../actions_asset_types';
 
 class App extends Component {
 
@@ -70,6 +73,8 @@ class App extends Component {
     window.addEventListener('load', this.parseLocationString);
     window.addEventListener('hashchange', this.parseLocationString);
     window.addEventListener('keydown', this.handleKeyDown);
+    this.props.dispatch(fetchAssetTypes())
+
   }
 
   componentWillReceiveProps(props) {
