@@ -10,6 +10,7 @@ import algemeen02 from '../images/algemeen02.png';
 import Calculator from './Calculator';
 import Tabs from './Tabs';
 import Assets from './Assets';
+import AddressListPicker from './AddressListPicker';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
 import InteractiveCalculator from './InteractiveCalculator';
@@ -543,6 +544,18 @@ class App extends Component {
                       </Col>
                     </Row>
                   </div>
+                  {
+                    this.props.addressSearchResults.allResultAddresses.length > 1 &&
+                    ! this.props.addressSearchResults.selectedResult
+                    ?
+                    <AddressListPicker 
+                      addresses={this.props.addressSearchResults.allResultAddresses}
+                      onClick={selected=>this.props.dispatch( selectAddressFromResults(selected))}
+                    ></AddressListPicker>
+                    :
+                    ''
+                  }
+                  
                   { postcode.selectedObject 
                   ? 
                   <div className={"form-group " +  styles.FoundAddress} >
@@ -1536,6 +1549,7 @@ function mapStateToProps(state) {
     calculator: state.calculator.present,
     assetTypes: state.assetTypes,
     addressSearchTerms: state.addressSearchTerms,
+    addressSearchResults: state.addressSearchResults,
   };
 }
 

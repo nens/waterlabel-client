@@ -43,6 +43,7 @@ export function dismissNoBuildingsFound() {
   }
 }
 export function selectAddressFromResults(selection) {
+  console.log('selectAddressFromResults');
   return {
     type: SELECT_ADDRESS_FROM_RESULTS,
     data: selection

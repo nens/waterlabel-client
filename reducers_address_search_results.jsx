@@ -14,6 +14,7 @@ export function addressSearchResults( state = {
   // when dismiss popup hasFatched becomes false again
   hasFetched: false,  
   allResults: [],
+  allResultAddresses: [],
   selectedResult: null,
 }, action) {
 switch (action.type) {
@@ -26,12 +27,13 @@ switch (action.type) {
     // this might not be the case if the user used the back button after a fetch
     if (state.isFetching) {
       // see if there is only one result and if this is the case set it as selected reslult
-      // first flatten array from [{houseadresses:[]}]
-      const houses = [].concat(...action.data.map(e=>e.houseaddresses));
-      const selectedResult = houses.length===1 ? houses[0] : undefined;
-      console.log('houses',houses);
+      // first flatten array from [{houseadresses:[adres1, adres2]}] -> [adres1, adres2]
+      const houseAddressArrays = action.data.map(e=>e.houseaddresses);
+      const allResultAddresses = [].concat(...houseAddressArrays);
+      const selectedResult = allResultAddresses.length===1 ? allResultAddresses[0] : undefined;
       return Object.assign({}, state, {
         allResults: action.data,
+        allResultAddresses: allResultAddresses,
         selectedResult: selectedResult,
         isFetching: false,
         hasFetched: true,
@@ -46,12 +48,14 @@ switch (action.type) {
       hasFetched: false,
     });
   case SELECT_ADDRESS_FROM_RESULTS:
+    console.log(SELECT_ADDRESS_FROM_RESULTS);
     return Object.assign({}, state, {
       selectedResult: action.data,
     });
   case RESET_ADDRESS_QUERY:
     return Object.assign({}, state, {
       allResults: [],
+      allResultAddresses: [],
       isFetching: false,
       hasFetched: false,
     });
