@@ -3,7 +3,8 @@ import { combineReducers } from 'redux';
 import centroid from 'turf-centroid';
 import geojsonArea from '@mapbox/geojson-area';
 import {assetTypes} from './reducers_asset_types';
-import {addressSearchTerms} from './reducers_address_search_terms'
+import {addressSearchTerms} from './reducers_address_search_terms';
+import { addressSearchResults } from './reducers_address_search_results';
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
@@ -18,17 +19,12 @@ import {
   REQUEST_HISTORY,
   SET_MAP_LOCATION,
 
-  REQUEST_BUILDINGS,
-  RECEIVE_BUILDINGS,
-  DISMISS_NO_BUILDINGS_FOUND,
-  SELECT_ADDRESS_FROM_RESULTS,
-  RESET_ADDRESS_QUERY,
-  RESET_SELECTED_ADDRESS,
+  
 } from './actions.jsx';
 import {
   FETCH_ASSET_TYPES,
   RECEIVE_ASSET_TYPES,
-} from './actions_asset_types.jsx'
+} from './actions_asset_types.jsx';
 import {
   SET_POSTCODE_QUERY,
   SET_NUMBER_QUERY,
@@ -87,57 +83,6 @@ function choropleth(state = {
 
 
 
-function addressSearchResults( state = {
-    isFetching: false,
-    // hasFetched should be marked true if isFetching returns to false.
-    // in case allresults is empty and hasFetched is true -> show popup no results found
-    // when dismiss popup hasFatched becomes false again
-    hasFetched: false,  
-    allResults: [],
-    selectedResult: null,
-  }, action) {
-  switch (action.type) {
-    case REQUEST_BUILDINGS:
-      return Object.assign({}, state, {
-        isFetching: true,
-      });
-    case RECEIVE_BUILDINGS:
-      // only update state if it was actually fetching.
-      // this might not be the case if the user used the back button after a fetch
-      if (state.isFetching) {
-        return Object.assign({}, state, {
-          allResults: action.data,
-          isFetching: false,
-          hasFetched: true,
-        });
-      } 
-      else {
-        return state;
-      }
-     
-    case DISMISS_NO_BUILDINGS_FOUND:
-      return Object.assign({}, state, {
-        hasFetched: false,
-      });
-    case SELECT_ADDRESS_FROM_RESULTS:
-      return Object.assign({}, state, {
-        selectedResult: action.data,
-      });
-    case RESET_ADDRESS_QUERY:
-      return Object.assign({}, state, {
-        allResults: [],
-        isFetching: false,
-        hasFetched: false,
-      });
-    case RESET_SELECTED_ADDRESS:
-      return Object.assign({}, state, {
-        selectedResult: null,
-      });
-      
-    default:
-      return state;
-  }
-}
 
 
 
@@ -223,6 +168,7 @@ const rootReducer = combineReducers({
   postcode,
   assetTypes,
   addressSearchTerms,
+  addressSearchResults,
 });
 
 export default rootReducer;

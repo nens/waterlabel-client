@@ -38,6 +38,14 @@ import {
   setStreet,
   setCity,
 } from '../actions_address_search_terms';
+import {
+  requestBuildings,
+  receiveBuildings,
+  dismissNoBuildingsFound,
+  selectAddressFromResults,
+  resetAddressQuery,
+  resetSelectedAddress,
+} from '../actions_address_search_results';
 
 class App extends Component {
 
@@ -525,7 +533,8 @@ class App extends Component {
                               style={{ marginTop: 0, width: '100%' }}
                               disabled={(postcode.isFetching) ? true : false}
                               bsStyle='info'
-                              onClick={this.handleSearchButton}
+                              // onClick={this.handleSearchButton}
+                              onClick={e=>this.props.dispatch(requestBuildings(this.props.addressSearchTerms.postcode, this.props.addressSearchTerms.number))}
                               bsSize='lg'>
                               <i className='fa fa-search' />&nbsp;
                               {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}

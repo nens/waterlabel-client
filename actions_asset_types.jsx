@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import swal from 'sweetalert';
 
 export const FETCH_ASSET_TYPES = 'FETCH_ASSET_TYPES';
@@ -12,20 +13,18 @@ function setFetching () {
 export function fetchAssetTypes() {
   return dispatch => {
     dispatch(setFetching());
-    return fetch("/api/v2/waterlabelassettypes/")
-      .then(data => data.json())
-      .then(
-        (data) => {
-          return dispatch(receiveAssetTypes(data));
-        },
-        (error) => {
-          swal(
-            'Geen voorzieningen gevonden op de server',
-            'Er is een probleem met de server waardoor het momenteel niet mogelijk is voorzieningen te updaten',
-            'error',
-          );
-        }
-      )
+    $.ajax({
+      url: "/api/v2/waterlabelassettypes/",
+    }).done((data) => {
+      return dispatch(receiveAssetTypes(data));
+    }).error(() => {
+        swal(
+          'Geen voorzieningen gevonden op de server',
+          'Er is een probleem met de server waardoor het momenteel niet mogelijk is voorzieningen te updaten',
+          'error',
+        );
+      }
+    )
   }
 }
 
