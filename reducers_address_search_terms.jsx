@@ -3,7 +3,7 @@ import {
   SET_NUMBER_QUERY,
   SET_STREET_QUERY,
   SET_CITY_QUERY,
-} from './actions_asset_types'
+} from './actions_address_search_terms'
 
 export function addressSearchTerms ( state = {
   postcode: '',

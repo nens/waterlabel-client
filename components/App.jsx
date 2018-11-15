@@ -32,6 +32,12 @@ import {
   fetchAssetTypes,
   receiveAssetTypes,
 } from '../actions_asset_types';
+import {
+  setPostCode,
+  setNumber,
+  setStreet,
+  setCity,
+} from '../actions_address_search_terms';
 
 class App extends Component {
 
@@ -427,6 +433,8 @@ class App extends Component {
                             <div className='form-group'>
                               <label htmlFor='postcode'>Postcode</label>
                               <input
+                                onChange={e=>dispatch(setPostCode(e.target.value))}
+                                value={this.props.addressSearchTerms.postcode}
                                 ref='postcode'
                                 onKeyPress={this.handleKeyPress}
                                 id='postcode'
