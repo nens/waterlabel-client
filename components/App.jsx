@@ -491,7 +491,7 @@ class App extends Component {
                                 type='text'
                                 maxLength='6'
                                 placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.streetname : 'bijv. Dorpstraat'}
+                                  postcode.selectedObject.properties.streetname : 'BIJV. Dorpstraat'}
                                 className='form-control input-lg'
                               />
                             </div>
@@ -510,7 +510,7 @@ class App extends Component {
                                 type='text'
                                 maxLength='6'
                                 placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.streetname : 'bijv. Amsterdam'}
+                                  postcode.selectedObject.properties.streetname : 'BIJV. Amsterdam'}
                                 className='form-control input-lg'
                               />
                             </div>

@@ -18,11 +18,6 @@ import {
   REQUEST_HISTORY,
   SET_MAP_LOCATION,
 
-  SET_POSTCODE_QUERY,
-  SET_NUMBER_QUERY,
-  SET_STREET_QUERY,
-  SET_CITY_QUERY,
-
   REQUEST_BUILDINGS,
   RECEIVE_BUILDINGS,
   DISMISS_NO_BUILDINGS_FOUND,
@@ -30,11 +25,16 @@ import {
   RESET_ADDRESS_QUERY,
   RESET_SELECTED_ADDRESS,
 } from './actions.jsx';
-
 import {
   FETCH_ASSET_TYPES,
   RECEIVE_ASSET_TYPES,
 } from './actions_asset_types.jsx'
+import {
+  SET_POSTCODE_QUERY,
+  SET_NUMBER_QUERY,
+  SET_STREET_QUERY,
+  SET_CITY_QUERY,
+} from './actions_address_search_terms'
 
 function calculator(state = {
   label: undefined,
