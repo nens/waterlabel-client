@@ -451,6 +451,8 @@ class App extends Component {
                             <div className='form-group'>
                               <label htmlFor='huisnummer'>Huisnummer</label>
                               <input
+                                onChange={e=>dispatch(setNumber(e.target.value))}
+                                value={this.props.addressSearchTerms.number}
                                 ref='huisnummer'
                                 onKeyPress={this.handleKeyPress}
                                 id='huisnummer'
@@ -461,7 +463,7 @@ class App extends Component {
                               />
                             </div>
                           </Col>
-                          <Col md={3} sd={3} xs={5}>
+                          {/* <Col md={3} sd={3} xs={5}>
                             <div className='form-group'>
                               <label htmlFor='toevoeging'>Toevoeging</label>
                               <input
@@ -474,26 +476,46 @@ class App extends Component {
                                 className='form-control input-lg'
                               />
                             </div>
+                          </Col> */}
+                        </Row>
+                        <Row>
+                          <Col md={12}>
+                            <div className='form-group'>
+                              <label htmlFor='straatnaam'>Straatnaam</label>
+                              <input
+                                onChange={e=>dispatch(setStreet(e.target.value))}
+                                value={this.props.addressSearchTerms.street}
+                                ref='straatnaam'
+                                onKeyPress={this.handleKeyPress}
+                                id='straatnaam'
+                                type='text'
+                                maxLength='6'
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.streetname : 'bijv. Dorpstraat'}
+                                className='form-control input-lg'
+                              />
+                            </div>
                           </Col>
                         </Row>
                         <Row>
                           <Col md={12}>
-                              <div className='form-group'>
-                                <label htmlFor='straatnaam'>Straatnaam</label>
-                                <input
-                                  ref='straatnaam'
-                                  onKeyPress={this.handleKeyPress}
-                                  id='straatnaam'
-                                  type='text'
-                                  maxLength='6'
-                                  style={{ textTransform: 'uppercase' }}
-                                  placeholder={(postcode.selectedObject) ?
-                                    postcode.selectedObject.properties.streetname : 'bijv. Dorpstraat'}
-                                  className='form-control input-lg'
-                                />
-                              </div>
-                            </Col>
-                          </Row>
+                            <div className='form-group'>
+                              <label htmlFor='straatnaam'>Stad</label>
+                              <input
+                                onChange={e=>dispatch(setCity(e.target.value))}
+                                value={this.props.addressSearchTerms.city}
+                                ref='stad'
+                                onKeyPress={this.handleKeyPress}
+                                id='stad'
+                                type='text'
+                                maxLength='6'
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.streetname : 'bijv. Amsterdam'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                        </Row>
                       </Col>
                     </Row>
                     <Row>
