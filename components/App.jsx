@@ -556,28 +556,30 @@ class App extends Component {
                     ''
                   }
                   
-                  { postcode.selectedObject 
+                  { this.props.addressSearchResults.selectedResult 
                   ? 
                   <div className={"form-group " +  styles.FoundAddress} >
                     <Row style={{marginTop: "10px"}}>
                       <Col md={6} sm={12} xs={12} >
                         <Row>
                           <Col md={12}>
-                              <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
+                              <span>{this.props.addressSearchResults.selectedResult.street+
+                                ' '+ this.props.addressSearchResults.selectedResult.housenumber+
+                                ' '+ this.props.addressSearchResults.selectedResult.houseletter}</span>
                           </Col>
                         </Row>
                         <Row>
                           <Col md={12}>
-                              <span>{selectedObject.postalcode}</span>
+                              <span>{this.props.addressSearchResults.selectedResult.postalcode}</span>
                           </Col>
                         </Row>
                         <Row>
                           <Col md={12}>
-                              <span>{selectedObject.city}</span>
+                              <span>{this.props.addressSearchResults.selectedResult.city}</span>
                           </Col>
                         </Row>
                       </Col>
-                      <Col md={6} sm={12} xs={12}>
+                      {/* <Col md={6} sm={12} xs={12}>
                         <table
                             // className={`table-striped ${styles.ObjectPropertiesTable}`}
                             className={`${styles.ObjectPropertiesTable}`}
@@ -655,20 +657,14 @@ class App extends Component {
                                 }
                               </td>
                             </tr>
-                            {/* <tr>
-                              <td>
-                                <a style={{fontSize:'normal'}}>
-                                  Toon overige Labels
-                                </a>
-                              </td>
-                            </tr> */}
+                            
                             </tbody>
                           </table>
                           <a style={{fontSize:'initial'}}>
                             Toon overige Labels
                           </a>
-                      </Col>
-                      <Col md={6} sm={6} xs={6} style={{display:'none'}}>
+                      </Col> */}
+                      {/* <Col md={6} sm={6} xs={6} style={{display:'none'}}>
                         <span className={styles.Label}>
                           {postcode.selectedObject.properties.labelcode_last}
                         </span>
@@ -847,7 +843,7 @@ class App extends Component {
                             </svg> : ''}
                           </li>
                         </ol>
-                      </Col>
+                      </Col> */}
                     </Row>
                     <Row style={{marginTop: 10 }}>
                       <Col md={6} sm={12} xs={12}>
