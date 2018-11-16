@@ -9,6 +9,7 @@ import algemeen02 from '../images/algemeen02.png';
 
 import Calculator from './Calculator';
 import Tabs from './Tabs';
+import HeaderNavigator from './HeaderNavigator';
 import Assets from './Assets';
 import AddressListPicker from './AddressListPicker';
 import calculatorStyles from './Calculator.css';
@@ -351,53 +352,12 @@ class App extends Component {
                       <h1>Label opslag water&nbsp;</h1>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md={6} sm={12} xs={12}>
-                        <ul className='list-inline'>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
-                            </a>
-                          </li>
-                          {/* <li>&nbsp;</li>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
-                            </a>
-                          </li> */}
-                        </ul>
-                      </Col>
-                    <Col md={6} sm={12} xs={12}>
-                      <div className='pull-right' style={{ marginRight: 10 }}>
-                      <a href='https://twitter.com/waterlabel/'
-                        target='_blank'
-                        style={{
-                          padding: '10px 5px 0 0',
-                        }}>
-                        <i className='fa fa-2x fa-twitter-square' />
-                      </a>
-                      <a
-                        href='https://www.facebook.com/Waterlabel-421181284911824/'
-                        target='_blank'
-                        style={{
-                          padding: '10px 5px 0 0',
-                        }}>
-                        <i
-                          className='fa fa-2x fa-facebook-square' />
-                      </a>
-                      <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
-                        target='_blank'
-                        style={{
-                          padding: '10px 0px 0 0',
-                        }}>
-                        <i className='fa fa-2x fa-youtube-square' />
-                      </a><br/>
-                      <a
-                        onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
-                      </a>
-                    </div>
-                    </Col>
-                  </Row>
+                  
+                  <HeaderNavigator 
+                    openAboutText={this.openAboutText}
+                    openMap={this.openMap}
+                    openPrivacyText={this.openPrivacyText}
+                  />
                   
                   {/* <Row>
                     <Col md={12}>
