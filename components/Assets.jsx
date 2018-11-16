@@ -424,52 +424,6 @@ class Assets extends Component {
           :
           ''
           }
-          {/* {
-            !this.props.editMode 
-            ?
-          <Row>
-            <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%',marginTop: 10}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    onClick={() => this.setState({editMode:true})}
-                    bsSize='lg'>
-                    <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
-                  </Button>
-              </div>
-            </Col>
-            <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%',marginTop: 10}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    // onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
-                  </Button>
-              </div>
-            </Col>
-          </Row>
-          :
-          <Row>
-            <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%',marginTop: 10}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-save' />&nbsp; Opslaan
-                  </Button>
-              </div>
-            </Col>
-            
-          </Row>
-          } */}
         </div>
       
     );
