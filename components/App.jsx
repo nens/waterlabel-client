@@ -12,6 +12,7 @@ import Tabs from './Tabs';
 import HeaderNavigator from './HeaderNavigator';
 import Assets from './Assets';
 import AddressListPicker from './AddressListPicker';
+import AddressSearchWidget from './AddressSearchWidget';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
 import InteractiveCalculator from './InteractiveCalculator';
@@ -359,150 +360,30 @@ class App extends Component {
                     openPrivacyText={this.openPrivacyText}
                   />
                   
-                  {/* <Row>
+                
+                  <Row>
                     <Col md={12}>
-                        <p>
-                          Uw Waterlabel geeft aan hoeveel regenwater 
-                          uw woning vasthoudt. <br/>
-                          Houdt uw woning veel regenwater vast? <br/> 
-                          Dan is dit goed voor het millieu <br/> 
-                          Omgeving en riool overstromen dan minder snel.
-                        </p>
-                     </Col>
-                    </Row> */}
-                    {/* <Row style={{marginTop:'10px'}}>
-                      <Col md={12} sm={12} xs={12}>
-                        <ul className='list-inline'>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
-                            </a>
-                          </li>
-                          <li>&nbsp;</li>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
-                            </a>
-                          </li>
-                        </ul>
-                      </Col>
-                    </Row> */}
-                    <Row>
-                      <Col md={12}>
                       <h2>
                         Mijn label
                       </h2>
                     </Col>
                   </Row>
-                  <div style={ postcode.selectedObject ? {display: 'none'} : {} }>
-                    <Row>
-                      <Col md={6}>
-                        <Row>
-                          <Col md={4}>
-                            <div className='form-group'>
-                              <label htmlFor='postcode'>Postcode</label>
-                              <input
-                                onChange={e=>dispatch(setPostCode(e.target.value))}
-                                value={this.props.addressSearchTerms.postcode}
-                                ref='postcode'
-                                onKeyPress={this.handleKeyPress}
-                                id='postcode'
-                                type='text'
-                                maxLength='6'
-                                style={{ textTransform: 'uppercase' }}
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                          <Col md={5} sd={5} xs={7}>
-                            <div className='form-group'>
-                              <label htmlFor='huisnummer'>Huisnummer</label>
-                              <input
-                                onChange={e=>dispatch(setNumber(e.target.value))}
-                                value={this.props.addressSearchTerms.number}
-                                ref='huisnummer'
-                                onKeyPress={this.handleKeyPress}
-                                id='huisnummer'
-                                type='text'
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                          {/* <Col md={3} sd={3} xs={5}>
-                            <div className='form-group'>
-                              <label htmlFor='toevoeging'>Toevoeging</label>
-                              <input
-                                ref='toevoeging'
-                                onKeyPress={this.handleKeyPress}
-                                id='toevoeging'
-                                type='text'
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.housenumber : 'BIJV. A'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col> */}
-                        </Row>
-                        <Row>
-                          <Col md={12}>
-                            <div className='form-group'>
-                              <label htmlFor='straatnaam'>Straatnaam</label>
-                              <input
-                                onChange={e=>dispatch(setStreet(e.target.value))}
-                                value={this.props.addressSearchTerms.street}
-                                ref='straatnaam'
-                                onKeyPress={this.handleKeyPress}
-                                id='straatnaam'
-                                type='text'
-                                maxLength='6'
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.streetname : 'BIJV. Dorpstraat'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={12}>
-                            <div className='form-group'>
-                              <label htmlFor='straatnaam'>Stad</label>
-                              <input
-                                onChange={e=>dispatch(setCity(e.target.value))}
-                                value={this.props.addressSearchTerms.city}
-                                ref='stad'
-                                onKeyPress={this.handleKeyPress}
-                                id='stad'
-                                type='text'
-                                maxLength='6'
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.streetname : 'BIJV. Amsterdam'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                            <Button
-                              style={{ marginTop: 0, width: '100%' }}
-                              disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              // onClick={this.handleSearchButton}
-                              onClick={e=>this.props.dispatch(requestBuildings(this.props.addressSearchTerms.postcode, this.props.addressSearchTerms.number))}
-                              bsSize='lg'>
-                              <i className='fa fa-search' />&nbsp;
-                              {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
-                            </Button>
-                        </div>
-                      </Col>
-                    </Row>
+                  <div 
+                    style={ 
+                      this.props.addressSearchResults.allResultAddresses.length !== 0 ? {display: 'none'} : {} 
+                    }
+                  >
+                    <AddressSearchWidget
+                      addressSearchTerms={this.props.addressSearchTerms}
+                      addressSearchTermsPostcode={this.props.addressSearchTerms.postcode}
+                      addressSearchResults={this.props.addressSearchResults} 
+                      handleKeyPress={this.handleKeyPress}
+                      setPostCode={e=>dispatch(setPostCode(e))}
+                      setNumber={e=>dispatch(setNumber(e))}
+                      setStreet={e=>dispatch(setStreet(e))}
+                      setCity={e=>dispatch(setCity(e))}
+                      requestBuildings={(postcode,number)=>dispatch(requestBuildings(postcode,number))}
+                    />
                   </div>
                   {
                     this.props.addressSearchResults.allResultAddresses.length > 1 &&
@@ -816,7 +697,9 @@ class App extends Component {
                               onClick={() => 
                                 {
                                   this.setState({editMode:false})
-                                  dispatch(clearSelectedObject())}
+                                  // dispatch(clearSelectedObject())}
+                                  dispatch(resetAddressQuery())
+                                }
                                 }
                               bsSize='lg'>
                               <i className='fa fa-edit' />&nbsp; Ander adres

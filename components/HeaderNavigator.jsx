@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './App.css';import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
   Popover, Well } from 'react-bootstrap';
 
-const AddressListPicker = (({ openAboutText, openMap, openPrivacyText}) => (
+const HeaderNavigator = (({ openAboutText, openMap, openPrivacyText}) => (
   <Row>
   <Col md={6} sm={12} xs={12}>
       <ul className='list-inline'>
@@ -55,6 +55,6 @@ const AddressListPicker = (({ openAboutText, openMap, openPrivacyText}) => (
 )
 );
 
-AddressListPicker.propTypes = {}
+HeaderNavigator.propTypes = {}
 
-export default AddressListPicker
+export default HeaderNavigator
