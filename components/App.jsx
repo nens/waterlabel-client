@@ -707,85 +707,63 @@ class App extends Component {
                           {/* </ButtonGroup> */}
                         </div>
                       </Col>
-                      {! this.state.editMode ?
-                      <div>
-                      
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                          {/* <ButtonGroup> */}
-                            <Button
-                              style={{width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              // onClick={() => this.setState({editMode:false})}
-                              bsSize='lg'>
-                              <i className='fa fa-print' />&nbsp;Label Afdrukken
-                            </Button>
-                          {/* </ButtonGroup> */}
+                      {
+                        ! this.state.editMode 
+                        ?
+                        <div>
+                        
+                        <Col md={6} sm={12} xs={12} >
+                          <div className='form-group'>
+                              <Button
+                                style={{width:'100%'}}
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                // onClick={() => this.setState({editMode:false})}
+                                bsSize='lg'>
+                                <i className='fa fa-print' />&nbsp;Label Afdrukken
+                              </Button>
+                            {/* </ButtonGroup> */}
+                          </div>
+                        </Col>
+                        <Col md={6} sm={12} xs={12} >
+                          <div className='form-group'>
+                            {/* <ButtonGroup> */}
+                              <Button
+                                style={{width:'100%'}}
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                onClick={() => this.setState({editMode:true})}
+                                bsSize='lg'>
+                                <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
+                              </Button>
+                            {/* </ButtonGroup> */}
+                          </div>
+                        </Col>
                         </div>
-                      </Col>
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                          {/* <ButtonGroup> */}
-                            <Button
-                              style={{width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={() => this.setState({editMode:true})}
-                              bsSize='lg'>
-                              <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
-                            </Button>
-                          {/* </ButtonGroup> */}
-                        </div>
-                      </Col>
+                        :
+                        <Col md={6} sm={12} xs={12} >
+                          <div className='form-group'>
+                            {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                              <Button
+                                style={{width:'100%'}}
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                onClick={() => this.setState({editMode:false})}
+                                bsSize='lg'>
+                                <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                              </Button>
+                            {/* </ButtonGroup> */}
+                          </div>
+                        </Col>
+                        }
+                        </Row>
                       </div>
                       :
-
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
-                            <Button
-                              style={{width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={() => this.setState({editMode:false})}
-                              bsSize='lg'>
-                              <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
-                            </Button>
-                          {/* </ButtonGroup> */}
-                        </div>
-                      </Col>
+                      ''
                       }
-                      
-                    </Row>
-                    {
-            !this.state.editMode 
-            ?
-          ''
-          :
-          <Row>
-            {/* <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%'}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
-                  </Button>
-              </div>
-            </Col> */}
-            
-          </Row>
-          }
-                  </div>
-                  :
-                  ''
-                  }
-                 
-
-                  { postcode.selectedObject 
+                  { 
+                    this.props.addressSearchResults.selectedResult &&
+                    this.state.editMode
                   ? 
                   <div>
                     <div className={"form-group " +  styles.FoundAddress} >
@@ -796,10 +774,13 @@ class App extends Component {
                       </Row>
                     </div>
                     <Tabs
-                      drawAssets={selectedTab=>{return <Assets selectedTab={selectedTab} editMode={this.state.editMode}/>}}
+                      drawAssets={selectedTab=>{return <Assets 
+                                                  selectedTab={selectedTab} 
+                                                  editMode={true}
+                                                  assetTypes={this.props.assetTypes.assets}
+                                                  assetsFetching={this.props.assetTypes.isFetching}/>}}
                     ></Tabs>
                   </div>
-
                   :
                   ''
                   }
