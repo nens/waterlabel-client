@@ -5,6 +5,8 @@ import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
 import appStyles from './App.css'
 import CustomSelect from './CustomSelect.css'
 
+const ANDERS_NAMELIJK = 'Anders namelijk .. ' 
+
 class Assets extends Component {
 
   constructor(props) {
@@ -89,7 +91,7 @@ class Assets extends Component {
     } else if (this.props.selectedTab==='terrein') {
       return (
       <div>
-      { e.name==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
+      { e.name=== ANDERS_NAMELIJK ? this.createFreeTextRow(e,i):''}
       { this.createAreaRow(e,i) }
       { this.createInfiltrationRow(e,i)}
       { this.createStorageRow( e,i)}
@@ -98,7 +100,7 @@ class Assets extends Component {
     } else { // selectedTab === extra
       return (
       <div>
-      { e.name==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
+      { e.name=== ANDERS_NAMELIJK ? this.createFreeTextRow(e,i):''}
       { this.createInfiltrationRow(e,i)}
       { this.createStorageRow( e,i)}
       </div>
@@ -178,8 +180,8 @@ class Assets extends Component {
               tmpAssets[i].infiltration = parseInt(e.target.value) || '';
               this.setState({assets: tmpAssets})
             }}
-            readOnly={!this.props.editMode || e.name !=="Voeg nieuw type toe"}
-            disabled={!this.props.editMode || e.name !=="Voeg nieuw type toe"}
+            readOnly={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
+            disabled={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
           />
         </Col>
       </Row>
@@ -209,8 +211,8 @@ class Assets extends Component {
                   this.setState({assets : tmpAssets})
                 }
               }}
-              readOnly={!this.props.editMode || e.name !=="Voeg nieuw type toe"}
-              disabled={!this.props.editMode || e.name !=="Voeg nieuw type toe"}
+              readOnly={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
+              disabled={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
             />
             </Col>
           </Row>
@@ -353,8 +355,21 @@ class Assets extends Component {
                   value={""} 
                   className="form-control"
                   onChange={(e)=>{
-                    const selectedItem = this.findAssetType(e.target.value, this.selectedTabToCategory(this.props.selectedTab));
-                    console.log('selectedItem', selectedItem);
+                    let selectedItem;
+                    if (e.target.value === ANDERS_NAMELIJK ) {
+                      selectedItem = {
+                        "name": ANDERS_NAMELIJK,
+                        "code": ANDERS_NAMELIJK,
+                        "category": this.selectedTabToCategory(this.props.selectedTab),
+                        "storage": 0.0,
+                        "infiltration": 0.0,
+                        "description": ""
+                      }
+                      console.log('selectedItem', selectedItem, 'anders')
+                    } else {
+                      selectedItem = this.findAssetType(e.target.value, this.selectedTabToCategory(this.props.selectedTab));
+                      console.log('selectedItem', selectedItem);
+                    }
                     selectedItem.area = 0;
                     selectedItem.drainage = 'riool';
                     let tmpAssets = this.state.assets;
@@ -374,6 +389,7 @@ class Assets extends Component {
                     .filter(e => e.category===this.selectedTabToCategory(this.props.selectedTab))
                     .map(  e => <option value={e.name}>{e.name}</option>)
                   }
+                  <option value={ANDERS_NAMELIJK} >{ANDERS_NAMELIJK}</option>
                 </select>
               </Col>
             </Row>
