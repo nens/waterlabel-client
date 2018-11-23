@@ -16,9 +16,6 @@ export const REQUEST_RADIUS_SEARCH = 'REQUEST_RADIUS_SEARCH';
 export const SET_MAP_LOCATION = 'SET_MAP_LOCATION';
 export const SUBMIT_LABEL_SET_FETCHING = 'SUBMIT_LABEL_SET_FETCHING';
 export const SUBMIT_NEW_LABEL = 'SUBMIT_NEW_LABEL';
-
-
-
 require('!style!css!./node_modules/sweetalert/dist/sweetalert.css');
 
 
