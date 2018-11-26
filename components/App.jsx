@@ -60,6 +60,11 @@ import {
   assetDataToAssetPost,
 } from './AssetConversions';
 
+import {
+  setGuiEdit,
+  setTab,
+} from '../actions_gui_state';
+
 class App extends Component {
 
   constructor(props) {
@@ -71,7 +76,7 @@ class App extends Component {
       showIntro: false,
       showMap: false,
       showPrivacyText: false,
-      editMode: false,
+      // editMode: false,
     };
     this.closeAboutText = this.closeAboutText.bind(this);
     this.closeCalculator = this.closeCalculator.bind(this);
@@ -277,6 +282,8 @@ class App extends Component {
 
   render() {
     const { dispatch, postcode } = this.props;
+
+    console.log('this.props.guiState', this.props.guiState)
 
     let geocoded;
     let adres;
@@ -706,7 +713,8 @@ class App extends Component {
                               bsStyle='info'
                               onClick={() => 
                                 {
-                                  this.setState({editMode:false})
+                                  // this.setState({editMode:false})
+                                  dispatch(setGuiEdit(false));
                                   // dispatch(clearSelectedObject())}
                                   dispatch(resetAddressQuery())
                                 }
@@ -718,7 +726,8 @@ class App extends Component {
                         </div>
                       </Col>
                       {
-                        ! this.state.editMode 
+                        // ! this.state.editMode
+                        ! this.props.guiState.edit 
                         ?
                         <div>
                         
@@ -742,7 +751,10 @@ class App extends Component {
                                 style={{width:'100%'}}
                                 // disabled={(postcode.isFetching) ? true : false}
                                 bsStyle='info'
-                                onClick={() => this.setState({editMode:true})}
+                                onClick={() => {
+                                  // this.setState({editMode:true})
+                                  dispatch(setGuiEdit(true));
+                                }}
                                 bsSize='lg'>
                                 <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
                               </Button>
@@ -759,7 +771,8 @@ class App extends Component {
                                 // disabled={(postcode.isFetching) ? true : false}
                                 bsStyle='info'
                                 onClick={() => {
-                                  this.setState({editMode:false})
+                                  // this.setState({editMode:false})
+                                  dispatch(setGuiEdit(false));
                                   dispatch(sendWaterlabel(({
                                     building: this.props.addressSearchResults.selectedResult.building,
                                     email: 'tom.deboer@nelen-schuurmans.nl',
@@ -781,7 +794,8 @@ class App extends Component {
                       }
                   { 
                     this.props.addressSearchResults.selectedResult &&
-                    this.state.editMode
+                    // this.state.editMode
+                    this.props.guiState.edit
                   ? 
                   <div>
                     <div className={"form-group " +  styles.FoundAddress} >
@@ -1403,6 +1417,7 @@ function mapStateToProps(state) {
     addressSearchTerms: state.addressSearchTerms,
     addressSearchResults: state.addressSearchResults,
     assetsWaterlabel: state.assetsWaterlabel,
+    guiState: state.guiState,
   };
 }
 
