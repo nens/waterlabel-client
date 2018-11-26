@@ -12,7 +12,7 @@ const AddressListPicker = (({ onClick, addresses}) => (
         key={index}
         onClick={e => onClick(address)}
         >
-          {address.postalcode + ' ' + address.housenumber + ' ' + address.houseletter}
+          {address.postalcode + ' ' + address.housenumber + ' ' + (address.houseletter || '')}
         </li>
       )
       

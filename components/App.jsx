@@ -416,7 +416,7 @@ class App extends Component {
                           <Col md={12}>
                               <span>{this.props.addressSearchResults.selectedResult.street+
                                 ' '+ this.props.addressSearchResults.selectedResult.housenumber+
-                                ' '+ this.props.addressSearchResults.selectedResult.houseletter}</span>
+                                ' '+ (this.props.addressSearchResults.selectedResult.houseletter || '')}</span>
                           </Col>
                         </Row>
                         <Row>
