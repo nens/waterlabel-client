@@ -9,15 +9,15 @@ const ANDERS_NAMELIJK = 'Anders namelijk .. '
 
 class Assets extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      assets: this.props.assetsToAdapt,
-      kadasterArea: 100,
-      bagArea: 40,
-      editMode: false,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   assets: this.props.assetsToAdapt,
+  //   //   kadasterArea: 100,
+  //   //   bagArea: 40,
+  //   //   editMode: false,
+  //   // };
+  // }
 
   selectedTabToCategory(selectedTab) {
     if (selectedTab==='dak')     return 'Dak';

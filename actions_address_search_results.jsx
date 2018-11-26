@@ -66,7 +66,7 @@ export function selectAddressFromResults(selection) {
     //   type: FETCH_WATERLABELS,
     //   data: selection.id,
     // });
-    dispatch(requestWaterlabels(selection.id));
+    dispatch(requestWaterlabels(selection.building));
 
     dispatch({
       type: SELECT_ADDRESS_FROM_RESULTS,

@@ -55,6 +55,11 @@ import {
   adaptWaterlabel,
 } from '../actions_assets_water_label';
 
+import {
+  joinAssetWithAssetType,
+  assetDataToAssetPost,
+} from './AssetConversions';
+
 class App extends Component {
 
   constructor(props) {
@@ -755,10 +760,15 @@ class App extends Component {
                                 bsStyle='info'
                                 onClick={() => {
                                   this.setState({editMode:false})
-                                  sendWaterlabel();
+                                  dispatch(sendWaterlabel(({
+                                    building: this.props.addressSearchResults.selectedResult.building,
+                                    email: 'tom.deboer@nelen-schuurmans.nl',
+                                    assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
+                                  })));
                                 }}
                                 bsSize='lg'>
-                                <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                                <i className='fa fa-save' />
+                                &nbsp; Mijn Gegevens Opslaan
                               </Button>
                             {/* </ButtonGroup> */}
                           </div>
@@ -789,7 +799,11 @@ class App extends Component {
                             editMode={true}
                             assetTypes={this.props.assetTypes.assets}
                             assetsFetching={this.props.assetTypes.isFetching}
-                            assetsToAdapt={this.props.assetsWaterlabel.assetsToAdapt}
+                            assetsToAdapt={
+                              this.props.assetsWaterlabel.assetsToAdapt.map(
+                                e=>joinAssetWithAssetType(e, this.props.assetTypes.assets)
+                              )
+                            }
                             assetsFetching={this.props.assetsWaterlabel.fetchingState !== 'RECEIVED'}
                             adaptAssets={assets => {
                               console.log('assets adapt waterlabel');

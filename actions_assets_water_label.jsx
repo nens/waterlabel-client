@@ -46,13 +46,24 @@ function setSend () {
   }
 }
 
+function serverReceivedWaterLabel (result) {
+  return {
+    type: SERVER_RECEIVED_WATERLABEL,
+    data: result,
+  }
+}
+
 export function sendWaterlabel(waterLabel) {
   return dispatch => {
     dispatch(setSend());
     $.ajax({
-      url: `/api/v2/waterlabels/?building=${bagId}`,
+      url: `/api/v2/waterlabels/`,
+      type: 'POST',
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      data: JSON.stringify(waterLabel),
     }).done(data => {
-      return dispatch(receiveWaterlabels(data.results));
+      return dispatch(serverReceivedWaterLabel(data));
     }).error(() => {
         swal(
           'Probleem bij het opslaan van waterlabel',
@@ -65,7 +76,6 @@ export function sendWaterlabel(waterLabel) {
 }
 
 export function adaptWaterlabel(assets) {
-  console.log('[redux action] adaptWaterlabel', assets);
   return {
     type: ADAPT_WATERLABEL,
     data: assets
