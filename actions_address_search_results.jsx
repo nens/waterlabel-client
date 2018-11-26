@@ -11,7 +11,7 @@ export const RESET_SELECTED_ADDRESS = 'RESET_SELECTED_ADDRESS';
 import {
   // FETCH_WATERLABELS,
   requestWaterlabels,
-} from './actions_assets_water_label'
+} from './actions_assets_water_label';
 
 function setFetching () {
   return {

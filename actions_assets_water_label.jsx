@@ -65,6 +65,7 @@ export function sendWaterlabel(waterLabel) {
 }
 
 export function adaptWaterlabel(assets) {
+  console.log('[redux action] adaptWaterlabel', assets);
   return {
     type: ADAPT_WATERLABEL,
     data: assets

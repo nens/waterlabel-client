@@ -49,6 +49,11 @@ import {
   resetAddressQuery,
   resetSelectedAddress,
 } from '../actions_address_search_results';
+import {
+  // FETCH_WATERLABELS,
+  sendWaterlabel,
+  adaptWaterlabel,
+} from '../actions_assets_water_label';
 
 class App extends Component {
 
@@ -748,7 +753,10 @@ class App extends Component {
                                 style={{width:'100%'}}
                                 // disabled={(postcode.isFetching) ? true : false}
                                 bsStyle='info'
-                                onClick={() => this.setState({editMode:false})}
+                                onClick={() => {
+                                  this.setState({editMode:false})
+                                  sendWaterlabel();
+                                }}
                                 bsSize='lg'>
                                 <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
                               </Button>
@@ -774,11 +782,21 @@ class App extends Component {
                       </Row>
                     </div>
                     <Tabs
-                      drawAssets={selectedTab=>{return <Assets 
-                                                  selectedTab={selectedTab} 
-                                                  editMode={true}
-                                                  assetTypes={this.props.assetTypes.assets}
-                                                  assetsFetching={this.props.assetTypes.isFetching}/>}}
+                      drawAssets={selectedTab=>{
+                        return (
+                          <Assets 
+                            selectedTab={selectedTab} 
+                            editMode={true}
+                            assetTypes={this.props.assetTypes.assets}
+                            assetsFetching={this.props.assetTypes.isFetching}
+                            assetsToAdapt={this.props.assetsWaterlabel.assetsToAdapt}
+                            assetsFetching={this.props.assetsWaterlabel.fetchingState !== 'RECEIVED'}
+                            adaptAssets={assets => {
+                              console.log('assets adapt waterlabel');
+                              dispatch(adaptWaterlabel(assets));
+                            }}
+                          />
+                        )}}
                     ></Tabs>
                   </div>
                   :
@@ -1370,6 +1388,7 @@ function mapStateToProps(state) {
     assetTypes: state.assetTypes,
     addressSearchTerms: state.addressSearchTerms,
     addressSearchResults: state.addressSearchResults,
+    assetsWaterlabel: state.assetsWaterlabel,
   };
 }
 

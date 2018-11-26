@@ -32,6 +32,7 @@ export function assetsWaterlabel(state={
         sendingState: 'SERVER_RECEIVED',
       });
     case ADAPT_WATERLABEL:
+      console.log('[redux] new waterlabel assets',action.data);
       return Object.assign({}, state, {
         assetsToAdapt: action.data,
       });
