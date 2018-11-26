@@ -806,6 +806,8 @@ class App extends Component {
                       </Row>
                     </div>
                     <Tabs
+                      selectedTab={this.props.guiState.selectedTab}
+                      setSelectedTab={selectedTab=>dispatch(setTab(selectedTab))}
                       drawAssets={selectedTab=>{
                         return (
                           <Assets 
