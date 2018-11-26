@@ -390,9 +390,6 @@ class Assets extends Component {
                 <Col md={12} sm={12} xs={12}>
                   <span style={{fontWeight: 'bold'}}>Totaal Oppervlak: {totalArea} m2</span>
                 </Col>
-                {/* <Col md={6} sm={6} xs={6}>
-                  <span style={{fontWeight: 'bold'}}>{totalArea}</span>
-                </Col> */}
               </Row>
             </Col>
           </Row>
