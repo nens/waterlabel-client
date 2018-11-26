@@ -63,6 +63,8 @@ import {
 import {
   setGuiEdit,
   setTab,
+  setAbout,
+  setPrivacy,
 } from '../actions_gui_state';
 
 class App extends Component {
@@ -70,13 +72,10 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAboutText: false,
       showCalculator: false,
       showInteractiveCalculator: false,
       showIntro: false,
       showMap: false,
-      showPrivacyText: false,
-      // editMode: false,
     };
     this.closeAboutText = this.closeAboutText.bind(this);
     this.closeCalculator = this.closeCalculator.bind(this);
@@ -189,19 +188,19 @@ class App extends Component {
   }
 
   closeAboutText() {
-    this.setState({ showAboutText: false });
+    this.props.dispatch(setAbout(false));
   }
 
   openAboutText() {
-    this.setState({ showAboutText: true });
+    this.props.dispatch(setAbout(true));
   }
 
   closePrivacyText() {
-    this.setState({ showPrivacyText: false });
+    this.props.dispatch(setPrivacy(false));
   }
 
   openPrivacyText() {
-    this.setState({ showPrivacyText: true });
+    this.props.dispatch(setPrivacy(true));
   }
 
   closeMap() {
@@ -1223,7 +1222,7 @@ class App extends Component {
         </Modal>
 
         <Modal
-          show={this.state.showAboutText}
+          show={this.props.guiState.showAboutText}
           onHide={this.closeAboutText}
           dialogClassName={styles.WideModal}>
           <Modal.Header closeButton>
@@ -1238,7 +1237,7 @@ class App extends Component {
         </Modal>
 
         <Modal
-          show={this.state.showPrivacyText}
+          show={this.props.guiState.showPrivacyText}
           onHide={this.closePrivacyText}
           dialogClassName={styles.WideModal}>
           <Modal.Header closeButton>
