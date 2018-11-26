@@ -5,6 +5,7 @@ import geojsonArea from '@mapbox/geojson-area';
 import {assetTypes} from './reducers_asset_types';
 import {addressSearchTerms} from './reducers_address_search_terms';
 import { addressSearchResults } from './reducers_address_search_results';
+import { assetsWaterlabel } from './reducers_assets_water_label';
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
@@ -169,6 +170,7 @@ const rootReducer = combineReducers({
   assetTypes,
   addressSearchTerms,
   addressSearchResults,
+  assetsWaterlabel,
 });
 
 export default rootReducer;

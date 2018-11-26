@@ -34,7 +34,7 @@ switch (action.type) {
       return Object.assign({}, state, {
         allResults: action.data,
         allResultAddresses: allResultAddresses,
-        selectedResult: selectedResult,
+        // selectedResult: selectedResult,
         isFetching: false,
         hasFetched: true,
       });

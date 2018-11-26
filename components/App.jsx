@@ -386,7 +386,7 @@ class App extends Component {
                     />
                   </div>
                   {
-                    this.props.addressSearchResults.allResultAddresses.length > 1 &&
+                    this.props.addressSearchResults.allResultAddresses.length > 0 &&
                     ! this.props.addressSearchResults.selectedResult
                     ?
                     <AddressListPicker 
