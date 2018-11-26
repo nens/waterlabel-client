@@ -9,16 +9,6 @@ const ANDERS_NAMELIJK = 'Anders namelijk .. '
 
 class Assets extends Component {
 
-  // constructor(props) {
-  //   super(props);
-  //   // this.state = {
-  //   //   assets: this.props.assetsToAdapt,
-  //   //   kadasterArea: 100,
-  //   //   bagArea: 40,
-  //   //   editMode: false,
-  //   // };
-  // }
-
   selectedTabToCategory(selectedTab) {
     if (selectedTab==='dak')     return 'Dak';
     if (selectedTab==='terrein') return 'Tuin';
@@ -38,7 +28,7 @@ class Assets extends Component {
         return '';
       }
       return (
-        // <div key={e.type + ' ' + e.area + ' ' + e.storage + ' ' + e.drainage}>
+        // <div key={e.type + ' ' + e.area + ' ' + e.storage + ' ' + e.sewer_connection}>
         <Row key={i}>
           <Col md={12}>
             
@@ -101,7 +91,6 @@ class Assets extends Component {
             onChange={(e) => {
               let tmpAssets = this.props.assetsToAdapt;
               tmpAssets[i].customName = e.target.value || '';
-              //this.setState({assets: tmpAssets})
               this.props.adaptAssets(tmpAssets);
             }}
             readOnly={!this.props.editMode}
@@ -129,7 +118,6 @@ class Assets extends Component {
             onChange={(e) => {
               let tmpAssets = this.props.assetsToAdapt;
               tmpAssets[i].area = parseInt(e.target.value) || '';
-              // this.setState({assets: tmpAssets})
               this.props.adaptAssets(tmpAssets);
             }}
             readOnly={!this.props.editMode}
@@ -156,7 +144,6 @@ class Assets extends Component {
             onChange={(e) => {
               let tmpAssets = this.props.assetsToAdapt;
               tmpAssets[i].infiltration = parseInt(e.target.value) || '';
-              // this.setState({assets: tmpAssets})
               this.props.adaptAssets(tmpAssets);
             }}
             readOnly={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
@@ -187,7 +174,6 @@ class Assets extends Component {
                 {
                   let tmpAssets = this.props.assetsToAdapt;
                   tmpAssets[i].storage = e.target.value;
-                  // this.setState({assets : tmpAssets})
                   this.props.adaptAssets(tmpAssets);
                 }
               }}
@@ -210,12 +196,11 @@ class Assets extends Component {
         <Col md={4} sm={12} xs={12}>
           {/* <div className={CustomSelect.Container}>
             <select 
-              value={e.drainage} 
+              value={e.sewer_connection} 
               className={"form-control"}
               onChange={(e) => {
                 let tmpAssets = this.props.assetsToAdapt;
-                tmpAssets[i].drainage = e.target.value;
-                // this.setState({assets: tmpAssets});
+                tmpAssets[i].sewer_connection = e.target.value;
                 this.props.adaptAssets(tmpAssets);
               }}
               readOnly={!this.props.editMode}
@@ -228,13 +213,12 @@ class Assets extends Component {
             <label className="radio-inline" 
               
             >
-              <input type="radio" name={"drainage"+i} value="riool" checked={e.drainage==='riool'}
+              <input type="radio" name={"drainage"+i} value="riool" checked={e.sewer_connection===true}
               onChange={
                 (e) => {
                   console.log('riool');
                   let tmpAssets = this.props.assetsToAdapt;
-                  tmpAssets[i].drainage = 'riool';
-                  // this.setState({assets: tmpAssets})
+                  tmpAssets[i].sewer_connection = true;
                   this.props.adaptAssets(tmpAssets);
                   console.log(this.props.assetsToAdapt)
                 }
@@ -247,13 +231,12 @@ class Assets extends Component {
             <label className="radio-inline"
               
             >
-              <input type="radio" name={"drainage"+i} value="tuin" checked={e.drainage==='tuin'}
+              <input type="radio" name={"drainage"+i} value="tuin" checked={e.sewer_connection===false}
               onChange={
                 (e) => {
                   console.log('tuin');
                   let tmpAssets = this.props.assetsToAdapt;
-                  tmpAssets[i].drainage = 'tuin';
-                  // this.setState({assets: tmpAssets})
+                  tmpAssets[i].sewer_connection = false;
                   this.props.adaptAssets(tmpAssets);
                 }
               }
@@ -289,7 +272,6 @@ class Assets extends Component {
                 onClick={()=>{
                   let tmpAssets = this.props.assetsToAdapt;
                   tmpAssets.splice(i, 1);
-                  // this.setState({assets: tmpAssets})
                   this.props.adaptAssets(tmpAssets);
                 }}
               >
@@ -310,14 +292,7 @@ class Assets extends Component {
               
             </Col>
           </Row>
-          {/* Should area show -> not for type extra */}
           {this.createCardBody(e,i)}
-          {/* { this.props.selectedTab !== 'extra' ? this.createAreaRow(e,i) : '' }
-          { this.createInfiltrationRow(e,i) }
-          { this.createStorageRow( e,i)}
-          { this.createDrainageRow( e,1)} */}
-
-          
         </Col>
       </Row>
     );
@@ -355,11 +330,9 @@ class Assets extends Component {
                       console.log('selectedItem', selectedItem);
                     }
                     selectedItem.area = 0;
-                    selectedItem.drainage = 'riool';
+                    selectedItem.sewer_connection = false;
                     let tmpAssets = this.props.assetsToAdapt;
                     tmpAssets.unshift(selectedItem);
-                    // this.setState({assets: tmpAssets})
-                    console.log('inside assets adapt assets', tmpAssets);
                     this.props.adaptAssets(tmpAssets);
                   }}
                 >
