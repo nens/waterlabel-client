@@ -43,7 +43,7 @@ class SelectedObjectDetails extends Component {
         }
         return styles.labelG;
       };
-      return false;
+      // return false;
       return (
         <div className={styles.SelectedObjectDetails}>
         <div

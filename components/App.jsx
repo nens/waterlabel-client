@@ -9,6 +9,7 @@ import AboutText from './AboutText';
 import Calculator from './Calculator';
 import Tabs from './Tabs';
 import HeaderNavigator from './HeaderNavigator';
+import ButtonsEditSave from './ButtonsEditSave';
 import Assets from './Assets';
 import AddressListPicker from './AddressListPicker';
 import SelectedAddress from './SelectedAddress';
@@ -66,6 +67,7 @@ import {
   setAbout,
   setPrivacy,
 } from '../actions_gui_state';
+import AddressSmall from './AddressSmall';
 
 class App extends Component {
 
@@ -366,6 +368,9 @@ class App extends Component {
                       </h3>
                     </Col>
                   </Row> 
+                  {this.props.guiState.edit===false 
+                  ?
+                  <div>
                   <Row>
                     <Col md={12} sm={12} xs={12}>
                       <h1>Label opslag water&nbsp;</h1>
@@ -377,15 +382,19 @@ class App extends Component {
                     openMap={this.openMap}
                     openPrivacyText={this.openPrivacyText}
                   />
+                  </div>
+                  :
+                  ""
+                  }
                   
                 
-                  <Row>
+                  {/* <Row>
                     <Col md={12}>
                       <h2>
                         Mijn label
                       </h2>
                     </Col>
-                  </Row>
+                  </Row> */}
                   <div 
                     style={ 
                       this.props.addressSearchResults.allResultAddresses.length !== 0 ? {display: 'none'} : {} 
@@ -416,11 +425,18 @@ class App extends Component {
                   }
                   
                   { this.props.addressSearchResults.selectedResult 
+                  &&
+                  ! this.props.guiState.edit
                   ? 
                     <SelectedAddress/>
                       :
                       ''
-                      }
+                  }
+    { this.props.addressSearchResults.selectedResult ?
+      <ButtonsEditSave/>
+          :
+          ""
+          }
                   { 
                     this.props.addressSearchResults.selectedResult &&
                     this.props.guiState.edit
@@ -433,6 +449,9 @@ class App extends Component {
                         </Col>
                       </Row>
                     </div>
+                    <Row>
+                      <AddressSmall/>
+                    </Row>
                     <Tabs
                       selectedTab={this.props.guiState.selectedTab}
                       setSelectedTab={selectedTab=>dispatch(setTab(selectedTab))}

@@ -5,6 +5,7 @@ import appStyles from './App.css';
 import { connect } from 'react-redux';
 import styles from './App.css';
 import LabelSymbol from './LabelSymbol';
+import AddressSmall from './AddressSmall';
 import moment from 'moment';
 
 import {
@@ -34,67 +35,19 @@ import {
 
 import algemeen02 from '../images/algemeen02.png';
 
-
-const svgStyle = () => {
-  if (selectedObject.labelcode_last === 'A') {
-    return selectedObjectStyles.labelA;
-  }
-  if (selectedObject.labelcode_last === 'B') {
-    return selectedObjectStyles.labelB;
-  }
-  if (selectedObject.labelcode_last === 'C') {
-    return selectedObjectStyles.labelC;
-  }
-  if (selectedObject.labelcode_last === 'D') {
-    return selectedObjectStyles.labelD;
-  }
-  if (selectedObject.labelcode_last === 'E') {
-    return selectedObjectStyles.labelE;
-  }
-  if (selectedObject.labelcode_last === 'F') {
-    return selectedObjectStyles.labelF;
-  }
-  if (selectedObject.labelcode_last === 'G') {
-    return selectedObjectStyles.labelG;
-  }
-  return selectedObjectStyles.labelUnknown;
-};
-
 class SelectedAddress extends Component {
-
-  
-
 
   render () {
     const { dispatch } = this.props;
     const waterlabel = this.props.assetsWaterlabel.waterLabelsFromServer[0];
     const waterLabelDateObj = waterlabel &&  moment (waterlabel.timestamp + 'Z');
     moment.locale('nl');
-    const waterLabelStr = waterLabelDateObj &&  waterLabelDateObj.format('LLLL');
+    const waterLabelDateStr = waterLabelDateObj &&  waterLabelDateObj.format('LLLL');
 
     return (
       <div className={"form-group " +  styles.FoundAddress} >
       <Row style={{marginTop: "10px"}}>
-        <Col md={6} sm={12} xs={12} >
-          <Row>
-            <Col md={12}>
-                <span>{this.props.addressSearchResults.selectedResult.street+
-                  ' '+ this.props.addressSearchResults.selectedResult.housenumber+
-                  ' '+ (this.props.addressSearchResults.selectedResult.houseletter || '')}</span>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-                <span>{this.props.addressSearchResults.selectedResult.postalcode}</span>
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-                <span>{this.props.addressSearchResults.selectedResult.city}</span>
-            </Col>
-          </Row>
-          <br/>
-        </Col>
+        <AddressSmall/>
         {
           waterlabel 
           ?
@@ -108,13 +61,27 @@ class SelectedAddress extends Component {
           {
             waterlabel 
             ?
-            <p>
-              Uw adres heeft waterlabel: <b>{waterlabel.code}</b>
+            <div>
+              <Row>
+                <Col md={6} sd={6} xs={6}>
+                  <span style={{fontWeight: "normal"}}>Uw adres heeft waterlabel:</span>
+                </Col>
+                <Col  md={6} sd={6} xs={6}>
+                  <b>{waterlabel.code}</b>
+                </Col>
+              </Row>
               <br/>
-              Laatst gewijzigt op: <b>{waterLabelStr}</b>
-              <br/>
-              Ga naar <i>"Mijn gegevens"</i> voor meer details.
-            </p>
+              <Row>
+                <Col  md={6} sd={6} xs={6}>
+                  <span style={{fontWeight: "normal"}}>Laatst gewijzigt op:</span>
+                </Col>
+                <Col  md={6} sd={6} xs={6}>
+                  <b>{waterLabelDateStr}</b>
+                </Col>
+              </Row> 
+              {/* <br/>             
+              <span style={{fontWeight: "normal"}}>Ga naar "Mijn gegevens" voor meer details.</span> */}
+            </div>
             :
             <p>
               Uw adres heeft nog geen waterlabel. 
@@ -123,85 +90,7 @@ class SelectedAddress extends Component {
           }
         </Col>     
       </Row>
-      <Row style={{marginTop: 10 }}>
-        {/* <Col md={6} sm={12} xs={12}>
-          <div className='form-group'>
-              <Button
-                style={{ width:'100%'}}
-                bsStyle='info'
-                onClick={() => 
-                  {
-                    dispatch(setGuiEdit(false));
-                    dispatch(resetAddressQuery())
-                  }
-                  }
-                bsSize='lg'>
-                <i className='fa fa-edit' />&nbsp; Ander adres
-              </Button>
-          </div>
-        </Col> */}
-        {
-          ! this.props.guiState.edit 
-          ?
-          <div>
-          
-          <Col md={6} sm={12} xs={12} >
-            <div className='form-group'>
-                <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
-                  bsStyle='info'
-                  // onClick={() => this.setState({editMode:false})}
-                  bsSize='lg'>
-                  <i className='fa fa-print' />&nbsp;Label Afdrukken
-                </Button>
-              {/* </ButtonGroup> */}
-            </div>
-          </Col>
-          <Col md={6} sm={12} xs={12} >
-            <div className='form-group'>
-              {/* <ButtonGroup> */}
-                <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
-                  bsStyle='info'
-                  onClick={() => {
-                    // this.setState({editMode:true})
-                    dispatch(setGuiEdit(true));
-                  }}
-                  bsSize='lg'>
-                  <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
-                </Button>
-              {/* </ButtonGroup> */}
-            </div>
-          </Col>
-          </div>
-          :
-          <Col md={6} sm={12} xs={12} >
-            <div className='form-group'>
-              {/* <ButtonGroup style={{ marginTop: 10 }}> */}
-                <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
-                  bsStyle='info'
-                  onClick={() => {
-                    // this.setState({editMode:false})
-                    dispatch(setGuiEdit(false));
-                    dispatch(sendWaterlabel(({
-                      building: this.props.addressSearchResults.selectedResult.building,
-                      email: 'tom.deboer@nelen-schuurmans.nl',
-                      assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
-                    })));
-                  }}
-                  bsSize='lg'>
-                  <i className='fa fa-save' />
-                  &nbsp; Mijn Gegevens Opslaan
-                </Button>
-              {/* </ButtonGroup> */}
-            </div>
-          </Col>
-          }
-          </Row>
+      
         </div>
     );
   }
