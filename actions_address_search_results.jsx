@@ -45,6 +45,14 @@ export function receiveBuildings(buildings) {
     if (selectedResult) {
       dispatch(selectAddressFromResults(selectedResult))
     }
+    console.log('allResultAddresses', allResultAddresses);
+    if (allResultAddresses.length===0) {
+      swal(
+        'Geen addressen gevonden op de server ',
+        'Het door u opgegeven adres lijkt niet juist',
+        'error',
+      );
+    }
 
     dispatch({
       type: RECEIVE_BUILDINGS,

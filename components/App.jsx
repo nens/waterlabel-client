@@ -5,13 +5,13 @@ import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
 import AboutText from './AboutText';
-import algemeen02 from '../images/algemeen02.png';
 
 import Calculator from './Calculator';
 import Tabs from './Tabs';
 import HeaderNavigator from './HeaderNavigator';
 import Assets from './Assets';
 import AddressListPicker from './AddressListPicker';
+import SelectedAddress from './SelectedAddress';
 import AddressSearchWidget from './AddressSearchWidget';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
@@ -301,30 +301,7 @@ class App extends Component {
         ${selectedObject.city}`;
     }
 
-    const svgStyle = () => {
-      if (selectedObject.labelcode_last === 'A') {
-        return selectedObjectStyles.labelA;
-      }
-      if (selectedObject.labelcode_last === 'B') {
-        return selectedObjectStyles.labelB;
-      }
-      if (selectedObject.labelcode_last === 'C') {
-        return selectedObjectStyles.labelC;
-      }
-      if (selectedObject.labelcode_last === 'D') {
-        return selectedObjectStyles.labelD;
-      }
-      if (selectedObject.labelcode_last === 'E') {
-        return selectedObjectStyles.labelE;
-      }
-      if (selectedObject.labelcode_last === 'F') {
-        return selectedObjectStyles.labelF;
-      }
-      if (selectedObject.labelcode_last === 'G') {
-        return selectedObjectStyles.labelG;
-      }
-      return selectedObjectStyles.labelUnknown;
-    };
+
 
     const geolocationButton = (
       'geolocation' in navigator &&
@@ -358,12 +335,36 @@ class App extends Component {
       <div className="height-hundred-percent">
         <div className="height-hundred-percent">
           <Grid className={styles.BackgroundColor + ' ' + "height-hundred-percent"}>
+            
             <Row> 
               <Col md={12}>
 
                 <div 
                   className={`jumbotron ${styles.Jumbo}`}
                 >
+                  <Row style={
+                    this.props.addressSearchResults.selectedResult === null 
+                    ?
+                    {visibility: 'hidden'}
+                    :
+                    {}
+                  }>
+                    <Col md={12}>
+                      <h2
+                        style={{cursor:'pointer'}}
+                        onClick={e=>{
+                          if (this.props.guiState.edit===true) {
+                            this.props.dispatch(setGuiEdit(false))
+                          } else if (this.props.addressSearchResults.selectedResult !== null) {
+                            console.log('this.props.dispatch(resetSelectedAddress())');
+                            this.props.dispatch(resetAddressQuery())
+                          }
+                        }}
+                      >
+                      ← Vorig scherm
+                      </h2>
+                    </Col>
+                  </Row> 
                   <Row>
                     <Col md={12} sm={12} xs={12}>
                       <h1>Label opslag water&nbsp;</h1>
@@ -415,385 +416,12 @@ class App extends Component {
                   
                   { this.props.addressSearchResults.selectedResult 
                   ? 
-                  <div className={"form-group " +  styles.FoundAddress} >
-                    <Row style={{marginTop: "10px"}}>
-                      <Col md={6} sm={12} xs={12} >
-                        <Row>
-                          <Col md={12}>
-                              <span>{this.props.addressSearchResults.selectedResult.street+
-                                ' '+ this.props.addressSearchResults.selectedResult.housenumber+
-                                ' '+ (this.props.addressSearchResults.selectedResult.houseletter || '')}</span>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={12}>
-                              <span>{this.props.addressSearchResults.selectedResult.postalcode}</span>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={12}>
-                              <span>{this.props.addressSearchResults.selectedResult.city}</span>
-                          </Col>
-                        </Row>
-                      </Col>
-                      {/* <Col md={6} sm={12} xs={12}>
-                        <table
-                            // className={`table-striped ${styles.ObjectPropertiesTable}`}
-                            className={`${styles.ObjectPropertiesTable}`}
-                            >
-                          <tbody>
-                            <tr>
-                              <td style={{ verticalAlign: 'top' }}>Label Opslag Water: </td>
-                              <td className='waterlabel'>
-                                <OverlayTrigger
-                                  trigger='click'
-                                  placement='bottom'
-                                  rootClose
-                                  overlay={
-                                  <Popover id='waterlabel' title='Legenda'>
-                                    <img
-                                      style={{
-                                        width: 125,
-                                        padding: 15,
-                                        cursor: 'pointer',
-                                      }}
-                                      src={algemeen02} />
-                                  </Popover>
-                                }>
-                                  <svg
-                                    className={svgStyle()}
-                                    width='48.5'
-                                    height='17'>
-                                    <polygon
-                                      points='0,0 40,0 48.5,8.5 40,17 0,17' />
-                                    <text
-                                      style={{ 'fill': 'white' }}
-                                      x='2'
-                                      y='13'>
-                                      {(postcode.selectedObject.properties.labelcode_last) ? postcode.selectedObject.properties.labelcode_last : '?'}
-                                    </text>
-                                  </svg>
-                                </OverlayTrigger>
-                                {(postcode.selectedObject &&
-                                  postcode.labelHistory.length > 0) ?
-                                  <div>
-                                    {postcode.labelHistory.map((label, i) => {
-                                      return <div key={i}>
-                                              <svg
-                                                className={
-                                                  this.historicalSvgStyle(label.fields.code)
-                                                }
-                                                width='48.5'
-                                                height='17'>
-                                                <polygon
-                                                  points='0,0 40,0 48.5,8.5 40,17 0,17' />
-                                                  <text
-                                                    style={{ 'fill': 'white' }}
-                                                    x='2'
-                                                    y='13'>
-                                                    {label.fields.code}
-                                                  </text>
-                                              </svg>
-                                              <span style={{
-                                                verticalAlign: 5,
-                                                fontSize: '0.8em',
-                                                paddingLeft: 5,
-                                              }}>
-                                                {moment(label.fields.timestamp).locale('nl').format('LL')}
-                                              </span>
-                                            </div>;
-                                    })}
-                                  </div>
-                                  :
-                                  <Button
-                                    bsSize='xsmall'
-                                    className='pull-right'
-                                    onClick={this.handleShowHistory}>
-                                    Toon oude labels
-                                  </Button>
-                                }
-                              </td>
-                            </tr>
-                            
-                            </tbody>
-                          </table>
-                          <a style={{fontSize:'initial'}}>
-                            Toon overige Labels
-                          </a>
-                      </Col> */}
-                      {/* <Col md={6} sm={6} xs={6} style={{display:'none'}}>
-                        <span className={styles.Label}>
-                          {postcode.selectedObject.properties.labelcode_last}
-                        </span>
-                        <ol className={calculatorStyles.labels}>
-                          <li>
-                            <svg className={calculatorStyles.labelA}
-                                width='108.5'
-                                height='17'>
-                              <polygon
-                                points='0,0 100,0 108.5,8.5 100,17 0,17' />
-                              <text
-                                style={{ 'fill': 'white' }}
-                                x='2'
-                                y='13'>A
-                              </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'A') ?
-                            <svg
-                              className={calculatorStyles.labelA}
-                              width='48.5'
-                              height='17'>
-                              <text style={{ 'fill': 'black' }}
-                                    x='10'
-                                    y='13'>&larr;
-                              </text>
-                            </svg> : ''}
-                          </li>
-                          <li>
-                            <svg
-                              className={calculatorStyles.labelB}
-                              width='98.5'
-                              height='17'>
-                                <polygon
-                                  points='0,0 90,0 98.5,8.5 90,17 0,17' />
-                                <text
-                                  style={{ 'fill': 'white' }}
-                                  x='2'
-                                  y='13'>B
-                                </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'B') ?
-                            <svg
-                              className={calculatorStyles.labelB}
-                              width='48.5'
-                              height='17'>
-                                <text
-                                  style={{ 'fill': 'black' }}
-                                  x='10'
-                                  y='13'>&larr;
-                                </text>
-                            </svg> : ''}
-                          </li>
-                          <li>
-                            <svg
-                              className={calculatorStyles.labelC}
-                              width='88.5'
-                              height='17'>
-                                <polygon
-                                  points='0,0 80,0 88.5,8.5 80,17 0,17' />
-                                <text
-                                  style={{ 'fill': 'white' }}
-                                  x='2'
-                                  y='13'>C
-                                </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'C') ?
-                            <svg
-                              className={calculatorStyles.labelC}
-                              width='48.5'
-                              height='17'>
-                                <text
-                                  style={{ 'fill': 'black' }}
-                                  x='10'
-                                  y='13'>&larr;
-                                </text>
-                            </svg> : ''}
-                          </li>
-                          <li>
-                            <svg
-                              className={calculatorStyles.labelD}
-                              width='78.5'
-                              height='17'>
-                                <polygon
-                                  points='0,0 70,0 78.5,8.5 70,17 0,17' />
-                                <text
-                                  style={{ 'fill': 'white' }}
-                                  x='2'
-                                  y='13'>D
-                                </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'D') ?
-                            <svg
-                              className={calculatorStyles.labelD}
-                              width='48.5'
-                              height='17'>
-                                <text
-                                  style={{ 'fill': 'black' }}
-                                  x='10'
-                                  y='13'>&larr;
-                                </text>
-                            </svg> : ''}
-                          </li>
-                          <li>
-                            <svg
-                              className={calculatorStyles.labelE}
-                              width='68.5'
-                              height='17'>
-                                <polygon
-                                  points='0,0 60,0 68.5,8.5 60,17 0,17' />
-                                <text
-                                  style={{ 'fill': 'white' }}
-                                  x='2'
-                                  y='13'>E
-                                </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'E') ?
-                            <svg
-                              className={calculatorStyles.labelE}
-                              width='48.5'
-                              height='17'>
-                                <text
-                                  style={{ 'fill': 'black' }}
-                                  x='10'
-                                  y='13'>&larr;
-                                </text>
-                            </svg> : ''}
-                          </li>
-                          <li>
-                            <svg
-                              className={calculatorStyles.labelF}
-                              width='58.5'
-                              height='17'>
-                                <polygon
-                                  points='0,0 50,0 58.5,8.5 50,17 0,17' />
-                                <text
-                                  style={{ 'fill': 'white' }}
-                                  x='2'
-                                  y='13'>F
-                                </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'F') ?
-                            <svg
-                              className={calculatorStyles.labelF}
-                              width='48.5'
-                              height='17'>
-                                <text
-                                  style={{ 'fill': 'black' }}
-                                  x='10'
-                                  y='13'>&larr;
-                                </text>
-                            </svg> : ''}
-                          </li>
-                          <li>
-                            <svg
-                              className={calculatorStyles.labelG}
-                              width='48.5'
-                              height='17'>
-                                <polygon
-                                  points='0,0 40,0 48.5,8.5 40,17 0,17' />
-                                <text
-                                  style={{ 'fill': 'white' }}
-                                  x='2'
-                                  y='13'>G
-                                </text>
-                            </svg>
-                            {(postcode.selectedObject.properties.labelcode_last === 'G') ?
-                            <svg
-                              className={calculatorStyles.labelG}
-                              width='48.5'
-                              height='17'>
-                                <text
-                                  style={{ 'fill': 'black' }}
-                                  x='10'
-                                  y='13'>&larr;
-                                </text>
-                            </svg> : ''}
-                          </li>
-                        </ol>
-                      </Col> */}
-                    </Row>
-                    <Row style={{marginTop: 10 }}>
-                      <Col md={6} sm={12} xs={12}>
-                        <div className='form-group'>
-                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
-                            <Button
-                              style={{ width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={() => 
-                                {
-                                  // this.setState({editMode:false})
-                                  dispatch(setGuiEdit(false));
-                                  // dispatch(clearSelectedObject())}
-                                  dispatch(resetAddressQuery())
-                                }
-                                }
-                              bsSize='lg'>
-                              <i className='fa fa-edit' />&nbsp; Ander adres
-                            </Button>
-                          {/* </ButtonGroup> */}
-                        </div>
-                      </Col>
-                      {
-                        // ! this.state.editMode
-                        ! this.props.guiState.edit 
-                        ?
-                        <div>
-                        
-                        <Col md={6} sm={12} xs={12} >
-                          <div className='form-group'>
-                              <Button
-                                style={{width:'100%'}}
-                                // disabled={(postcode.isFetching) ? true : false}
-                                bsStyle='info'
-                                // onClick={() => this.setState({editMode:false})}
-                                bsSize='lg'>
-                                <i className='fa fa-print' />&nbsp;Label Afdrukken
-                              </Button>
-                            {/* </ButtonGroup> */}
-                          </div>
-                        </Col>
-                        <Col md={6} sm={12} xs={12} >
-                          <div className='form-group'>
-                            {/* <ButtonGroup> */}
-                              <Button
-                                style={{width:'100%'}}
-                                // disabled={(postcode.isFetching) ? true : false}
-                                bsStyle='info'
-                                onClick={() => {
-                                  // this.setState({editMode:true})
-                                  dispatch(setGuiEdit(true));
-                                }}
-                                bsSize='lg'>
-                                <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
-                              </Button>
-                            {/* </ButtonGroup> */}
-                          </div>
-                        </Col>
-                        </div>
-                        :
-                        <Col md={6} sm={12} xs={12} >
-                          <div className='form-group'>
-                            {/* <ButtonGroup style={{ marginTop: 10 }}> */}
-                              <Button
-                                style={{width:'100%'}}
-                                // disabled={(postcode.isFetching) ? true : false}
-                                bsStyle='info'
-                                onClick={() => {
-                                  // this.setState({editMode:false})
-                                  dispatch(setGuiEdit(false));
-                                  dispatch(sendWaterlabel(({
-                                    building: this.props.addressSearchResults.selectedResult.building,
-                                    email: 'tom.deboer@nelen-schuurmans.nl',
-                                    assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
-                                  })));
-                                }}
-                                bsSize='lg'>
-                                <i className='fa fa-save' />
-                                &nbsp; Mijn Gegevens Opslaan
-                              </Button>
-                            {/* </ButtonGroup> */}
-                          </div>
-                        </Col>
-                        }
-                        </Row>
-                      </div>
+                    <SelectedAddress/>
                       :
                       ''
                       }
                   { 
                     this.props.addressSearchResults.selectedResult &&
-                    // this.state.editMode
                     this.props.guiState.edit
                   ? 
                   <div>

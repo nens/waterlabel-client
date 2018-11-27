@@ -55,7 +55,7 @@ switch (action.type) {
   case RESET_ADDRESS_QUERY:
     console.log('RESET_ADDRESS_QUERY');
     return Object.assign({}, state, {
-      selectedResult: false,
+      selectedResult: null,
       allResults: [],
       allResultAddresses: [],
       isFetching: false,

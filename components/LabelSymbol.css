@@ -1,0 +1,7 @@
+.Label {
+  text-align: center;
+  vertical-align: middle;
+  /* the same as your div height, for now hardcoded as 170 because I have no way to calc this easily */
+  line-height: 170px; 
+  font-size: 5em;      
+}
