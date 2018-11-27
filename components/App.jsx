@@ -341,6 +341,7 @@ class App extends Component {
 
                 <div 
                   className={`jumbotron ${styles.Jumbo}`}
+                  style={{paddingTop: '0px'}}
                 >
                   <Row style={
                     this.props.addressSearchResults.selectedResult === null 
@@ -350,7 +351,7 @@ class App extends Component {
                     {}
                   }>
                     <Col md={12}>
-                      <h2
+                      <h3
                         style={{cursor:'pointer'}}
                         onClick={e=>{
                           if (this.props.guiState.edit===true) {
@@ -362,7 +363,7 @@ class App extends Component {
                         }}
                       >
                       ← Vorig scherm
-                      </h2>
+                      </h3>
                     </Col>
                   </Row> 
                   <Row>
