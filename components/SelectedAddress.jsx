@@ -5,6 +5,7 @@ import appStyles from './App.css';
 import { connect } from 'react-redux';
 import styles from './App.css';
 import LabelSymbol from './LabelSymbol';
+import moment from 'moment';
 
 import {
   setGuiEdit,
@@ -67,6 +68,10 @@ class SelectedAddress extends Component {
   render () {
     const { dispatch } = this.props;
     const waterlabel = this.props.assetsWaterlabel.waterLabelsFromServer[0];
+    const waterLabelDateObj = waterlabel &&  moment (waterlabel.timestamp + 'Z');
+    moment.locale('nl');
+    const waterLabelStr = waterLabelDateObj &&  waterLabelDateObj.format('LLLL');
+
     return (
       <div className={"form-group " +  styles.FoundAddress} >
       <Row style={{marginTop: "10px"}}>
@@ -104,9 +109,11 @@ class SelectedAddress extends Component {
             waterlabel 
             ?
             <p>
-              Uw adres heeft waterlabel: {waterlabel.code}.
+              Uw adres heeft waterlabel: <b>{waterlabel.code}</b>
               <br/>
-              Ga naar "Mijn gegevens" voor meer details.
+              Laatst gewijzigt op: <b>{waterLabelStr}</b>
+              <br/>
+              Ga naar <i>"Mijn gegevens"</i> voor meer details.
             </p>
             :
             <p>
@@ -117,29 +124,23 @@ class SelectedAddress extends Component {
         </Col>     
       </Row>
       <Row style={{marginTop: 10 }}>
-        <Col md={6} sm={12} xs={12}>
+        {/* <Col md={6} sm={12} xs={12}>
           <div className='form-group'>
-            {/* <ButtonGroup style={{ marginTop: 10 }}> */}
               <Button
                 style={{ width:'100%'}}
-                // disabled={(postcode.isFetching) ? true : false}
                 bsStyle='info'
                 onClick={() => 
                   {
-                    // this.setState({editMode:false})
                     dispatch(setGuiEdit(false));
-                    // dispatch(clearSelectedObject())}
                     dispatch(resetAddressQuery())
                   }
                   }
                 bsSize='lg'>
                 <i className='fa fa-edit' />&nbsp; Ander adres
               </Button>
-            {/* </ButtonGroup> */}
           </div>
-        </Col>
+        </Col> */}
         {
-          // ! this.state.editMode
           ! this.props.guiState.edit 
           ?
           <div>

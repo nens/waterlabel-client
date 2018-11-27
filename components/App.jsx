@@ -362,7 +362,7 @@ class App extends Component {
                           }
                         }}
                       >
-                      ← Vorig scherm
+                      <b style={{fontWeight: "bold"}}>←</b> Vorig scherm
                       </h3>
                     </Col>
                   </Row> 

@@ -47,10 +47,18 @@ function setSend () {
 }
 
 function serverReceivedWaterLabel (result) {
-  return {
-    type: SERVER_RECEIVED_WATERLABEL,
-    data: result,
+  return dispatch => {
+    dispatch({
+      type: SERVER_RECEIVED_WATERLABEL,
+      data: result,
+    });
+    dispatch(requestWaterlabels(result.building));
+
   }
+  // return {
+  //   type: SERVER_RECEIVED_WATERLABEL,
+  //   data: result,
+  // }
 }
 
 export function sendWaterlabel(waterLabel) {
