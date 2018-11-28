@@ -62,12 +62,13 @@ render(){
   } = this.props;
   return (
   <div>
-    <Row>
-      <Col md={6}>
-        <Row>
+    {/* <Row> */}
+      {/* <Col md={6}> */}
+        
           {
             addressSearchTerms.searchOn === 'POSTCODE'?
-            <Col md={5}>
+            <Row>
+            <Col md={6} sm={12} xs={12}>
             <div className='form-group'>
               <label htmlFor='postcode'>Postcode</label>
               <input
@@ -87,11 +88,13 @@ render(){
               />
             </div>
           </Col>
+          </Row>
             :
             ""
           }
-          
-          <Col md={5} sd={5} xs={7}>
+
+          <Row>
+          <Col md={6} sm={12} xs={12}>
             <div className='form-group'>
               <label htmlFor='huisnummer'>Huisnummer</label>
               <input
@@ -115,7 +118,7 @@ render(){
                 className='form-control input-lg'
               />
             </div>
-          </Col>
+          {/* </Col> */}
           {/* <Col md={3} sd={3} xs={5}>
             <div className='form-group'>
               <label htmlFor='toevoeging'>Toevoeging</label>
@@ -129,12 +132,12 @@ render(){
               />
             </div>
           </Col> */}
-        </Row>
+        {/* </Row> */}
         {
           addressSearchTerms.searchOn === 'STREET'?
           <div>
             <Row>
-              <Col md={12}>
+              <Col md={12} sm={12} xs={12}>
                 <div className='form-group'>
                   <label htmlFor='straatnaam'>Straatnaam</label>
                   <input
@@ -152,7 +155,7 @@ render(){
               </Col>
             </Row>
             <Row>
-              <Col md={12}>
+              <Col md={12} sm={12} xs={12}>
                 <div className='form-group'>
                   <label htmlFor='straatnaam'>Stad</label>
                   <input
