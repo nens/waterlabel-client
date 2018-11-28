@@ -79,29 +79,30 @@ class ButtonsEditSave extends Component {
           </Col>
           </div>
           :
-          <Col md={6} sm={12} xs={12} >
-            <div className='form-group'>
-              {/* <ButtonGroup style={{ marginTop: 10 }}> */}
-                <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
-                  bsStyle='info'
-                  onClick={() => {
-                    // this.setState({editMode:false})
-                    dispatch(setGuiEdit(false));
-                    dispatch(sendWaterlabel(({
-                      building: this.props.addressSearchResults.selectedResult.building,
-                      email: 'tom.deboer@nelen-schuurmans.nl',
-                      assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
-                    })));
-                  }}
-                  bsSize='lg'>
-                  <i className='fa fa-save' />
-                  &nbsp; Opslaan
-                </Button>
-              {/* </ButtonGroup> */}
-            </div>
-          </Col>
+          // <Col md={6} sm={12} xs={12} >
+          //   <div className='form-group'>
+          //     {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+          //       <Button
+          //         style={{width:'100%'}}
+          //         // disabled={(postcode.isFetching) ? true : false}
+          //         bsStyle='info'
+          //         onClick={() => {
+          //           // this.setState({editMode:false})
+          //           dispatch(setGuiEdit(false));
+          //           dispatch(sendWaterlabel(({
+          //             building: this.props.addressSearchResults.selectedResult.building,
+          //             email: 'tom.deboer@nelen-schuurmans.nl',
+          //             assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
+          //           })));
+          //         }}
+          //         bsSize='lg'>
+          //         <i className='fa fa-save' />
+          //         &nbsp; Opslaan
+          //       </Button>
+          //     {/* </ButtonGroup> */}
+          //   </div>
+          // </Col>
+          ""
           }
           </Row>
     );

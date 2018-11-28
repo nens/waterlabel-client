@@ -456,11 +456,11 @@ class App extends Component {
                       this.props.assetsWaterlabel.currentLabel 
                       ?
                       <div>
-                      <Row style={{fontSize: "large", display: "flex"}}>
-                        <Col md={3} sd={6} xs={6}>
+                      <Row style={{fontSize: "large", display: "flex",flexWrap: "wrap"}}>
+                        <Col md={3} sm={3} xs={6}>
                           <span>Huidig label:</span>
                         </Col>
-                        <Col md={6} sd={6} xs={6}
+                        <Col md={3} sm={3} xs={6}
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -470,6 +470,9 @@ class App extends Component {
                         >
                           <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
                         </Col>
+                        {/* <Col md={6} sm={12} xs={12} >
+                        testtt
+                        </Col> */}
                       </Row>
                       <br/>
                       </div>
@@ -480,11 +483,11 @@ class App extends Component {
                       this.props.assetsWaterlabel.calculatedLabel 
                       ?
                       <div>
-                      <Row style={{fontSize: "large", display: "flex"}}>
-                        <Col md={3} sd={6} xs={6}>
+                      <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
+                        <Col md={3} sm={3} xs={6}>
                           <span>Label met nieuwe wijziging:</span>
                         </Col>
-                        <Col md={6} sd={6} xs={6}
+                        <Col md={3} sm={3} xs={6}
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -493,6 +496,32 @@ class App extends Component {
                           }}
                         >
                           <span><b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
+                        </Col>
+                        <Col md={6} sm={6} xs={12} 
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            // textAlign: "center",
+                            marginTop: "10px"
+                          }}
+                        >
+                          <Button
+                            style={{width:'100%'}}
+                            bsStyle='info'
+                            onClick={() => {
+                              dispatch(setGuiEdit(false));
+                              dispatch(sendWaterlabel(({
+                                building: this.props.addressSearchResults.selectedResult.building,
+                                email: 'tom.deboer@nelen-schuurmans.nl',
+                                assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
+                              })));
+                            }}
+                            bsSize='lg'
+                            >
+                            <i className='fa fa-save' />
+                            &nbsp; Wijziging Opslaan
+                          </Button>
                         </Col>
                       </Row>
                       <br/>
