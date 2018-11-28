@@ -4,7 +4,7 @@ import styles from './App.css';import { Grid, Row, Col, Modal, Button, ButtonGro
 
 const HeaderNavigator = (({ openAboutText, openMap, openPrivacyText}) => (
   <Row>
-  <Col md={6} sm={12} xs={12}>
+  <Col md={6} sm={6} xs={6}>
       <ul className='list-inline'>
         <li>
           <a className={styles.InlineLink}
@@ -19,7 +19,7 @@ const HeaderNavigator = (({ openAboutText, openMap, openPrivacyText}) => (
         </li> */}
       </ul>
     </Col>
-    <Col md={6} sm={12} xs={12}>
+    <Col md={6} sm={6} xs={6}>
       <div className='pull-right' style={{ marginRight: 10 }}>
       <a href='https://twitter.com/waterlabel/'
         target='_blank'
