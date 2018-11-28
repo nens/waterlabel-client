@@ -476,22 +476,31 @@ class App extends Component {
                       :
                       ""
                     }
-                    <Row style={{fontSize: "large", display: "flex"}}>
-                      <Col md={3} sd={6} xs={6}>
-                        <span>Label met nieuwe wijziging:</span>
-                      </Col>
-                      <Col md={6} sd={6} xs={6}
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          flexDirection: "column",
-                          // textAlign: "center",
-                        }}
-                      >
-                        <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
-                      </Col>
-                    </Row>
-                    <br/>
+                    { 
+                      this.props.assetsWaterlabel.calculatedLabel 
+                      ?
+                      <div>
+                      <Row style={{fontSize: "large", display: "flex"}}>
+                        <Col md={3} sd={6} xs={6}>
+                          <span>Label met nieuwe wijziging:</span>
+                        </Col>
+                        <Col md={6} sd={6} xs={6}
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            // textAlign: "center",
+                          }}
+                        >
+                          <span><b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
+                        </Col>
+                      </Row>
+                      <br/>
+                      </div>
+                      :
+                      ""
+                    }
+                    
                     <Tabs
                       selectedTab={this.props.guiState.selectedTab}
                       setSelectedTab={selectedTab=>dispatch(setTab(selectedTab))}

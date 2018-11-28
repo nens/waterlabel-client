@@ -346,7 +346,7 @@ class Assets extends Component {
                   }
                   {this.props.assetTypes
                     .filter(e => e.category===this.selectedTabToCategory(this.props.selectedTab))
-                    .map(  e => <option value={e.name}>{e.name}</option>)
+                    .map(  e => <option key={e.name} value={e.name}>{e.name}</option>)
                   }
                   <option value={ANDERS_NAMELIJK} >{ANDERS_NAMELIJK}</option>
                 </select>
