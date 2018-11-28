@@ -294,6 +294,61 @@ class Assets extends Component {
     );
   }
 
+  createStorageInput (e,i) {
+    return (<input 
+    value={e.storage} 
+    className="form-control"
+    onChange={(e) => {
+      if (
+        RegExp('^[0-9][0-9]*([,|.])?[0-9]?$').test(e.target.value)
+        || e.target.value == ''  
+      ) 
+      {
+        let tmpAssets = this.props.assetsToAdapt;
+        tmpAssets[i].storage = parseFloat(e.target.value) || 0;
+        this.props.adaptAssets(tmpAssets);
+      }
+    }}
+  />);
+  }
+
+  createDrainageInput (e,i) {
+    return (
+      <div>
+      <label className="radio-inline">
+        <input type="radio" name={"drainage"+i} value="riool" checked={e.sewer_connection===true}
+        onChange={
+          (e) => {
+            let tmpAssets = this.props.assetsToAdapt;
+            tmpAssets[i].sewer_connection = true;
+            this.props.adaptAssets(tmpAssets);
+          }
+        }
+        readOnly={!this.props.editMode}
+        disabled={!this.props.editMode}
+        />
+        riool
+      </label>
+      <label className="radio-inline"
+        
+      >
+        <input type="radio" name={"drainage"+i} value="tuin" checked={e.sewer_connection===false}
+        onChange={
+          (e) => {
+            let tmpAssets = this.props.assetsToAdapt;
+            tmpAssets[i].sewer_connection = false;
+            this.props.adaptAssets(tmpAssets);
+          }
+        }
+        readOnly={!this.props.editMode}
+        disabled={!this.props.editMode}
+        />
+        tuin
+      </label>
+      </div>
+    );
+  }
+
   render() {
 
     const totalArea = this.props.assetsToAdapt
@@ -419,21 +474,7 @@ class Assets extends Component {
                             this.props.showDetails
                             ?
                             <td>
-                              <input 
-                                value={e.storage} 
-                                className="form-control"
-                                onChange={(e) => {
-                                  if (
-                                    RegExp('^[1-9][0-9]*([,|.])?[0-9]?$').test(e.target.value)
-                                    || e.target.value == ''  
-                                  ) 
-                                  {
-                                    let tmpAssets = this.props.assetsToAdapt;
-                                    tmpAssets[i].storage = e.target.value;
-                                    this.props.adaptAssets(tmpAssets);
-                                  }
-                                }}
-                              />
+                              {this.createStorageInput(e,i)}
                             </td>
                             :
                             null
@@ -442,38 +483,7 @@ class Assets extends Component {
                             this.props.showDetails
                             ?
                             <td>
-                            <label className="radio-inline" 
-              
-                            >
-                              <input type="radio" name={"drainage"+i} value="riool" checked={e.sewer_connection===true}
-                              onChange={
-                                (e) => {
-                                  let tmpAssets = this.props.assetsToAdapt;
-                                  tmpAssets[i].sewer_connection = true;
-                                  this.props.adaptAssets(tmpAssets);
-                                }
-                              }
-                              readOnly={!this.props.editMode}
-                              disabled={!this.props.editMode}
-                              />
-                              riool
-                            </label>
-                            <label className="radio-inline"
-                              
-                            >
-                              <input type="radio" name={"drainage"+i} value="tuin" checked={e.sewer_connection===false}
-                              onChange={
-                                (e) => {
-                                  let tmpAssets = this.props.assetsToAdapt;
-                                  tmpAssets[i].sewer_connection = false;
-                                  this.props.adaptAssets(tmpAssets);
-                                }
-                              }
-                              readOnly={!this.props.editMode}
-                              disabled={!this.props.editMode}
-                              />
-                              tuin
-                            </label>
+                            {this.createDrainageInput(e,i)}
                             
                             </td>
                             :
