@@ -1,6 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './App.css';import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
-  Popover, Well } from 'react-bootstrap';
+import styles from './App.css';
+import { 
+  Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
+  Popover, Well 
+} from 'react-bootstrap';
+
+const verifyPostcode = function (postcode) {
+if (postcode === '') {
+  return true;
+}
+
+  const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+  const noSpaces =  postcode.replace(/\s/g, '');
+  
+  return rege.test(noSpaces);
+}
+
 
 class AddressSearchWidget extends Component {
 render(){
@@ -20,21 +35,23 @@ render(){
     <Row>
       <Col md={6}>
         <Row>
-          <Col md={4}>
+          <Col md={5}>
             <div className='form-group'>
               <label htmlFor='postcode'>Postcode</label>
               <input
                 onChange={e=>setPostCode(e.target.value)}
                 value={addressSearchTermsPostcode}
-                // value={addressSearchTerms.postcode}
                 ref='postcode'
                 onKeyPress={handleKeyPress}
                 id='postcode'
                 type='text'
-                maxLength='6'
+                maxLength='7'
                 style={{ textTransform: 'uppercase' }}
                 placeholder={'BIJV. 3731HS'}
-                className='form-control input-lg'
+                className={
+                  'form-control input-lg '+ 
+                  ((verifyPostcode(addressSearchTermsPostcode)) ? "": styles.InvalidInput) 
+                }
               />
             </div>
           </Col>
@@ -42,7 +59,17 @@ render(){
             <div className='form-group'>
               <label htmlFor='huisnummer'>Huisnummer</label>
               <input
-                onChange={e=>setNumber(e.target.value)}
+                onChange={e=>{
+                  if (e.target.value === '') {
+                    setNumber(e.target.value)
+                  }
+                  else if (
+                    parseInt(e.target.value, 10) !== NaN && 
+                    parseInt(e.target.value, 10) >= 0
+                  ) {
+                    setNumber(parseInt(e.target.value, 10))
+                  }
+                }}
                 value={addressSearchTerms.number}
                 ref='huisnummer'
                 onKeyPress={handleKeyPress}

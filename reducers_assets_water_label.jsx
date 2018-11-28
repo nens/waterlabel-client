@@ -28,6 +28,7 @@ export function assetsWaterlabel(state={
         waterLabelsFromServer: action.data,
         currentLabel: action.data[0] || null,
         calculatedLabel: action.data[0] || null,
+        // calculatedLabel: null,
         assetsToAdapt: (action.data[0] && action.data[0].assets) || [],
       });
     case SEND_WATERLABEL:

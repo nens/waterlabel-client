@@ -17,9 +17,7 @@ function setFetching () {
 }
 
 export function requestWaterlabels(bagId) {
-  console.log('[f] requestWaterlabels');
   return dispatch => {
-    console.log('[f] 2 requestWaterlabels');
     dispatch(setFetching());
     $.ajax({
       url: `/api/v2/waterlabels/?building=${bagId}`,

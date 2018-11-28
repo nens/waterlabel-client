@@ -20,19 +20,39 @@ function setFetching () {
 }
 
 export function requestBuildings(postcode, number, street, city) {
+  postcode = postcode.replace(/\s/g, '');
   return dispatch => {
     dispatch(setFetching());
     $.ajax({
       url: `/api/v2/buildings/?postalcode=${postcode}&housenumber=${number}&page_size=1000000`,
     }).done(data => {
       return dispatch(receiveBuildings(data.results));
-    }).error(() => {
-        swal(
-          'Geen addressen gevonden op de server ',
-          'Er is een probleem met de server waardoor het momenteel niet mogelijk is addressen te zoeken',
-          'error',
-        );
+    }).error((e) => {
+        console.log(e);
+        if (
+          e.responseJSON &&
+          e.responseJSON.postalcode && 
+          e.responseJSON.postalcode[0] === 'Postalcode should contain 6 characters'
+        ){
+          swal(
+            'Postcode niet correct ',
+            'Postcode dient te bestaan uit 4 cijfers en 2 letters',
+            'error',
+          );
+        } else {
+          swal(
+            'Geen addressen gevonden op de server ',
+            'Er is een probleem met de server waardoor het momenteel niet mogelijk is addressen te zoeken',
+            'error',
+          );
+        }
+        
+        dispatch({
+          type: RECEIVE_BUILDINGS,
+          data: []
+        });
       }
+
     )
   }
 }

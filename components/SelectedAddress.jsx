@@ -100,7 +100,7 @@ class SelectedAddress extends Component {
             :
             <p>
               Uw adres heeft nog geen waterlabel. 
-              Ga naar "Mijn gegevens" om uw waterlabel te berekenen. 
+              {/* Ga naar "Mijn gegevens" om uw waterlabel te berekenen.  */}
             </p>
           }
         </Col>     

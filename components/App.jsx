@@ -232,11 +232,11 @@ class App extends Component {
   }
 
   handleKeyPress(e) {
-    if (e.key === ' ') {
-      e.stopPropagation();
-      e.preventDefault();
-      return false;
-    }
+    // if (e.key === ' ') {
+    //   e.stopPropagation();
+    //   e.preventDefault();
+    //   return false;
+    // }
     if (e.key === 'Enter') {
       const postcodeFormatted = this.refs.postcode.value;
       const huisnummerFormatted = this.refs.huisnummer.value;

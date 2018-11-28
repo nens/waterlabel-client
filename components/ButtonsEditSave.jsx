@@ -59,11 +59,17 @@ class ButtonsEditSave extends Component {
                     dispatch(setGuiEdit(true));
                   }}
                   bsSize='lg'>
-                  <i className='fa fa-edit' />&nbsp; Wijzig
+                  <i className='fa fa-edit' />
+                  &nbsp; {this.props.assetsWaterlabel.currentLabel ?
+                    "Wijzig"
+                    :
+                    "Nieuw Label"
+                  }
                 </Button>
               {/* </ButtonGroup> */}
             </div>
           </Col>
+          {this.props.assetsWaterlabel.currentLabel ?
           <Col md={6} sm={12} xs={12} >
             <div className='form-group'>
                 <Button
@@ -77,6 +83,9 @@ class ButtonsEditSave extends Component {
               {/* </ButtonGroup> */}
             </div>
           </Col>
+          :
+          ""
+          }
           </div>
           :
           // <Col md={6} sm={12} xs={12} >
