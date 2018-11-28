@@ -81,7 +81,7 @@ class SelectedAddress extends Component {
               <br/> */}
               <Row>
                 <Col  md={3} sd={6} xs={6}>
-                  <span style={{fontWeight: "normal"}}>Gewijzigd op:</span>
+                  <span style={{fontWeight: "normal"}}>Gewijzigd op</span>
                 </Col>
                 <Col  md={6} sd={6} xs={6}
                   style={{

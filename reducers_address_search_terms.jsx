@@ -3,6 +3,8 @@ import {
   SET_NUMBER_QUERY,
   SET_STREET_QUERY,
   SET_CITY_QUERY,
+  SEARCH_ON_STREET,
+  SEARCH_ON_POSTCODE,
 } from './actions_address_search_terms'
 
 export function addressSearchTerms ( state = {
@@ -10,6 +12,7 @@ export function addressSearchTerms ( state = {
   number: '',
   street: '',
   city: '',
+  searchOn: 'POSTCODE', // POSTCODE | STREET
 }, action) {
   switch (action.type) {
     case SET_POSTCODE_QUERY:
@@ -28,6 +31,15 @@ export function addressSearchTerms ( state = {
       return Object.assign({}, state, {
         city: action.data,
       });
+    case SEARCH_ON_STREET:
+      return Object.assign({}, state, {
+        searchOn: 'STREET',
+      });
+    case SEARCH_ON_POSTCODE:
+      return Object.assign({}, state, {
+        searchOn: 'POSTCODE',
+      });
+
     default:
       return state;
   }

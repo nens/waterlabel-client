@@ -41,6 +41,8 @@ import {
   setNumber,
   setStreet,
   setCity,
+  setSearchOnPostcode,
+  setSearchOnStreet,
 } from '../actions_address_search_terms';
 import {
   requestBuildings,
@@ -87,7 +89,7 @@ class App extends Component {
     this.closePrivacyText = this.closePrivacyText.bind(this);
     this.handleGeoLocation = this.handleGeoLocation.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
+    // this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleSearchButton = this.handleSearchButton.bind(this);
     this.handleShowHistory = this.handleShowHistory.bind(this);
     this.handleUndo = this.handleUndo.bind(this);
@@ -231,27 +233,7 @@ class App extends Component {
     }
   }
 
-  handleKeyPress(e) {
-    // if (e.key === ' ') {
-    //   e.stopPropagation();
-    //   e.preventDefault();
-    //   return false;
-    // }
-    if (e.key === 'Enter') {
-      const postcodeFormatted = this.refs.postcode.value;
-      const huisnummerFormatted = this.refs.huisnummer.value;
-
-      const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
-      if (postcodeFormatted.length === 6 &&
-          this.refs.huisnummer.value &&
-          rege.test(postcodeFormatted) &&
-          huisnummerFormatted.toLowerCase()) {
-        this.props.dispatch(
-          lookupPostcode(postcodeFormatted, huisnummerFormatted)
-        );
-      }
-    }
-  }
+ 
 
   historicalSvgStyle(label) {
     if (label === 'A') { return selectedObjectStyles.labelA; }
@@ -404,12 +386,14 @@ class App extends Component {
                       addressSearchTerms={this.props.addressSearchTerms}
                       addressSearchTermsPostcode={this.props.addressSearchTerms.postcode}
                       addressSearchResults={this.props.addressSearchResults} 
-                      handleKeyPress={this.handleKeyPress}
+                      // handleKeyPress={this.handleKeyPress}
                       setPostCode={e=>dispatch(setPostCode(e))}
                       setNumber={e=>dispatch(setNumber(e))}
                       setStreet={e=>dispatch(setStreet(e))}
                       setCity={e=>dispatch(setCity(e))}
                       requestBuildings={(postcode,number)=>dispatch(requestBuildings(postcode,number))}
+                      setSearchOnStreet={()=>dispatch(setSearchOnStreet())}
+                      setSearchOnPostcode={()=>dispatch(setSearchOnPostcode())}
                     />
                   </div>
                   {

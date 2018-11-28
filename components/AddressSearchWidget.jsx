@@ -6,9 +6,6 @@ import {
 } from 'react-bootstrap';
 
 const verifyPostcode = function (postcode) {
-if (postcode === '') {
-  return true;
-}
 
   const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
   const noSpaces =  postcode.replace(/\s/g, '');
@@ -17,32 +14,67 @@ if (postcode === '') {
 }
 
 
+
+
 class AddressSearchWidget extends Component {
+
+  handleKeyPress(e) {
+    // if (e.key === ' ') {
+    //   e.stopPropagation();
+    //   e.preventDefault();
+    //   return false;
+    // }
+    if (e.key === 'Enter') {
+      // const postcodeFormatted = this.refs.postcode.value;
+      // const huisnummerFormatted = this.refs.huisnummer.value;
+  
+      // const rege = /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i;
+      // if (postcodeFormatted.length === 6 &&
+      //     this.refs.huisnummer.value &&
+      //     rege.test(postcodeFormatted) &&
+      //     huisnummerFormatted.toLowerCase()) {
+      //   this.props.dispatch(
+      //     lookupPostcode(postcodeFormatted, huisnummerFormatted)
+      //   );
+      // }
+      console.log('enter');
+      this.props.dispatch(
+        this.props.requestBuildings(
+          this.props.addressSearchTerms.postcode, 
+          this.props.addressSearchTerms.number)
+      );
+    }
+  }
+
 render(){
   const { 
     addressSearchTerms,
     addressSearchTermsPostcode,
     addressSearchResults, 
-    handleKeyPress, 
+    // handleKeyPress, 
     setPostCode,
     setNumber,
     setStreet,
     setCity,
     requestBuildings,
+    setSearchOnStreet,
+    setSearchOnPostcode,
   } = this.props;
   return (
   <div>
     <Row>
       <Col md={6}>
         <Row>
-          <Col md={5}>
+          {
+            addressSearchTerms.searchOn === 'POSTCODE'?
+            <Col md={5}>
             <div className='form-group'>
               <label htmlFor='postcode'>Postcode</label>
               <input
                 onChange={e=>setPostCode(e.target.value)}
                 value={addressSearchTermsPostcode}
                 ref='postcode'
-                onKeyPress={handleKeyPress}
+                onKeyPress={e=>this.handleKeyPress(e)}
                 id='postcode'
                 type='text'
                 maxLength='7'
@@ -50,11 +82,15 @@ render(){
                 placeholder={'BIJV. 3731HS'}
                 className={
                   'form-control input-lg '+ 
-                  ((verifyPostcode(addressSearchTermsPostcode)) ? "": styles.InvalidInput) 
+                  ((verifyPostcode(addressSearchTermsPostcode) || addressSearchTermsPostcode==='') ? "": styles.InvalidInput) 
                 }
               />
             </div>
           </Col>
+            :
+            ""
+          }
+          
           <Col md={5} sd={5} xs={7}>
             <div className='form-group'>
               <label htmlFor='huisnummer'>Huisnummer</label>
@@ -72,7 +108,7 @@ render(){
                 }}
                 value={addressSearchTerms.number}
                 ref='huisnummer'
-                onKeyPress={handleKeyPress}
+                onKeyPress={e=>this.handleKeyPress(e)}
                 id='huisnummer'
                 type='text'
                 placeholder={'BIJV. 184'}
@@ -94,42 +130,50 @@ render(){
             </div>
           </Col> */}
         </Row>
-        <Row>
-          <Col md={12}>
-            <div className='form-group'>
-              <label htmlFor='straatnaam'>Straatnaam</label>
-              <input
-                onChange={e=>setStreet(e.target.value)}
-                value={addressSearchTerms.street}
-                ref='straatnaam'
-                onKeyPress={handleKeyPress}
-                id='straatnaam'
-                type='text'
-                maxLength='6'
-                placeholder={'BIJV. Dorpstraat'}
-                className='form-control input-lg'
-              />
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <div className='form-group'>
-              <label htmlFor='straatnaam'>Stad</label>
-              <input
-                onChange={e=>setCity(e.target.value)}
-                value={addressSearchTerms.city}
-                ref='stad'
-                onKeyPress={handleKeyPress}
-                id='stad'
-                type='text'
-                maxLength='6'
-                placeholder={'BIJV. Amsterdam'}
-                className='form-control input-lg'
-              />
-            </div>
-          </Col>
-        </Row>
+        {
+          addressSearchTerms.searchOn === 'STREET'?
+          <div>
+            <Row>
+              <Col md={12}>
+                <div className='form-group'>
+                  <label htmlFor='straatnaam'>Straatnaam</label>
+                  <input
+                    onChange={e=>setStreet(e.target.value)}
+                    value={addressSearchTerms.street}
+                    ref='straatnaam'
+                    onKeyPress={e=>this.handleKeyPress(e)}
+                    id='straatnaam'
+                    type='text'
+                    maxLength='6'
+                    placeholder={'BIJV. Dorpstraat'}
+                    className='form-control input-lg'
+                  />
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className='form-group'>
+                  <label htmlFor='straatnaam'>Stad</label>
+                  <input
+                    onChange={e=>setCity(e.target.value)}
+                    value={addressSearchTerms.city}
+                    ref='stad'
+                    onKeyPress={e=>this.handleKeyPress(e)}
+                    id='stad'
+                    type='text'
+                    maxLength='6'
+                    placeholder={'BIJV. Amsterdam'}
+                    className='form-control input-lg'
+                  />
+                </div>
+              </Col>
+            </Row>
+          </div>
+          :
+          ""
+        }
+       
       </Col>
     </Row>
     <Row>
@@ -147,6 +191,27 @@ render(){
             </Button>
         </div>
       </Col>
+    </Row>
+    <Row>
+      {
+        addressSearchTerms.searchOn === 'POSTCODE'
+        ?
+          <Col md={12}>
+            <a className={styles.InlineLink}
+              onClick={setSearchOnStreet}>
+              
+              Zoek op straatnaam
+            </a>
+          </Col>
+        :
+        <Col md={12}>
+            <a className={styles.InlineLink}
+              onClick={setSearchOnPostcode}>
+              
+              Zoek op postcode
+            </a>
+          </Col>
+      }
     </Row>
   </div>
 
