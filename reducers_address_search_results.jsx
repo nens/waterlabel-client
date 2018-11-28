@@ -48,12 +48,10 @@ switch (action.type) {
       hasFetched: false,
     });
   case SELECT_ADDRESS_FROM_RESULTS:
-    console.log(SELECT_ADDRESS_FROM_RESULTS);
     return Object.assign({}, state, {
       selectedResult: action.data,
     });
   case RESET_ADDRESS_QUERY:
-    console.log('RESET_ADDRESS_QUERY');
     return Object.assign({}, state, {
       selectedResult: null,
       allResults: [],

@@ -266,8 +266,6 @@ class App extends Component {
   render() {
     const { dispatch, postcode } = this.props;
 
-    console.log('this.props.guiState', this.props.guiState)
-
     let geocoded;
     let adres;
 
@@ -276,9 +274,6 @@ class App extends Component {
       postcode.selectedObject.properties.pk) ?
       postcode.selectedObject.properties :
       undefined;
-
-    console.log('selectedObject', selectedObject);
-    console.log('postcode.selectedObject', postcode.selectedObject);
 
     if (selectedObject) {
       adres = `${selectedObject.street} ${selectedObject.housenumber},
@@ -341,7 +336,6 @@ class App extends Component {
                           if (this.props.guiState.edit===true) {
                             this.props.dispatch(setGuiEdit(false))
                           } else if (this.props.addressSearchResults.selectedResult !== null) {
-                            console.log('this.props.dispatch(resetSelectedAddress())');
                             this.props.dispatch(resetAddressQuery())
                           }
                         }}
@@ -538,7 +532,6 @@ class App extends Component {
                             }
                             assetsFetching={this.props.assetsWaterlabel.fetchingState !== 'RECEIVED'}
                             adaptAssets={assets => {
-                              console.log('assets adapt waterlabel');
                               dispatch(adaptWaterlabel(assets));
                             }}
                           />

@@ -23,7 +23,6 @@ class Assets extends Component {
 
   drawRows (rows) {
     return rows.map((e,i)=> {
-      console.log(this.props.selectedTab, e.category);
       if (this.selectedTabToCategory(this.props.selectedTab) !== e.category) {
         return '';
       }
@@ -216,11 +215,9 @@ class Assets extends Component {
               <input type="radio" name={"drainage"+i} value="riool" checked={e.sewer_connection===true}
               onChange={
                 (e) => {
-                  console.log('riool');
                   let tmpAssets = this.props.assetsToAdapt;
                   tmpAssets[i].sewer_connection = true;
                   this.props.adaptAssets(tmpAssets);
-                  console.log(this.props.assetsToAdapt)
                 }
               }
               readOnly={!this.props.editMode}
@@ -234,7 +231,6 @@ class Assets extends Component {
               <input type="radio" name={"drainage"+i} value="tuin" checked={e.sewer_connection===false}
               onChange={
                 (e) => {
-                  console.log('tuin');
                   let tmpAssets = this.props.assetsToAdapt;
                   tmpAssets[i].sewer_connection = false;
                   this.props.adaptAssets(tmpAssets);
@@ -301,7 +297,6 @@ class Assets extends Component {
   render() {
 
     const totalArea = this.props.assetsToAdapt.filter(e=>e.category===this.props.selectedTab).reduce((acc,e) =>  acc + (e.area || 0), 0);
-    console.log('totalArea',totalArea);
 
     return (
         <div className={"form-group " + styles.Assets}style={{marginTop: '-4px'}}>
@@ -324,10 +319,8 @@ class Assets extends Component {
                         "infiltration": 0.0,
                         "description": ""
                       }
-                      console.log('selectedItem', selectedItem, 'anders')
                     } else {
                       selectedItem = this.findAssetType(e.target.value, this.selectedTabToCategory(this.props.selectedTab));
-                      console.log('selectedItem', selectedItem);
                     }
                     selectedItem.area = 0;
                     selectedItem.sewer_connection = false;

@@ -37,7 +37,6 @@ class AddressSearchWidget extends Component {
       //     lookupPostcode(postcodeFormatted, huisnummerFormatted)
       //   );
       // }
-      console.log('enter');
       this.props.dispatch(
         this.props.requestBuildings(
           this.props.addressSearchTerms.postcode, 

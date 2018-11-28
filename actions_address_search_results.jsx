@@ -28,7 +28,6 @@ export function requestBuildings(postcode, number, street, city) {
     }).done(data => {
       return dispatch(receiveBuildings(data.results));
     }).error((e) => {
-        console.log(e);
         if (
           e.responseJSON &&
           e.responseJSON.postalcode && 
@@ -65,7 +64,6 @@ export function receiveBuildings(buildings) {
     if (selectedResult) {
       dispatch(selectAddressFromResults(selectedResult))
     }
-    console.log('allResultAddresses', allResultAddresses);
     if (allResultAddresses.length===0) {
       swal(
         'Geen addressen gevonden op de server ',
@@ -88,12 +86,7 @@ export function dismissNoBuildingsFound() {
 }
 export function selectAddressFromResults(selection) {
   return dispatch => {
-    console.log('selectAddressFromResults');
 
-    // dispatch({
-    //   type: FETCH_WATERLABELS,
-    //   data: selection.id,
-    // });
     dispatch(requestWaterlabels(selection.building));
 
     dispatch({
