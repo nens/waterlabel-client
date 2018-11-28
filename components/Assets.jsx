@@ -301,7 +301,7 @@ class Assets extends Component {
                         .reduce((acc,e) =>  acc + (e.area || 0), 0);
 
     return (
-        <div className={"form-group " + styles.Assets}style={{marginTop: '-4px'}}>
+          <div className={"form-group " + styles.Assets}style={{marginTop: '-4px'}}>
             <Row>
               <Col md={6} SM={12} XS={12}>
                 <select 
@@ -335,23 +335,208 @@ class Assets extends Component {
               </Col>
             </Row>
           
-          
-          {this.drawRows(this.props.assetsToAdapt)}
-          
-          {this.props.selectedTab !== 'extra' ?
-          <Row style={{marginTop:'10px'}}>
-            <Col md={6} sm={6} xs={6}>
-              <Row>
-                <Col md={12} sm={12} xs={12}>
-                  <span style={{fontWeight: 'bold'}}>Totaal Oppervlak: {totalArea} m2</span>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          :
-          ''
-          }
-        </div>
+               <table
+                style={{
+                  width:"100%",
+                  marginTop: "10px",
+                }}
+               >
+                 <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Oppervlak (m<sup>2</sup>)</th>
+                    {
+                      this.props.showDetails
+                      ?
+                        <th>
+                          Berging (mm)
+                        </th>
+                      :
+                      null
+                    }
+                    {
+                      this.props.showDetails
+                      ?
+                        <th>
+                          Afvoer naar (mm)
+                        </th>
+                      :
+                      null
+                    }
+                    {
+                      this.props.showDetails
+                      ?
+                      <th style={{textAlign: "right"}}>
+                        <a
+                          onClick={
+                            this.props.setHideDetails
+                          }
+                        >
+                          {"Verberg details"}
+                        </a>
+                      </th>
+                      :
+                      <th style={{textAlign: "right"}}>
+                        <a
+                          onClick={
+                            this.props.setShowDetails
+                          }
+                        >
+                          Toon details
+                        </a>
+                      </th>
+                    }
+                    
+                  </tr>
+                </thead>
+                <tbody>
+
+                
+                {
+                  this.props.assetsToAdapt.map((e,i)=>{
+                    if (this.selectedTabToCategory(this.props.selectedTab) !== e.category) {
+                      return '';
+                    } else {
+                      return (
+                        <tr key={i}>
+                          <td>
+                            <span>{e.name}</span>
+                          </td>
+                          <td>
+                            <input 
+                              value={e.area} 
+                              className="form-control"
+                              onChange={(e) => {
+                                let tmpAssets = this.props.assetsToAdapt;
+                                tmpAssets[i].area = parseInt(e.target.value) || '';
+                                this.props.adaptAssets(tmpAssets);
+                              }}
+                              // readOnly={!this.props.editMode}
+                              // disabled={!this.props.editMode}
+                            />
+                          </td>
+                          {
+                            this.props.showDetails
+                            ?
+                            <td>
+                              <input 
+                                value={e.storage} 
+                                className="form-control"
+                                onChange={(e) => {
+                                  if (
+                                    RegExp('^[1-9][0-9]*([,|.])?[0-9]?$').test(e.target.value)
+                                    || e.target.value == ''  
+                                  ) 
+                                  {
+                                    let tmpAssets = this.props.assetsToAdapt;
+                                    tmpAssets[i].storage = e.target.value;
+                                    this.props.adaptAssets(tmpAssets);
+                                  }
+                                }}
+                              />
+                            </td>
+                            :
+                            null
+                          }
+                          {
+                            this.props.showDetails
+                            ?
+                            <td>
+                            <label className="radio-inline" 
+              
+                            >
+                              <input type="radio" name={"drainage"+i} value="riool" checked={e.sewer_connection===true}
+                              onChange={
+                                (e) => {
+                                  let tmpAssets = this.props.assetsToAdapt;
+                                  tmpAssets[i].sewer_connection = true;
+                                  this.props.adaptAssets(tmpAssets);
+                                }
+                              }
+                              readOnly={!this.props.editMode}
+                              disabled={!this.props.editMode}
+                              />
+                              riool
+                            </label>
+                            <label className="radio-inline"
+                              
+                            >
+                              <input type="radio" name={"drainage"+i} value="tuin" checked={e.sewer_connection===false}
+                              onChange={
+                                (e) => {
+                                  let tmpAssets = this.props.assetsToAdapt;
+                                  tmpAssets[i].sewer_connection = false;
+                                  this.props.adaptAssets(tmpAssets);
+                                }
+                              }
+                              readOnly={!this.props.editMode}
+                              disabled={!this.props.editMode}
+                              />
+                              tuin
+                            </label>
+                            
+                            </td>
+                            :
+                            null
+                          }
+                          <td>
+                            <button 
+                              style={{
+                                borderStyle: 'none',
+                                color: 'red',
+                                backgroundColor: 'transparent',
+                                fontWeight: 'bold',
+                                fontSize: 'large',
+                                float: 'right' 
+                              }}
+                              title="Verwijder Item"
+                              onClick={()=>{
+                                let tmpAssets = this.props.assetsToAdapt;
+                                tmpAssets.splice(i, 1);
+                                this.props.adaptAssets(tmpAssets);
+                              }}
+                            >
+                             x
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  })
+                }
+               {/* {this.drawRows(this.props.assetsToAdapt)} */}
+               </tbody>
+               {this.props.selectedTab !== 'extra' ?
+               <tfoot>
+                 <tr>
+                   <td>
+                     Totaal 
+                   </td>
+                   <td>
+                    {totalArea}
+                   </td>
+                 </tr>
+               </tfoot>
+              :
+              "" 
+              }
+               </table>
+            
+            
+            {/* {this.props.selectedTab !== 'extra' ?
+            <Row style={{marginTop:'10px'}}>
+              <Col md={6} sm={6} xs={6}>
+                <Row>
+                  <Col md={12} sm={12} xs={12}>
+                    <span style={{fontWeight: 'bold'}}>Totaal Oppervlak: {totalArea} m2</span>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            :
+            ''
+            } */}
+          </div>
       
     );
   }

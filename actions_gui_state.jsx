@@ -5,6 +5,8 @@ export const GUI_EDIT = 'GUI_EDIT';
 export const SELECT_TAB = 'SELECT_TAB';
 export const GUI_PRIVACY_TEXT = 'GUI_PRIVACY_TEXT';
 export const GUI_ABOUT_TEXT = 'GUI_ABOUT_TEXT';  
+export const GUI_CLOSE_DETAILS = 'GUI_CLOSE_DETAILS';
+export const GUI_OPEN_DETAILS = 'GUI_OPEN_DETAILS';
 
 
 export function setGuiEdit (statusTrueFalse) {
@@ -32,6 +34,17 @@ export function setAbout (aboutTrueFalse) {
   return {
     type: GUI_ABOUT_TEXT,
     data: aboutTrueFalse
+  }
+}
+
+export function setShowDetails () {
+  return {
+    type: GUI_OPEN_DETAILS,
+  }
+}
+export function setHideDetails () {
+  return {
+    type: GUI_CLOSE_DETAILS,
   }
 }
 

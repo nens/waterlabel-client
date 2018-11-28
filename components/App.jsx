@@ -68,6 +68,8 @@ import {
   setTab,
   setAbout,
   setPrivacy,
+  setShowDetails,
+  setHideDetails,
 } from '../actions_gui_state';
 import AddressSmall from './AddressSmall';
 
@@ -534,6 +536,9 @@ class App extends Component {
                             adaptAssets={assets => {
                               dispatch(adaptWaterlabel(assets));
                             }}
+                            setShowDetails={()=>dispatch(setShowDetails())}
+                            setHideDetails={()=>dispatch(setHideDetails())}
+                            showDetails={this.props.guiState.showDetails}
                           />
                         )}}
                     ></Tabs>
