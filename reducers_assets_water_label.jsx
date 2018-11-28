@@ -10,6 +10,7 @@ export function assetsWaterlabel(state={
   fetchingState: 'NOT_SEND', // NOT_SEND FETCHING RECEIVED
   sendingState: 'NOT SEND', // NOT_SEND SENDING SERVER_RECEIVED
   waterLabelsFromServer: [],
+  currentLabel: null,
   assetsToAdapt: [],
 }, action) {
   switch (action.type) {
@@ -21,6 +22,7 @@ export function assetsWaterlabel(state={
       return Object.assign({}, state, {
         fetchingState: 'RECEIVED',
         waterLabelsFromServer: action.data,
+        currentLabel: action.data[0] || null,
         assetsToAdapt: (action.data[0] && action.data[0].assets) || [],
       });
     case SEND_WATERLABEL:

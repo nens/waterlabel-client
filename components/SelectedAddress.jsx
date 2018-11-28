@@ -62,20 +62,34 @@ class SelectedAddress extends Component {
             waterlabel 
             ?
             <div>
-              <Row>
-                <Col md={6} sd={6} xs={6}>
+              <Row style={{display: "flex"}}>
+                <Col md={3} sd={6} xs={6}>
                   <span style={{fontWeight: "normal"}}>Uw adres heeft waterlabel:</span>
                 </Col>
-                <Col  md={6} sd={6} xs={6}>
+                <Col  md={6} sd={6} xs={6}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    // textAlign: "center",
+                  }}
+                >
                   <b>{waterlabel.code}</b>
                 </Col>
               </Row>
               <br/>
               <Row>
-                <Col  md={6} sd={6} xs={6}>
+                <Col  md={3} sd={6} xs={6}>
                   <span style={{fontWeight: "normal"}}>Laatst gewijzigt op:</span>
                 </Col>
-                <Col  md={6} sd={6} xs={6}>
+                <Col  md={6} sd={6} xs={6}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    // textAlign: "center",
+                  }}
+                >
                   <b>{waterLabelDateStr}</b>
                 </Col>
               </Row> 

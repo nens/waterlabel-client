@@ -452,6 +452,46 @@ class App extends Component {
                     <Row>
                       <AddressSmall/>
                     </Row>
+                    { 
+                      this.props.assetsWaterlabel.currentLabel 
+                      ?
+                      <div>
+                      <Row style={{fontSize: "large", display: "flex"}}>
+                        <Col md={3} sd={6} xs={6}>
+                          <span>Huidig label:</span>
+                        </Col>
+                        <Col md={6} sd={6} xs={6}
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            // textAlign: "center",
+                          }}
+                        >
+                          <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
+                        </Col>
+                      </Row>
+                      <br/>
+                      </div>
+                      :
+                      ""
+                    }
+                    <Row style={{fontSize: "large", display: "flex"}}>
+                      <Col md={3} sd={6} xs={6}>
+                        <span>Label met nieuwe wijziging:</span>
+                      </Col>
+                      <Col md={6} sd={6} xs={6}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          flexDirection: "column",
+                          // textAlign: "center",
+                        }}
+                      >
+                        <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
+                      </Col>
+                    </Row>
+                    <br/>
                     <Tabs
                       selectedTab={this.props.guiState.selectedTab}
                       setSelectedTab={selectedTab=>dispatch(setTab(selectedTab))}
