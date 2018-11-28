@@ -59,7 +59,7 @@ class ButtonsEditSave extends Component {
                     dispatch(setGuiEdit(true));
                   }}
                   bsSize='lg'>
-                  <i className='fa fa-edit' />&nbsp; Wijzig gegevens
+                  <i className='fa fa-edit' />&nbsp; Wijzig
                 </Button>
               {/* </ButtonGroup> */}
             </div>
@@ -72,7 +72,7 @@ class ButtonsEditSave extends Component {
                   bsStyle='info'
                   // onClick={() => this.setState({editMode:false})}
                   bsSize='lg'>
-                  <i className='fa fa-print' />&nbsp;Label Afdrukken
+                  <i className='fa fa-print' />&nbsp;Print
                 </Button>
               {/* </ButtonGroup> */}
             </div>

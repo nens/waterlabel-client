@@ -133,7 +133,7 @@ class Assets extends Component {
       <Row>
         <Col md={4} sm={12} xs={12}>
           <label >
-            Infiltration (mm): 
+            Infiltratie (mm / uur): 
           </label>
         </Col>
           
@@ -355,7 +355,7 @@ class Assets extends Component {
             :
             ''
           }
-          { this.props.selectedTab === 'dak'?
+          {/* { this.props.selectedTab === 'dak'?
             <Row>
             <Col md={12}>
               <h3>Opgegeven daken:</h3>
@@ -374,13 +374,13 @@ class Assets extends Component {
               <h3>Opgegeven extra items:</h3>
             </Col>
             </Row>
-          }
+          } */}
           
-          <Row>
+          {/* <Row>
             <Col md={12}>
               <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
             </Col>
-          </Row>
+          </Row> */}
           {this.drawRows(this.props.assetsToAdapt)}
           
           {this.props.selectedTab !== 'extra' ?

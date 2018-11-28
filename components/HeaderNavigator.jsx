@@ -8,7 +8,10 @@ const HeaderNavigator = (({ openAboutText, openMap, openPrivacyText}) => (
       <ul className='list-inline'>
         <li>
           <a className={styles.InlineLink}
-            onClick={openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
+            onClick={openAboutText}>
+            <i className='fa fa-info-circle'>
+            </i>
+            {/* &nbsp;Over label Opslag Water */}
           </a>
         </li>
         {/* <li>&nbsp;</li>

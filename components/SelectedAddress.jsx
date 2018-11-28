@@ -42,7 +42,8 @@ class SelectedAddress extends Component {
     const waterlabel = this.props.assetsWaterlabel.waterLabelsFromServer[0];
     const waterLabelDateObj = waterlabel &&  moment (waterlabel.timestamp + 'Z');
     moment.locale('nl');
-    const waterLabelDateStr = waterLabelDateObj &&  waterLabelDateObj.format('LLLL');
+    // const waterLabelDateStr = waterLabelDateObj &&  waterLabelDateObj.format('LLLL');
+    const waterLabelDateStr = waterLabelDateObj &&  waterLabelDateObj.format('D-M-YYYY');
 
     return (
       <div className={"form-group " +  styles.FoundAddress} >
@@ -62,7 +63,7 @@ class SelectedAddress extends Component {
             waterlabel 
             ?
             <div>
-              <Row style={{display: "flex"}}>
+              {/* <Row style={{display: "flex"}}>
                 <Col md={3} sd={6} xs={6}>
                   <span style={{fontWeight: "normal"}}>Uw adres heeft waterlabel:</span>
                 </Col>
@@ -77,10 +78,10 @@ class SelectedAddress extends Component {
                   <b>{waterlabel.code}</b>
                 </Col>
               </Row>
-              <br/>
+              <br/> */}
               <Row>
                 <Col  md={3} sd={6} xs={6}>
-                  <span style={{fontWeight: "normal"}}>Laatst gewijzigt op:</span>
+                  <span style={{fontWeight: "normal"}}>Gewijzigd op:</span>
                 </Col>
                 <Col  md={6} sd={6} xs={6}
                   style={{

@@ -353,7 +353,7 @@ class App extends Component {
                     {}
                   }>
                     <Col md={12}>
-                      <h3
+                      <h4
                         style={{cursor:'pointer'}}
                         onClick={e=>{
                           if (this.props.guiState.edit===true) {
@@ -365,7 +365,7 @@ class App extends Component {
                         }}
                       >
                       <b style={{fontWeight: "bold"}}>←</b> Vorig scherm
-                      </h3>
+                      </h4>
                     </Col>
                   </Row> 
                   {this.props.guiState.edit===false 
@@ -373,7 +373,7 @@ class App extends Component {
                   <div>
                   <Row>
                     <Col md={12} sm={12} xs={12}>
-                      <h1>Label opslag water&nbsp;</h1>
+                      <h2>Label Opvang Regen&nbsp;</h2>
                     </Col>
                   </Row>
                   
@@ -445,22 +445,22 @@ class App extends Component {
                     <div className={"form-group " +  styles.FoundAddress} >
                       <Row>
                         <Col md={12}>
-                        <h2>Mijn gegevens: </h2>
+                        <h2>Mijn gegevens</h2>
                         </Col>
                       </Row>
                     </div>
-                    <Row>
+                    {/* <Row>
                       <AddressSmall/>
-                    </Row>
+                    </Row> */}
                     { 
                       this.props.assetsWaterlabel.currentLabel 
                       ?
                       <div>
                       <Row style={{fontSize: "large", display: "flex",flexWrap: "wrap"}}>
-                        <Col md={3} sm={3} xs={6}>
-                          <span>Huidig label:</span>
+                        <Col md={3} sm={3} xs={3}>
+                          <span>Huidig label</span>
                         </Col>
-                        <Col md={3} sm={3} xs={6}
+                        <Col md={3} sm={3} xs={3}
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -484,10 +484,17 @@ class App extends Component {
                       ?
                       <div>
                       <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
-                        <Col md={3} sm={3} xs={6}>
-                          <span>Label met nieuwe wijziging:</span>
+                        <Col md={3} sm={3} xs={3}
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                            // textAlign: "center",
+                          }}
+                        >
+                          <span>Gewijzigd label</span>
                         </Col>
-                        <Col md={3} sm={3} xs={6}
+                        <Col md={3} sm={3} xs={3}
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -497,7 +504,7 @@ class App extends Component {
                         >
                           <span><b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
                         </Col>
-                        <Col md={6} sm={6} xs={12} 
+                        <Col md={6} sm={6} xs={6} 
                           style={{
                             display: "flex",
                             justifyContent: "center",
@@ -520,7 +527,7 @@ class App extends Component {
                             bsSize='lg'
                             >
                             <i className='fa fa-save' />
-                            &nbsp; Wijziging Opslaan
+                            &nbsp; Opslaan
                           </Button>
                         </Col>
                       </Row>
