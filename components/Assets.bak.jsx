@@ -296,25 +296,35 @@ class Assets extends Component {
 
   render() {
 
-    const totalArea = this.props.assetsToAdapt
-                        .filter(e=>e.category===this.selectedTabToCategory(this.props.selectedTab))
-                        .reduce((acc,e) =>  acc + (e.area || 0), 0);
+    const totalArea = this.props.assetsToAdapt.filter(e=>e.category===this.props.selectedTab).reduce((acc,e) =>  acc + (e.area || 0), 0);
 
     return (
         <div className={"form-group " + styles.Assets}style={{marginTop: '-4px'}}>
+          {
+            this.props.editMode 
+            ?
             <Row>
               <Col md={6} SM={12} XS={12}>
                 <select 
                   value={""} 
                   className="form-control"
                   onChange={(e)=>{
-                    const selectedItem = this.findAssetType(
-                      e.target.value, 
-                      this.selectedTabToCategory(this.props.selectedTab)
-                    );
-                    selectedItem.area = 10;
-                    selectedItem.sewer_connection = true;
-                    const tmpAssets = this.props.assetsToAdapt;
+                    let selectedItem;
+                    if (e.target.value === ANDERS_NAMELIJK ) {
+                      selectedItem = {
+                        "name": ANDERS_NAMELIJK,
+                        "code": ANDERS_NAMELIJK,
+                        "category": this.selectedTabToCategory(this.props.selectedTab),
+                        "storage": 0.0,
+                        "infiltration": 0.0,
+                        "description": ""
+                      }
+                    } else {
+                      selectedItem = this.findAssetType(e.target.value, this.selectedTabToCategory(this.props.selectedTab));
+                    }
+                    selectedItem.area = 0;
+                    selectedItem.sewer_connection = false;
+                    let tmpAssets = this.props.assetsToAdapt;
                     tmpAssets.unshift(selectedItem);
                     this.props.adaptAssets(tmpAssets);
                   }}
@@ -331,11 +341,39 @@ class Assets extends Component {
                     .filter(e => e.category===this.selectedTabToCategory(this.props.selectedTab))
                     .map(  e => <option key={e.name} value={e.name}>{e.name}</option>)
                   }
+                  <option value={ANDERS_NAMELIJK} >{ANDERS_NAMELIJK}</option>
                 </select>
               </Col>
             </Row>
+            :
+            ''
+          }
+          {/* { this.props.selectedTab === 'dak'?
+            <Row>
+            <Col md={12}>
+              <h3>Opgegeven daken:</h3>
+            </Col>
+            </Row>
+            :
+            this.props.selectedTab === 'terrein'?
+            <Row>
+            <Col md={12}>
+              <h3>Opgegeven terrein:</h3>
+            </Col>
+            </Row>
+            :
+            <Row>
+            <Col md={12}>
+              <h3>Opgegeven extra items:</h3>
+            </Col>
+            </Row>
+          } */}
           
-          
+          {/* <Row>
+            <Col md={12}>
+              <hr style={{marginTop: '5px', marginBottom: '5px'}}/>
+            </Col>
+          </Row> */}
           {this.drawRows(this.props.assetsToAdapt)}
           
           {this.props.selectedTab !== 'extra' ?
