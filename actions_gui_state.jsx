@@ -2,12 +2,19 @@
 // import swal from 'sweetalert';
 
 export const GUI_EDIT = 'GUI_EDIT';
+export const GUI_OTHER_LABELS = 'GUI_OTHER_LABELS';
 export const SELECT_TAB = 'SELECT_TAB';
 export const GUI_PRIVACY_TEXT = 'GUI_PRIVACY_TEXT';
 export const GUI_ABOUT_TEXT = 'GUI_ABOUT_TEXT';  
 export const GUI_CLOSE_DETAILS = 'GUI_CLOSE_DETAILS';
 export const GUI_OPEN_DETAILS = 'GUI_OPEN_DETAILS';
 
+export function setShowOtherLabels (statusTrueFalse) {
+  return {
+    type: GUI_OTHER_LABELS,
+    data: statusTrueFalse
+  }
+}
 
 export function setGuiEdit (statusTrueFalse) {
   return {

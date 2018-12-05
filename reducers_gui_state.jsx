@@ -1,5 +1,6 @@
 import {
   GUI_EDIT,
+  GUI_OTHER_LABELS,
   SELECT_TAB,
   GUI_PRIVACY_TEXT,
   GUI_ABOUT_TEXT,
@@ -9,6 +10,7 @@ import {
 
 export function guiState(state={
   selectedTab: 'dak', // dak tuin terrein
+  showOtherLabels: false,
   edit: false,
   showPrivacyText: false,
   showAboutText: false,
@@ -18,6 +20,10 @@ export function guiState(state={
     case GUI_EDIT:
       return Object.assign({}, state, {
         edit: action.data,
+      });
+    case GUI_OTHER_LABELS:
+      return Object.assign({}, state, {
+        showOtherLabels: action.data,
       });
     case SELECT_TAB:
       return Object.assign({}, state, {

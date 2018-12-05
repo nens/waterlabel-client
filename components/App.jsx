@@ -65,6 +65,7 @@ import {
 
 import {
   setGuiEdit,
+  setShowOtherLabels,
   setTab,
   setAbout,
   setPrivacy,
@@ -72,6 +73,7 @@ import {
   setHideDetails,
 } from '../actions_gui_state';
 import AddressSmall from './AddressSmall';
+import Bluelabel_Multilabel from "../images/Bluelabel_Multilabel.jpg";
 
 class App extends Component {
 
@@ -335,7 +337,9 @@ class App extends Component {
                       <h4
                         style={{cursor:'pointer'}}
                         onClick={e=>{
-                          if (this.props.guiState.edit===true) {
+                          if (this.props.guiState.showOtherLabels === true) {
+                            this.props.dispatch(setShowOtherLabels(false));
+                          } else if (this.props.guiState.edit===true) {
                             this.props.dispatch(setGuiEdit(false))
                           } else if (this.props.addressSearchResults.selectedResult !== null) {
                             this.props.dispatch(resetAddressQuery())
@@ -346,205 +350,223 @@ class App extends Component {
                       </h4>
                     </Col>
                   </Row> 
-                  {this.props.guiState.edit===false 
+                  
+                  {this.props.guiState.showOtherLabels===true
                   ?
-                  <div>
                   <Row>
-                    <Col md={12} sm={12} xs={12}>
-                      <h2>Label Opvang Regen&nbsp;</h2>
+                    
+                    <Col md={12}>
+                      {/* <img src={Bluelabel_Multilabel}></img> */}
+                      {/* <img width="1222" height="678" src={Bluelabel_Multilabel}></img> */}
+                      <img width="917" height="509" src={Bluelabel_Multilabel}></img>
                     </Col>
                   </Row>
-                  
-                  <HeaderNavigator 
-                    openAboutText={this.openAboutText}
-                    openMap={this.openMap}
-                    openPrivacyText={this.openPrivacyText}
-                  />
-                  </div>
                   :
-                  ""
-                  }
-                  
-                
-                  {/* <Row>
-                    <Col md={12}>
-                      <h2>
-                        Mijn label
-                      </h2>
-                    </Col>
-                  </Row> */}
-                  <div 
-                    style={ 
-                      this.props.addressSearchResults.allResultAddresses.length !== 0 ? {display: 'none'} : {} 
-                    }
-                  >
-                    <AddressSearchWidget
-                      addressSearchTerms={this.props.addressSearchTerms}
-                      addressSearchTermsPostcode={this.props.addressSearchTerms.postcode}
-                      addressSearchResults={this.props.addressSearchResults} 
-                      // handleKeyPress={this.handleKeyPress}
-                      setPostCode={e=>dispatch(setPostCode(e))}
-                      setNumber={e=>dispatch(setNumber(e))}
-                      setStreet={e=>dispatch(setStreet(e))}
-                      setCity={e=>dispatch(setCity(e))}
-                      requestBuildings={(postcode,number)=>dispatch(requestBuildings(postcode,number))}
-                      setSearchOnStreet={()=>dispatch(setSearchOnStreet())}
-                      setSearchOnPostcode={()=>dispatch(setSearchOnPostcode())}
-                    />
-                  </div>
-                  {
-                    this.props.addressSearchResults.allResultAddresses.length > 0 &&
-                    ! this.props.addressSearchResults.selectedResult
-                    ?
-                    <AddressListPicker 
-                      addresses={this.props.addressSearchResults.allResultAddresses}
-                      onClick={selected=>this.props.dispatch( selectAddressFromResults(selected))}
-                    ></AddressListPicker>
-                    :
-                    ''
-                  }
-                  
-                  { this.props.addressSearchResults.selectedResult 
-                  &&
-                  ! this.props.guiState.edit
-                  ? 
-                    <SelectedAddress/>
-                      :
-                      ''
-                  }
-    { this.props.addressSearchResults.selectedResult ?
-      <ButtonsEditSave/>
-          :
-          ""
-          }
-                  { 
-                    this.props.addressSearchResults.selectedResult &&
-                    this.props.guiState.edit
-                  ? 
                   <div>
-                    <div className={"form-group " +  styles.FoundAddress} >
-                      <Row>
-                        <Col md={12}>
-                        <h2>Mijn gegevens</h2>
-                        </Col>
-                      </Row>
+                  
+                  
+
+                    {this.props.guiState.edit===false 
+                    ?
+                    <div>
+                    <Row>
+                      <Col md={12} sm={12} xs={12}>
+                        <h2>Label Opvang Regen&nbsp;</h2>
+                      </Col>
+                    </Row>
+                    
+                    <HeaderNavigator 
+                      openAboutText={this.openAboutText}
+                      openMap={this.openMap}
+                      openPrivacyText={this.openPrivacyText}
+                    />
                     </div>
-                    {/* <Row>
-                      <AddressSmall/>
-                    </Row> */}
-                    { 
-                      this.props.assetsWaterlabel.currentLabel 
-                      ?
-                      <div>
-                      <Row style={{fontSize: "large", display: "flex",flexWrap: "wrap"}}>
-                        <Col md={3} sm={3} xs={3}>
-                          <span>Huidig label</span>
-                        </Col>
-                        <Col md={3} sm={3} xs={3}
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            // textAlign: "center",
-                          }}
-                        >
-                          <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
-                        </Col>
-                        {/* <Col md={6} sm={12} xs={12} >
-                        testtt
-                        </Col> */}
-                      </Row>
-                      <br/>
-                      </div>
-                      :
-                      ""
-                    }
-                    { 
-                      this.props.assetsWaterlabel.calculatedLabel 
-                      ?
-                      <div>
-                      <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
-                        <Col md={3} sm={3} xs={3}
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            // textAlign: "center",
-                          }}
-                        >
-                          <span>Gewijzigd label</span>
-                        </Col>
-                        <Col md={3} sm={3} xs={3}
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            // textAlign: "center",
-                          }}
-                        >
-                          <span><b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
-                        </Col>
-                        <Col md={6} sm={6} xs={6} 
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            // textAlign: "center",
-                            marginTop: "10px"
-                          }}
-                        >
-                          <Button
-                            style={{width:'100%'}}
-                            bsStyle='info'
-                            onClick={() => {
-                              dispatch(setGuiEdit(false));
-                              dispatch(sendWaterlabel(({
-                                building: this.props.addressSearchResults.selectedResult.building,
-                                email: 'tom.deboer@nelen-schuurmans.nl',
-                                assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
-                              })));
-                            }}
-                            bsSize='lg'
-                            >
-                            <i className='fa fa-save' />
-                            &nbsp; Opslaan
-                          </Button>
-                        </Col>
-                      </Row>
-                      <br/>
-                      </div>
-                      :
-                      ""
+                    :
+                    ""
                     }
                     
-                    <Tabs
-                      selectedTab={this.props.guiState.selectedTab}
-                      setSelectedTab={selectedTab=>dispatch(setTab(selectedTab))}
-                      drawAssets={selectedTab=>{
-                        return (
-                          <Assets 
-                            selectedTab={selectedTab} 
-                            editMode={true}
-                            assetTypes={this.props.assetTypes.assets}
-                            assetsFetching={this.props.assetTypes.isFetching}
-                            assetsToAdapt={
-                              this.props.assetsWaterlabel.assetsToAdapt.map(
-                                e=>joinAssetWithAssetType(e, this.props.assetTypes.assets)
-                              )
-                            }
-                            assetsFetching={this.props.assetsWaterlabel.fetchingState !== 'RECEIVED'}
-                            adaptAssets={assets => {
-                              dispatch(adaptWaterlabel(assets));
+                  
+                    {/* <Row>
+                      <Col md={12}>
+                        <h2>
+                          Mijn label
+                        </h2>
+                      </Col>
+                    </Row> */}
+                    <div 
+                      style={ 
+                        this.props.addressSearchResults.allResultAddresses.length !== 0 ? {display: 'none'} : {} 
+                      }
+                    >
+                      <AddressSearchWidget
+                        addressSearchTerms={this.props.addressSearchTerms}
+                        addressSearchTermsPostcode={this.props.addressSearchTerms.postcode}
+                        addressSearchResults={this.props.addressSearchResults} 
+                        // handleKeyPress={this.handleKeyPress}
+                        setPostCode={e=>dispatch(setPostCode(e))}
+                        setNumber={e=>dispatch(setNumber(e))}
+                        setStreet={e=>dispatch(setStreet(e))}
+                        setCity={e=>dispatch(setCity(e))}
+                        requestBuildings={(postcode,number)=>dispatch(requestBuildings(postcode,number))}
+                        setSearchOnStreet={()=>dispatch(setSearchOnStreet())}
+                        setSearchOnPostcode={()=>dispatch(setSearchOnPostcode())}
+                      />
+                    </div>
+                    {
+                      this.props.addressSearchResults.allResultAddresses.length > 0 &&
+                      ! this.props.addressSearchResults.selectedResult
+                      ?
+                      <AddressListPicker 
+                        addresses={this.props.addressSearchResults.allResultAddresses}
+                        onClick={selected=>this.props.dispatch( selectAddressFromResults(selected))}
+                      ></AddressListPicker>
+                      :
+                      ''
+                    }
+                    
+                    { this.props.addressSearchResults.selectedResult 
+                    &&
+                    ! this.props.guiState.edit
+                    ? 
+                      <SelectedAddress/>
+                        :
+                        ''
+                    }
+      { this.props.addressSearchResults.selectedResult ?
+        <ButtonsEditSave/>
+            :
+            ""
+            }
+                    { 
+                      this.props.addressSearchResults.selectedResult &&
+                      this.props.guiState.edit
+                    ? 
+                    <div>
+                      <div className={"form-group " +  styles.FoundAddress} >
+                        <Row>
+                          <Col md={12}>
+                          <h2>Mijn gegevens</h2>
+                          </Col>
+                        </Row>
+                      </div>
+                      {/* <Row>
+                        <AddressSmall/>
+                      </Row> */}
+                      { 
+                        this.props.assetsWaterlabel.currentLabel 
+                        ?
+                        <div>
+                        <Row style={{fontSize: "large", display: "flex",flexWrap: "wrap"}}>
+                          <Col md={3} sm={3} xs={3}>
+                            <span>Huidig label</span>
+                          </Col>
+                          <Col md={3} sm={3} xs={3}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              // textAlign: "center",
                             }}
-                            setShowDetails={()=>dispatch(setShowDetails())}
-                            setHideDetails={()=>dispatch(setHideDetails())}
-                            showDetails={this.props.guiState.showDetails}
-                          />
-                        )}}
-                    ></Tabs>
+                          >
+                            <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
+                          </Col>
+                          {/* <Col md={6} sm={12} xs={12} >
+                          testtt
+                          </Col> */}
+                        </Row>
+                        <br/>
+                        </div>
+                        :
+                        ""
+                      }
+                      { 
+                        this.props.assetsWaterlabel.calculatedLabel 
+                        ?
+                        <div>
+                        <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
+                          <Col md={3} sm={3} xs={3}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              // textAlign: "center",
+                            }}
+                          >
+                            <span>Gewijzigd label</span>
+                          </Col>
+                          <Col md={3} sm={3} xs={3}
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              // textAlign: "center",
+                            }}
+                          >
+                            <span><b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
+                          </Col>
+                          <Col md={6} sm={6} xs={6} 
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              // textAlign: "center",
+                              marginTop: "10px"
+                            }}
+                          >
+                            <Button
+                              style={{width:'100%'}}
+                              bsStyle='info'
+                              onClick={() => {
+                                dispatch(setGuiEdit(false));
+                                dispatch(sendWaterlabel(({
+                                  building: this.props.addressSearchResults.selectedResult.building,
+                                  email: 'tom.deboer@nelen-schuurmans.nl',
+                                  assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
+                                })));
+                              }}
+                              bsSize='lg'
+                              >
+                              <i className='fa fa-save' />
+                              &nbsp; Opslaan
+                            </Button>
+                          </Col>
+                        </Row>
+                        <br/>
+                        </div>
+                        :
+                        ""
+                      }
+                      
+                      <Tabs
+                        selectedTab={this.props.guiState.selectedTab}
+                        setSelectedTab={selectedTab=>dispatch(setTab(selectedTab))}
+                        drawAssets={selectedTab=>{
+                          return (
+                            <Assets 
+                              selectedTab={selectedTab} 
+                              editMode={true}
+                              assetTypes={this.props.assetTypes.assets}
+                              assetsFetching={this.props.assetTypes.isFetching}
+                              assetsToAdapt={
+                                this.props.assetsWaterlabel.assetsToAdapt.map(
+                                  e=>joinAssetWithAssetType(e, this.props.assetTypes.assets)
+                                )
+                              }
+                              assetsFetching={this.props.assetsWaterlabel.fetchingState !== 'RECEIVED'}
+                              adaptAssets={assets => {
+                                dispatch(adaptWaterlabel(assets));
+                              }}
+                              setShowDetails={()=>dispatch(setShowDetails())}
+                              setHideDetails={()=>dispatch(setHideDetails())}
+                              showDetails={this.props.guiState.showDetails}
+                            />
+                          )}}
+                      ></Tabs>
+                    </div>
+                    :
+                    ''
+                    }
                   </div>
-                  :
-                  ''
                   }
                 </div>
               </Col>

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
     setTab,
     setAbout,
     setPrivacy,
+    setShowOtherLabels,
   } from '../actions_gui_state';
   import {
     // FETCH_WATERLABELS,
@@ -86,6 +87,20 @@ class ButtonsEditSave extends Component {
           :
           ""
           }
+          <Col md={6} sm={12} xs={12} >
+            <div className='form-group'>
+                <Button
+                  style={{width:'100%'}}
+                  // disabled={(postcode.isFetching) ? true : false}
+                  bsStyle='info'
+                  onClick={() => this.props.dispatch(setShowOtherLabels(true))}
+                  bsSize='lg'
+                >
+                  <i className='fa fa-tags' />&nbsp;Andere Labels
+                </Button>
+              {/* </ButtonGroup> */}
+            </div>
+          </Col>
           </div>
           :
           // <Col md={6} sm={12} xs={12} >
