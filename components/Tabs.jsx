@@ -7,36 +7,23 @@ import AppStyles from './App.css';
 
 class Tabs extends Component {
 
-  constructor(props) {
-    super(props);
-    // this._handleClick = this._handleClick.bind(this);
-    this.state = {
-      selectedTab: 'dak' // daken | terrein | extra
-    };
-  }
-
-  // _handleClick() {
-  //   this.props.closeMap();
-  // }
-
   render() {
-    console.log('this.state.selectedTab', this.state.selectedTab)
     return (
       <div>
       <Row>
         <Col md={12} sm={12} xs={12}>
           <ul className='list-inline' style={{marginLeft:'0px'}}>
             <li 
-              className={styles.Tab + ' '  + (this.state.selectedTab === 'dak'? styles.SelectedTab  : styles.NotSelectedTab)}
-              onClick={() => this.setState({selectedTab: 'dak'})}
+              className={styles.Tab + ' '  + (this.props.selectedTab === 'dak'? styles.SelectedTab  : styles.NotSelectedTab)}
+              onClick={() => this.props.setSelectedTab('dak')}
             >
               <a className={styles.InlineLink}>
                 <i className='fa fa-home'></i>&nbsp;Dak
               </a>
             </li>
             <li
-              className={styles.Tab + ' '  + (this.state.selectedTab === 'terrein'? styles.SelectedTab  : styles.NotSelectedTab)} 
-              onClick={()=>this.setState({selectedTab: 'terrein'})}
+              className={styles.Tab + ' '  + (this.props.selectedTab === 'terrein'? styles.SelectedTab  : styles.NotSelectedTab)} 
+              onClick={() => this.props.setSelectedTab('terrein')}
             >
               <a className={styles.InlineLink}>
                   <i className='fa fa-tree'></i>&nbsp;Terrein
@@ -44,8 +31,9 @@ class Tabs extends Component {
             </li>
             {/* <li className={styles.NotSelectedTab}>&nbsp;</li> */}
             <li 
-              className={styles.Tab + ' '  + (this.state.selectedTab === 'extra'? styles.SelectedTab  : styles.NotSelectedTab)}
-              onClick={()=>this.setState({selectedTab: 'extra'})}
+              className={styles.Tab + ' '  + (this.props.selectedTab === 'extra'? styles.SelectedTab  : styles.NotSelectedTab)}
+              onClick={() => this.props.setSelectedTab('extra')}
+              
             >
               <a className={styles.InlineLink}>
                 <i className='fa fa-circle'></i>&nbsp;Extra
@@ -59,8 +47,7 @@ class Tabs extends Component {
           </ul>
         </Col>
       </Row>
-      {/* <Assets selectedTab={this.state.selectedTab}/> */}
-      {this.props.drawAssets(this.state.selectedTab)}
+      {this.props.drawAssets(this.props.selectedTab)}
       </div>
     );
   }
