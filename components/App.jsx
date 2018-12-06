@@ -4,7 +4,7 @@ import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
   Popover, Well } from 'react-bootstrap';
 import { Map, TileLayer, WMSTileLayer } from 'react-leaflet';
 import $ from 'jquery';
-import AboutText from './AboutText';
+import AboutText from './AboutText.jsx';
 import algemeen02 from '../images/algemeen02.png';
 
 import Calculator from './Calculator';

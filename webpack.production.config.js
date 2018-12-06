@@ -58,6 +58,9 @@ var config = {
       },
     ],
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+  },
   plugins: [definePlugin],
 };
 
