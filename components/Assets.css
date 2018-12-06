@@ -1,0 +1,7 @@
+.Assets {
+  /* font-size: large; */
+}
+
+.AssetsReadOnly {
+  cursor: not-allowed;
+}

@@ -7,18 +7,20 @@ import $ from 'jquery';
 import AboutText from './AboutText.jsx';
 import algemeen02 from '../images/algemeen02.png';
 
-import Calculator from './Calculator.jsx';
+import Calculator from './Calculator';
+import Tabs from './Tabs';
+import Assets from './Assets';
 import calculatorStyles from './Calculator.css';
-import GeoJsonUpdatable from '../lib/GeoJsonUpdatable.jsx';
-import InteractiveCalculator from './InteractiveCalculator.jsx';
+import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
+import InteractiveCalculator from './InteractiveCalculator';
 import logo from '../images/logowaterlabel.svg';
 import moment from 'moment';
 import queryString from 'query-string';
 import React, { Component, PropTypes } from 'react';
-import SelectedObjectDetails from './SelectedObjectDetails.jsx';
+import SelectedObjectDetails from './SelectedObjectDetails';
 import selectedObjectStyles from './SelectedObjectDetails.css';
 import styles from './App.css';
-import WaterlabelMap from './WaterlabelMap.jsx';
+import WaterlabelMap from './WaterlabelMap';
 require('!style!css!../node_modules/sweetalert/dist/sweetalert.css');
 
 import {
@@ -26,7 +28,7 @@ import {
   fetchHistory,
   lookupPostcode,
   radiusSearch,
-} from '../actions.jsx';
+} from '../actions';
 
 class App extends Component {
 
@@ -39,6 +41,7 @@ class App extends Component {
       showIntro: false,
       showMap: false,
       showPrivacyText: false,
+      editMode: false,
     };
     this.closeAboutText = this.closeAboutText.bind(this);
     this.closeCalculator = this.closeCalculator.bind(this);
@@ -252,6 +255,9 @@ class App extends Component {
       postcode.selectedObject.properties :
       undefined;
 
+    console.log('selectedObject', selectedObject);
+    console.log('postcode.selectedObject', postcode.selectedObject);
+
     if (selectedObject) {
       adres = `${selectedObject.street} ${selectedObject.housenumber},
         ${selectedObject.city}`;
@@ -311,104 +317,600 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div style={{height:900,backgroundSize:'cover',backgroundImage: `url(/static_media/background.jpg)`}}>
-        <div>
-          <Grid>
-            <Row>
-              <Col md={12}>
-                <h2 />
-              </Col>
-            </Row>
-            <Row>
+      <div className="height-hundred-percent">
+        <div className="height-hundred-percent">
+          <Grid className={styles.BackgroundColor + ' ' + "height-hundred-percent"}>
+            <Row> 
               <Col md={12}>
 
-                <div className={`jumbotron ${styles.Jumbo}`}>
+                <div 
+                  className={`jumbotron ${styles.Jumbo}`}
+                >
                   <Row>
                     <Col md={12} sm={12} xs={12}>
-                      <h1 className={styles.Title}>Waterlabel&nbsp;</h1>
-                      <ul className='list-inline'>
-                        <li>
-                          <a className={styles.InlineLink}
-                             onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over Waterlabel
-                          </a>
-                        </li>
-                        <li>&nbsp;</li>
-                        <li>
-                          <a className={styles.InlineLink}
-                             onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
-                          </a>
-                        </li>
-                      </ul>
+                      <h1>Label opslag water&nbsp;</h1>
                     </Col>
+                  </Row>
+                  <Row>
+                    <Col md={6} sm={12} xs={12}>
+                        <ul className='list-inline'>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
+                            </a>
+                          </li>
+                          {/* <li>&nbsp;</li>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
+                            </a>
+                          </li> */}
+                        </ul>
+                      </Col>
+                    <Col md={6} sm={12} xs={12}>
+                      <div className='pull-right' style={{ marginRight: 10 }}>
+                      <a href='https://twitter.com/waterlabel/'
+                        target='_blank'
+                        style={{
+                          padding: '10px 5px 0 0',
+                        }}>
+                        <i className='fa fa-2x fa-twitter-square' />
+                      </a>
+                      <a
+                        href='https://www.facebook.com/Waterlabel-421181284911824/'
+                        target='_blank'
+                        style={{
+                          padding: '10px 5px 0 0',
+                        }}>
+                        <i
+                          className='fa fa-2x fa-facebook-square' />
+                      </a>
+                      <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
+                        target='_blank'
+                        style={{
+                          padding: '10px 0px 0 0',
+                        }}>
+                        <i className='fa fa-2x fa-youtube-square' />
+                      </a><br/>
+                      <a
+                        onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
+                      </a>
+                    </div>
+                    </Col>
+                  </Row>
+                  
+                  {/* <Row>
+                    <Col md={12}>
+                        <p>
+                          Uw Waterlabel geeft aan hoeveel regenwater 
+                          uw woning vasthoudt. <br/>
+                          Houdt uw woning veel regenwater vast? <br/> 
+                          Dan is dit goed voor het millieu <br/> 
+                          Omgeving en riool overstromen dan minder snel.
+                        </p>
+                     </Col>
+                    </Row> */}
+                    {/* <Row style={{marginTop:'10px'}}>
+                      <Col md={12} sm={12} xs={12}>
+                        <ul className='list-inline'>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
+                            </a>
+                          </li>
+                          <li>&nbsp;</li>
+                          <li>
+                            <a className={styles.InlineLink}
+                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
+                            </a>
+                          </li>
+                        </ul>
+                      </Col>
+                    </Row> */}
+                    <Row>
+                      <Col md={12}>
+                      <h2>
+                        Mijn label
+                      </h2>
+                    </Col>
+                  </Row>
+                  <div style={ postcode.selectedObject ? {display: 'none'} : {} }>
+                    <Row>
+                      <Col md={6}>
+                        <Row>
+                          <Col md={4}>
+                            <div className='form-group'>
+                              <label htmlFor='postcode'>Postcode</label>
+                              <input
+                                ref='postcode'
+                                onKeyPress={this.handleKeyPress}
+                                id='postcode'
+                                type='text'
+                                maxLength='6'
+                                style={{ textTransform: 'uppercase' }}
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                          <Col md={5} sd={5} xs={7}>
+                            <div className='form-group'>
+                              <label htmlFor='huisnummer'>Huisnummer</label>
+                              <input
+                                ref='huisnummer'
+                                onKeyPress={this.handleKeyPress}
+                                id='huisnummer'
+                                type='text'
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                          <Col md={3} sd={3} xs={5}>
+                            <div className='form-group'>
+                              <label htmlFor='toevoeging'>Toevoeging</label>
+                              <input
+                                ref='toevoeging'
+                                onKeyPress={this.handleKeyPress}
+                                id='toevoeging'
+                                type='text'
+                                placeholder={(postcode.selectedObject) ?
+                                  postcode.selectedObject.properties.housenumber : 'BIJV. A'}
+                                className='form-control input-lg'
+                              />
+                            </div>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md={12}>
+                              <div className='form-group'>
+                                <label htmlFor='straatnaam'>Straatnaam</label>
+                                <input
+                                  ref='straatnaam'
+                                  onKeyPress={this.handleKeyPress}
+                                  id='straatnaam'
+                                  type='text'
+                                  maxLength='6'
+                                  style={{ textTransform: 'uppercase' }}
+                                  placeholder={(postcode.selectedObject) ?
+                                    postcode.selectedObject.properties.streetname : 'bijv. Dorpstraat'}
+                                  className='form-control input-lg'
+                                />
+                              </div>
+                            </Col>
+                          </Row>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                            <Button
+                              style={{ marginTop: 0, width: '100%' }}
+                              disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={this.handleSearchButton}
+                              bsSize='lg'>
+                              <i className='fa fa-search' />&nbsp;
+                              {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
+                            </Button>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                  { postcode.selectedObject 
+                  ? 
+                  <div className={"form-group " +  styles.FoundAddress} >
+                    <Row style={{marginTop: "10px"}}>
+                      <Col md={6} sm={12} xs={12} >
+                        <Row>
+                          <Col md={12}>
+                              <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md={12}>
+                              <span>{selectedObject.postalcode}</span>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md={12}>
+                              <span>{selectedObject.city}</span>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col md={6} sm={12} xs={12}>
+                        <table
+                            // className={`table-striped ${styles.ObjectPropertiesTable}`}
+                            className={`${styles.ObjectPropertiesTable}`}
+                            >
+                          <tbody>
+                            <tr>
+                              <td style={{ verticalAlign: 'top' }}>Label Opslag Water: </td>
+                              <td className='waterlabel'>
+                                <OverlayTrigger
+                                  trigger='click'
+                                  placement='bottom'
+                                  rootClose
+                                  overlay={
+                                  <Popover id='waterlabel' title='Legenda'>
+                                    <img
+                                      style={{
+                                        width: 125,
+                                        padding: 15,
+                                        cursor: 'pointer',
+                                      }}
+                                      src={algemeen02} />
+                                  </Popover>
+                                }>
+                                  <svg
+                                    className={svgStyle()}
+                                    width='48.5'
+                                    height='17'>
+                                    <polygon
+                                      points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                                    <text
+                                      style={{ 'fill': 'white' }}
+                                      x='2'
+                                      y='13'>
+                                      {(postcode.selectedObject.properties.labelcode_last) ? postcode.selectedObject.properties.labelcode_last : '?'}
+                                    </text>
+                                  </svg>
+                                </OverlayTrigger>
+                                {(postcode.selectedObject &&
+                                  postcode.labelHistory.length > 0) ?
+                                  <div>
+                                    {postcode.labelHistory.map((label, i) => {
+                                      return <div key={i}>
+                                              <svg
+                                                className={
+                                                  this.historicalSvgStyle(label.fields.code)
+                                                }
+                                                width='48.5'
+                                                height='17'>
+                                                <polygon
+                                                  points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                                                  <text
+                                                    style={{ 'fill': 'white' }}
+                                                    x='2'
+                                                    y='13'>
+                                                    {label.fields.code}
+                                                  </text>
+                                              </svg>
+                                              <span style={{
+                                                verticalAlign: 5,
+                                                fontSize: '0.8em',
+                                                paddingLeft: 5,
+                                              }}>
+                                                {moment(label.fields.timestamp).locale('nl').format('LL')}
+                                              </span>
+                                            </div>;
+                                    })}
+                                  </div>
+                                  :
+                                  <Button
+                                    bsSize='xsmall'
+                                    className='pull-right'
+                                    onClick={this.handleShowHistory}>
+                                    Toon oude labels
+                                  </Button>
+                                }
+                              </td>
+                            </tr>
+                            {/* <tr>
+                              <td>
+                                <a style={{fontSize:'normal'}}>
+                                  Toon overige Labels
+                                </a>
+                              </td>
+                            </tr> */}
+                            </tbody>
+                          </table>
+                          <a style={{fontSize:'initial'}}>
+                            Toon overige Labels
+                          </a>
+                      </Col>
+                      <Col md={6} sm={6} xs={6} style={{display:'none'}}>
+                        <span className={styles.Label}>
+                          {postcode.selectedObject.properties.labelcode_last}
+                        </span>
+                        <ol className={calculatorStyles.labels}>
+                          <li>
+                            <svg className={calculatorStyles.labelA}
+                                width='108.5'
+                                height='17'>
+                              <polygon
+                                points='0,0 100,0 108.5,8.5 100,17 0,17' />
+                              <text
+                                style={{ 'fill': 'white' }}
+                                x='2'
+                                y='13'>A
+                              </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'A') ?
+                            <svg
+                              className={calculatorStyles.labelA}
+                              width='48.5'
+                              height='17'>
+                              <text style={{ 'fill': 'black' }}
+                                    x='10'
+                                    y='13'>&larr;
+                              </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelB}
+                              width='98.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 90,0 98.5,8.5 90,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>B
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'B') ?
+                            <svg
+                              className={calculatorStyles.labelB}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelC}
+                              width='88.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 80,0 88.5,8.5 80,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>C
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'C') ?
+                            <svg
+                              className={calculatorStyles.labelC}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelD}
+                              width='78.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 70,0 78.5,8.5 70,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>D
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'D') ?
+                            <svg
+                              className={calculatorStyles.labelD}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelE}
+                              width='68.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 60,0 68.5,8.5 60,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>E
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'E') ?
+                            <svg
+                              className={calculatorStyles.labelE}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelF}
+                              width='58.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 50,0 58.5,8.5 50,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>F
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'F') ?
+                            <svg
+                              className={calculatorStyles.labelF}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                          <li>
+                            <svg
+                              className={calculatorStyles.labelG}
+                              width='48.5'
+                              height='17'>
+                                <polygon
+                                  points='0,0 40,0 48.5,8.5 40,17 0,17' />
+                                <text
+                                  style={{ 'fill': 'white' }}
+                                  x='2'
+                                  y='13'>G
+                                </text>
+                            </svg>
+                            {(postcode.selectedObject.properties.labelcode_last === 'G') ?
+                            <svg
+                              className={calculatorStyles.labelG}
+                              width='48.5'
+                              height='17'>
+                                <text
+                                  style={{ 'fill': 'black' }}
+                                  x='10'
+                                  y='13'>&larr;
+                                </text>
+                            </svg> : ''}
+                          </li>
+                        </ol>
+                      </Col>
+                    </Row>
+                    <Row style={{marginTop: 10 }}>
+                      <Col md={6} sm={12} xs={12}>
+                        <div className='form-group'>
+                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                            <Button
+                              style={{ width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => 
+                                {
+                                  this.setState({editMode:false})
+                                  dispatch(clearSelectedObject())}
+                                }
+                              bsSize='lg'>
+                              <i className='fa fa-edit' />&nbsp; Ander adres
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      {! this.state.editMode ?
+                      <div>
+                      
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                          {/* <ButtonGroup> */}
+                            <Button
+                              style={{width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              // onClick={() => this.setState({editMode:false})}
+                              bsSize='lg'>
+                              <i className='fa fa-print' />&nbsp;Label Afdrukken
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                          {/* <ButtonGroup> */}
+                            <Button
+                              style={{width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => this.setState({editMode:true})}
+                              bsSize='lg'>
+                              <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      </div>
+                      :
 
-                  </Row>
-                  <Row>
-                    <Col md={12}><br/></Col>
-                  </Row>
-                  <Row>
-                    <Col md={6}>
-                      <Row>
-                        <Col md={4}>
-                          <div className='form-group'>
-                            <label htmlFor='postcode' style={{color:'#fff'}}>Postcode</label>
-                            <input
-                              ref='postcode'
-                              onKeyPress={this.handleKeyPress}
-                              id='postcode'
-                              type='text'
-                              maxLength='6'
-                              style={{ textTransform: 'uppercase' }}
-                              placeholder={(postcode.selectedObject) ?
-                                postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
-                              className='form-control input-lg'
-                            />
-                          </div>
-                        </Col>
-                        <Col md={4}>
-                          <div className='form-group'>
-                            <label htmlFor='huisnummer' style={{color:'#fff'}}>Huisnummer</label>
-                            <input
-                              ref='huisnummer'
-                              onKeyPress={this.handleKeyPress}
-                              id='huisnummer'
-                              type='text'
-                              placeholder={(postcode.selectedObject) ?
-                                postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
-                              className='form-control input-lg'
-                            />
-                          </div>
-                        </Col>
-                      </Row>
+                      <Col md={6} sm={12} xs={12} >
+                        <div className='form-group'>
+                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                            <Button
+                              style={{width:'100%'}}
+                              // disabled={(postcode.isFetching) ? true : false}
+                              bsStyle='info'
+                              onClick={() => this.setState({editMode:false})}
+                              bsSize='lg'>
+                              <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                            </Button>
+                          {/* </ButtonGroup> */}
+                        </div>
+                      </Col>
+                      }
+                      
+                    </Row>
+                    {
+            !this.state.editMode 
+            ?
+          ''
+          :
+          <Row>
+            {/* <Col md={6} sm={12} xs={12} >
+              <div className='form-group'>
+                  <Button
+                    style={{width:'100%'}}
+                    // disabled={(postcode.isFetching) ? true : false}
+                    bsStyle='info'
+                    onClick={() => this.setState({editMode:false})}
+                    bsSize='lg'>
+                    <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                  </Button>
+              </div>
+            </Col> */}
+            
+          </Row>
+          }
+                  </div>
+                  :
+                  ''
+                  }
+                 
+
+                  { postcode.selectedObject 
+                  ? 
+                  <div>
+                    <div className={"form-group " +  styles.FoundAddress} >
                       <Row>
                         <Col md={12}>
-                          <div className='form-group'>
-                            <ButtonGroup style={{ marginTop: 0 }}>
-                              <Button
-                                disabled={(postcode.isFetching) ? true : false}
-                                bsStyle='info'
-                                onClick={this.handleSearchButton}
-                                bsSize='lg'>
-                                <i className='fa fa-search' />&nbsp;
-                                {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
-                              </Button>
-                              {/* {geolocationButton} */}
-                            </ButtonGroup>
-                          </div>
+                        <h2>Mijn gegevens: </h2>
                         </Col>
                       </Row>
-                    </Col>
-                    <Col md={6}>
-                      <div className='embed-responsive embed-responsive-16by9'>
-                        <iframe
-                          className='embed-responsive-item'
-                          src='https://www.youtube.com/embed/jARteOPf_aI' />
-                      </div>
-                    </Col>
-                  </Row>
+                    </div>
+                    <Tabs
+                      drawAssets={selectedTab=>{return <Assets selectedTab={selectedTab} editMode={this.state.editMode}/>}}
+                    ></Tabs>
+                  </div>
+
+                  :
+                  ''
+                  }
                 </div>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col md={12}>
                 {postcode.selectedObject ?
                   <div
@@ -764,42 +1266,8 @@ class App extends Component {
                   ''
                 }
               </Col>
-            </Row>
-            <Row>
-              <Col md={10}>
-              </Col>
-              <div className='pull-right' style={{ marginRight: 10 }}>
-                <a href='https://twitter.com/waterlabel/'
-                   target='_blank'
-                   style={{
-                     padding: '10px 5px 0 0',
-                     color: '#fff',
-                   }}>
-                  <i className='fa fa-2x fa-twitter-square' />
-                </a>
-                <a
-                  href='https://www.facebook.com/Waterlabel-421181284911824/'
-                  target='_blank'
-                  style={{
-                    padding: '10px 5px 0 0',
-                    color: '#fff',
-                  }}>
-                  <i
-                    className='fa fa-2x fa-facebook-square' />
-                </a>
-                <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
-                   target='_blank'
-                   style={{
-                     padding: '10px 0px 0 0',
-                     color: '#fff',
-                   }}>
-                  <i className='fa fa-2x fa-youtube-square' />
-                </a><br/>
-                <a style={{color:'#fff'}}
-                   onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
-                </a>
-              </div>
-            </Row>
+            </Row> */}
+            
           </Grid>
         </div>
 
@@ -834,7 +1302,7 @@ class App extends Component {
           onHide={this.closeAboutText}
           dialogClassName={styles.WideModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Over Waterlabel</Modal.Title>
+            <Modal.Title>Over label Opslag Water</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <AboutText />
@@ -974,7 +1442,7 @@ class App extends Component {
           </Modal.Footer>
         </Modal>
 
-        <Modal
+        <Modal 
           show={this.state.showInteractiveCalculator}
           onHide={this.closeInteractiveCalculator}
           dialogClassName={styles.WideModal}>
@@ -1006,6 +1474,7 @@ class App extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
+       
       </div>
     );
   }

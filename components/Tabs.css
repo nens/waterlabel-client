@@ -1,0 +1,50 @@
+.Tab {
+  /* border-color: white; */
+  border-style: solid;
+  /* margin-left: -1px !important;
+  margin-right: -1px !important;*/
+  /* height: 40px; */
+}
+
+.SelectedTab {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-width: 1px;
+  border-bottom-width: 0px;
+  /* padding left and right is the same as with class=NotSelectedTab 
+  except that 2px of border left right  are substracted here.
+  this ensures that the elements dont jump in place when selection is changed.
+  Other attempted approaches: border-style-left:hidden (elements still jumped), border-color-left: transparent(bottom border gets pointy diagonal edge causing one pixel to show)
+  Not tried approach: use box-sizing: border box with fixed width element (li)
+  */
+  padding-right: 9px !important; 
+  padding-left: 5px !important;
+  margin-left: -1px !important;
+  /* margin-right: -1px !important; */
+}
+
+.NotSelectedTab {
+  border-width: 0px;
+  border-bottom-width: 1px;
+  padding-right: 10px !important;
+  padding-left: 6px !important;
+  margin-left: -1px !important;
+}
+
+
+.InlineLink {
+  font-size: 1.3em;
+  cursor: pointer;
+  /* color: #fff; */
+  text-decoration: none;
+}
+.InlineLink:hover {
+  /*this is to overwrite the defaults*/ 
+  /* color: #fff; */
+  text-decoration: none;
+}
+
+.NotSelectedTab:hover a {
+  /* color: #5bc0de; */
+  text-decoration: none;
+}
