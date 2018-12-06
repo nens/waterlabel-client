@@ -146,3 +146,7 @@
   border-color: red;
   box-shadow: 0 0 5px rgba(255, 100, 100, 1);
 }
+
+.ButtonWidth {
+  width: 60%;
+}

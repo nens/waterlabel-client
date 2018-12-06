@@ -36,7 +36,7 @@ class Tabs extends Component {
               
             >
               <a className={styles.InlineLink}>
-                <i className='fa fa-circle'></i>&nbsp;Extra
+                <i className='fa fa-circle'></i>&nbsp;Voorzieningen
               </a>
             </li>
             {/* <li style={{}} className={styles.Tab + ' ' + styles.NotSelectedTab}>

@@ -445,14 +445,14 @@ class App extends Component {
                       <div className={"form-group " +  styles.FoundAddress} >
                         <Row>
                           <Col md={12}>
-                          <h2>Mijn gegevens</h2>
+                          <h2>{this.props.assetsWaterlabel.currentLabel? "Mijn gegevens" : "Nieuw label"}</h2>
                           </Col>
                         </Row>
                       </div>
                       {/* <Row>
                         <AddressSmall/>
                       </Row> */}
-                      { 
+                      {/* { 
                         this.props.assetsWaterlabel.currentLabel 
                         ?
                         <div>
@@ -465,26 +465,22 @@ class App extends Component {
                               display: "flex",
                               justifyContent: "center",
                               flexDirection: "column",
-                              // textAlign: "center",
                             }}
                           >
                             <span><b>{this.props.assetsWaterlabel.currentLabel.code}</b></span>
                           </Col>
-                          {/* <Col md={6} sm={12} xs={12} >
-                          testtt
-                          </Col> */}
                         </Row>
                         <br/>
                         </div>
                         :
                         ""
-                      }
+                      } */}
                       { 
                         this.props.assetsWaterlabel.calculatedLabel 
                         ?
                         <div>
                         <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
-                          <Col md={3} sm={3} xs={3}
+                          <Col md={6} sm={6} xs={6}
                             style={{
                               display: "flex",
                               justifyContent: "center",
@@ -492,9 +488,9 @@ class App extends Component {
                               // textAlign: "center",
                             }}
                           >
-                            <span>Gewijzigd label</span>
+                            <span>Label <b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
                           </Col>
-                          <Col md={3} sm={3} xs={3}
+                          {/* <Col md={3} sm={3} xs={3}
                             style={{
                               display: "flex",
                               justifyContent: "center",
@@ -503,8 +499,8 @@ class App extends Component {
                             }}
                           >
                             <span><b>{this.props.assetsWaterlabel.calculatedLabel.code}</b></span>
-                          </Col>
-                          <Col md={6} sm={6} xs={6} 
+                          </Col> */}
+                          {/* <Col md={6} sm={6} xs={6} 
                             style={{
                               display: "flex",
                               justifyContent: "center",
@@ -529,7 +525,7 @@ class App extends Component {
                               <i className='fa fa-save' />
                               &nbsp; Opslaan
                             </Button>
-                          </Col>
+                          </Col> */}
                         </Row>
                         <br/>
                         </div>
@@ -562,6 +558,46 @@ class App extends Component {
                             />
                           )}}
                       ></Tabs>
+
+                      { 
+                        this.props.assetsWaterlabel.calculatedLabel 
+                        ?
+                        <div>
+                        <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
+                          <Col md={6} sm={6} xs={6} 
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                              // textAlign: "center",
+                              marginTop: "10px"
+                            }}
+                          >
+                            <Button
+                              // style={{width:'100%'}}
+                              bsStyle='info'
+                              onClick={() => {
+                                dispatch(setGuiEdit(false));
+                                dispatch(sendWaterlabel(({
+                                  building: this.props.addressSearchResults.selectedResult.building,
+                                  email: 'tom.deboer@nelen-schuurmans.nl',
+                                  assets: this.props.assetsWaterlabel.assetsToAdapt.map(e=>assetDataToAssetPost(e, this.props.assetTypes.assets)),
+                                })));
+                              }}
+                              bsSize='lg'
+                              className={styles.ButtonWidth}
+                              >
+                              <i className='fa fa-save' />
+                              &nbsp; Opslaan
+                            </Button>
+                          </Col>
+                        </Row>
+                        <br/>
+                        </div>
+                        :
+                        ""
+                      }
+
                     </div>
                     :
                     ''

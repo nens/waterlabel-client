@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
   Popover, Well } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import styles from './App.css';
+
 
   import {
     setGuiEdit,
@@ -47,19 +49,20 @@ class ButtonsEditSave extends Component {
           ?
           <div>
           
-          
+          <Col md={12}>
+          <Row>
           <Col md={6} sm={12} xs={12} >
             <div className='form-group'>
               {/* <ButtonGroup> */}
                 <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
                   bsStyle='info'
                   onClick={() => {
                     // this.setState({editMode:true})
                     dispatch(setGuiEdit(true));
                   }}
-                  bsSize='lg'>
+                  bsSize='lg'
+                  className={styles.ButtonWidth}
+                  >
                   <i className='fa fa-edit' />
                   &nbsp; {this.props.assetsWaterlabel.currentLabel ?
                     "Wijzig"
@@ -70,38 +73,44 @@ class ButtonsEditSave extends Component {
               {/* </ButtonGroup> */}
             </div>
           </Col>
+          </Row>
           {this.props.assetsWaterlabel.currentLabel ?
+          <Row>
           <Col md={6} sm={12} xs={12} >
             <div className='form-group'>
                 <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
                   bsStyle='info'
                   // onClick={() => this.setState({editMode:false})}
-                  bsSize='lg'>
+                  bsSize='lg'
+                  className={styles.ButtonWidth}
+                  >
                   <i className='fa fa-print' />&nbsp;Print
                 </Button>
               {/* </ButtonGroup> */}
             </div>
           </Col>
+          </Row>
           :
           ""
           }
+          <Row>
           <Col md={6} sm={12} xs={12} >
             <div className='form-group'>
                 <Button
-                  style={{width:'100%'}}
-                  // disabled={(postcode.isFetching) ? true : false}
                   bsStyle='info'
                   onClick={() => this.props.dispatch(setShowOtherLabels(true))}
                   bsSize='lg'
+                  className={styles.ButtonWidth}
                 >
                   <i className='fa fa-tags' />&nbsp;Andere Labels
                 </Button>
               {/* </ButtonGroup> */}
             </div>
           </Col>
+          </Row>
+          </Col>
           </div>
+          
           :
           // <Col md={6} sm={12} xs={12} >
           //   <div className='form-group'>

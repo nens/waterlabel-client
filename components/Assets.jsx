@@ -296,6 +296,7 @@ class Assets extends Component {
 
   createStorageInput (e,i) {
     return (<input 
+    style={{width:"100px"}}
     value={e.storage} 
     className="form-control"
     onChange={(e) => {
@@ -370,18 +371,19 @@ class Assets extends Component {
                     selectedItem.area = 10;
                     selectedItem.sewer_connection = true;
                     const tmpAssets = this.props.assetsToAdapt;
-                    tmpAssets.unshift(selectedItem);
+                    tmpAssets.push(selectedItem);
                     this.props.adaptAssets(tmpAssets);
                   }}
                 >
-                  { this.props.selectedTab==='dak'?
+                  {/* { this.props.selectedTab==='dak'?
                   <option value="" disabled >{"+ Nieuw Dak"}</option>
                   :
                   this.props.selectedTab==='terrein'?
                   <option value="" disabled >{"+ Nieuw Terrein"}</option>
                   :
                   <option value="" disabled >{"+ Nieuw Extra Item"}</option>
-                  }
+                  } */}
+                  <option value="" disabled >{"+ Voeg toe"}</option>
                   {this.props.assetTypes
                     .filter(e => e.category===this.selectedTabToCategory(this.props.selectedTab))
                     .map(  e => <option key={e.name} value={e.name}>{e.name}</option>)
@@ -459,6 +461,7 @@ class Assets extends Component {
                           </td>
                           <td>
                             <input 
+                              style={{width: "100px"}}
                               value={e.area} 
                               className="form-control"
                               onChange={(e) => {

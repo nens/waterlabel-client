@@ -182,12 +182,14 @@ render(){
       <Col md={6} sm={12} xs={12} >
         <div className='form-group'>
             <Button
-              style={{ marginTop: 0, width: '100%' }}
+              style={{ marginTop: 0 }}
               disabled={(addressSearchResults.isFetching) ? true : false}
               bsStyle='info'
               // onClick={this.handleSearchButton}
               onClick={e=>requestBuildings(addressSearchTerms.postcode, addressSearchTerms.number)}
-              bsSize='lg'>
+              bsSize='lg'
+              className={styles.ButtonWidth}
+              >
               <i className='fa fa-search' />&nbsp;
               {(addressSearchResults.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
             </Button>
