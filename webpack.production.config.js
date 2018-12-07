@@ -54,7 +54,7 @@ var config = {
         loader: 'transform/cacheable?brfs',
       },
       { test: /\.(png|jpg|svg|woff|eot|ttf|otf)$/,
-        loader: 'url-loader?limit=100000',
+        loader: 'url-loader?limit=100000000',
       },
     ],
   },
