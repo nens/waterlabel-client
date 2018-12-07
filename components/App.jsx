@@ -317,7 +317,16 @@ class App extends Component {
     const position = [initialLocation.lat, initialLocation.lng];
 
     return (
-      <div className="height-hundred-percent">
+      <div className="height-hundred-percent"
+        // style={{
+        //   background:"url(/static_media/background.jpg) no-repeat center center fixed"
+        // }}
+      >
+        <style>
+          {/* {"html {\
+            background:url(/static_media/background.jpg) no-repeat center center fixed;\
+          }"} */}
+        </style>
         <div className="height-hundred-percent">
           <Grid className={styles.BackgroundColor + ' ' + "height-hundred-percent"}>
             
