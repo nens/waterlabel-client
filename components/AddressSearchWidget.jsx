@@ -146,7 +146,7 @@ render(){
                     onKeyPress={e=>this.handleKeyPress(e)}
                     id='straatnaam'
                     type='text'
-                    maxLength='6'
+                    maxLength='100'
                     placeholder={'BIJV. Dorpstraat'}
                     className='form-control input-lg'
                   />
@@ -164,7 +164,7 @@ render(){
                     onKeyPress={e=>this.handleKeyPress(e)}
                     id='stad'
                     type='text'
-                    maxLength='6'
+                    maxLength='100'
                     placeholder={'BIJV. Amsterdam'}
                     className='form-control input-lg'
                   />

@@ -75,7 +75,7 @@ import {
   setHideDetails,
 } from '../actions_gui_state';
 import AddressSmall from './AddressSmall';
-import Bluelabel_Multilabel from "../images/Bluelabel_Multilabel.jpg";
+import bluelabelMultilabel from "../images/bluelabelMultilabel.png";
 
 class App extends Component {
 
@@ -367,9 +367,9 @@ class App extends Component {
                   <Row>
                     
                     <Col md={12}>
-                      {/* <img src={Bluelabel_Multilabel}></img> */}
-                      {/* <img width="1222" height="678" src={Bluelabel_Multilabel}></img> */}
-                      <img width="917" height="509" src={Bluelabel_Multilabel}></img>
+                      {/* <img src={bluelabelMultilabel}></img> */}
+                      {/* <img width="1222" height="678" src={bluelabelMultilabel}></img> */}
+                      <img width="917" height="509" src={bluelabelMultilabel}></img>
                     </Col>
                   </Row>
                   :
@@ -575,7 +575,7 @@ class App extends Component {
                         ?
                         <div>
                         <Row style={{fontSize: "large", display: "flex", flexWrap: "wrap"}}>
-                          <Col md={6} sm={6} xs={6} 
+                          <Col md={6} sm={12} xs={12} 
                             style={{
                               display: "flex",
                               justifyContent: "center",
