@@ -872,7 +872,7 @@ class App extends Component {
               Persoonsgegevens die u opgeeft, gebruikt Waterlabel alleen voor
               het doel waarvoor u ze heeft achtergelaten. Daarmee voldoet
               Waterlabel aan <a href='http://wetten.overheid.nl/BWBR0011468/2016-01-01' target='_blank'>
-              de privacywetgeving</a>.
+              de privacywetgeving</a> Voor meer informatie zie onze <a href="../documents/privacy.pdf">Privacy Statement</a>.
             </p>
             <h4 style={{ color: '#2EADD3' }}>Adblockers</h4>
             <p>
