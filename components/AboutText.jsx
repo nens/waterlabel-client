@@ -26,8 +26,8 @@ class AboutText extends Component {
             <Col xs={12} sm={12} md={9}>
               <h2>Hoe neem je contact op?</h2>
               <p>
-              Voor vragen en informatie kun je contact opnemen met Lieke Coppens:
-              <br/>E-mail: <a href="mailto:lieke.coppens@nelen-schuurmans.nl">lieke.coppens@nelen-schuurmans.nl</a>
+              Voor vragen en informatie kun je contact opnemen met ons:
+              <br/>E-mail: <a href="mailto:info@waterlabel.net">info@waterlabel.net</a>
               <br/>Telefoonnummer: 030 2330 200
               </p>
             </Col>
