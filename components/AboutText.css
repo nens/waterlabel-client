@@ -21,3 +21,11 @@
   color: gray;
   margin: 15px 0 15px 0;
 }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+}

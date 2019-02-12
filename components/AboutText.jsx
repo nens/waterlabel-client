@@ -24,12 +24,17 @@ class AboutText extends Component {
         <Grid fluid>
           <Row>
             <Col xs={12} sm={12} md={9}>
-              <h2>Hoe neem je contact op?</h2>
+              <h2>Inzicht in de waterberging op eigen terrein </h2>
               <p>
-              Voor vragen en informatie kun je contact opnemen met Lieke Coppens:
-              <br/>E-mail: <a href="mailto:lieke.coppens@nelen-schuurmans.nl">lieke.coppens@nelen-schuurmans.nl</a>
+              Op deze site kunnen eigenaren kenmerken van hun perceel invoeren, zoals perceeloppervlak, aantal m2 groene tuin, wel/geen regenton.
+<br/> Vervolgens krijgt het perceel een waterlabel van G (veel afvoer naar omliggend gebied) tot A (nauwelijks afvoer naar omliggend gebied).
+<br/> Er zijn al bijna twee miljoen gebouwen op deze wijze gelabeld. Veel gemeenten hebben hiervoor een “nul-meting” voor alle gebouwen bepaald. Als u in uw gemeente de waterlabels wilt laten bepalen, neem dan vrijblijvend contact op met <a href="mailto:ria.loschner@nelen-schuurmans.nl">ria.loschner@nelen-schuurmans.nl</a>
               <br/>Telefoonnummer: 030 2330 200
+	      <br/> NB: Het waterlabel geeft aan hoeveel regenwater wordt vastgehouden. Het risico op wateroverlast kunt u bepalen op <a href="https://bluelabel.net">www.bluelabel.net</a>.
               </p>
+            </Col>
+ <Col xs={12} sm={12} md={2}>
+              <img style={{ width: 125, padding: 15 }} src={algemeen02} />
             </Col>
             <Col xs={12} sm={12} md={2}>
               &nbsp;
@@ -37,209 +42,75 @@ class AboutText extends Component {
           </Row>
           <Row>
             <Col xs={12} sm={12} md={9}>
-              <h2>Wat is het Waterlabel?</h2>
+<h2>Uniforme scoringsmethodiek</h2>
               <p>
-              Een huis met een G label, voert regenwater direct af naar de
-              omgeving en kan daardoor wateroverlast in de buurt veroorzaken of
-              verergeren.
+                STOWA en Stichting RIONED hebben een nieuwe uniforme scoringsmethodiek voor maatregelen tegen wateroverlast op particulier terrein gemaakt.
+
+    Het waterlabel wordt bepaald door de hoeveelheid neerslag (in millimeters) die een perceel kan bergen en laten infiltreren bij een piekbui die in één uur valt. Daarbij gaat het om de gemiddelde berging over het gehele perceel. Het maakt dus niet uit of de eigenaar deze berging op het dak, ondergronds of in de tuin heeft gerealiseerd.
               </p>
-              <p>
-              Een huis met een A label, houdt het regenwater langer vast.
-              Daarmee ontlast het de buurt en draagt bij aan een
-              klimaatbestendige stad.
-              </p>
+
             </Col>
             <Col xs={12} sm={12} md={2}>
-              <img style={{ width: 200, padding: 15 }} src={algemeen01} />
+              <table>
+  <tr>
+    <th>Berging</th>
+    <th>Waterlabel</th>
+  </tr>
+  <tr>
+    <td>0 mm</td>
+    <td>G</td>
+  </tr>
+  <tr>
+    <td>&#8805; 2 mm</td>
+    <td>F</td>
+  </tr>
+  <tr>
+    <td>&#8805; 7 mm</td>
+    <td>E</td>
+  </tr>
+  <tr>
+    <td>&#8805; 18 mm</td>
+    <td>D</td>
+  </tr>
+  <tr>
+    <td>&#8805; 30 mm</td>
+    <td>C</td>
+  </tr>
+  <tr>
+    <td>&#8805; 44 mm</td>
+    <td>B</td>
+  </tr>
+  <tr>
+    <td>&#8805; 60 mm</td>
+    <td>A</td>
+  </tr>
+  <tr>
+    <td>&#8805; 80 mm</td>
+    <td>A+</td>
+  </tr>
+  <tr>
+    <td>&#8805; 110 mm</td>
+    <td>A++</td>
+  </tr>
+</table>
+
             </Col>
           </Row>
           <Row>
             <Col xs={12} sm={12} md={9}>
-              <h2>Waarom een Waterlabel?</h2>
+              <h2>Maatregelen</h2>
               <p>
-                Hevige neerslag gaat steeds vaker voorkomen. Om de wateroverlast
-                in de stad te beperken moet de overheid maatregelen nemen.
-                Echter, de helft van de stad is particulier terrein. Ook burgers
-                kunnen dus maatregelen treffen om hun stad klimaatbestendiger te
-                maken.
-              </p>
-              <p>
-                Maar hoe bereik je alle inwoners in de stad? Veel mensen weten
-                niet dat ze zelf ook iets kunnen doen.
-              </p>
-              <p>
-                Om de burger bewuster te maken is het regenwaterlabel, kortweg
-                waterlabel, voor woningen ontwikkeld.
-                Het waterlabel geeft informatie over de capaciteit van een huis
-                / tuin om water vast te houden.
+                Het is vrij eenvoudig om van een G-label naar F-label te gaan, terwijl de stap van een B-label naar een A-label een grotere opgave is. Hiermee worden mensen die nu helemaal geen water vasthouden op hun perceel gestimuleerd om met eenvoudige maatregelen, zoals een regenton, een beter label te scoren. Maar voor een A-label moet er een grotere inspanning worden geleverd, zoals regenwater van het dak volledig opvangen, of infiltreren op eigen terrein.
+
               </p>
             </Col>
-            <Col xs={12} sm={12} md={2}>
-              <img style={{ width: 125, padding: 15 }} src={algemeen02} />
-            </Col>
+
           </Row>
           <Row>
             <Col xs={12} sm={12} md={12}>
-              <h2>Hoe wijzig ik mijn Waterlabel?</h2>
+              <h2>Communicatiemiddel en beleidsinstrument</h2>
               <p>
-                Dit is mogelijk door op jouw gebouw te klikken en via de knop
-                'Mijn Waterlabel' jouw maatregelen in te vullen en op te slaan.
-              </p>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={12} md={9}>
-              <h2>Met welke maatregelen?</h2>
-                <p>
-                  Het nemen van de juiste maatregelen is maatwerk, maar
-                  voorbeelden zijn: meer groen in de voortuin of het doorzagen
-                  van de regenpijp naar het riool.
-                </p>
-                <p>
-                  Kijk vooral eens op de website van huisjeboompjebeter voor goede
-                  maatregelen in jouw omgeving.
-                </p>
-            </Col>
-            <Col xs={12} sm={12} md={2}>
-              <div style={{
-                marginTop: 20,
-                width: 175,
-                padding: 15,
-                border: '1px solid #ccc',
-              }}>
-                <p>Tip:</p>
-                <ul className='list-unstyled'>
-                  <li>
-                    <a
-                      href="https://www.huisjeboompjebeter.nl/acties/"
-                      target="_blank">huisjeboompjebeter.nl
-                    </a>
-                  </li>
-                  </ul>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={12} md={12}>
-              <h2>Voor wie is het Waterlabel?</h2>
-              <p>
-                Van elk huis in Nederland kan een waterlabel worden bepaald.
-                Door dit inzicht worden bewoners water bewuster en gestimuleerd
-                om zelf maatregelen te nemen.
-              </p>
-              <p>
-                Het Waterlabel is dus voor iedereen die kan bepalen hoe zijn
-                tuin of dak is ingericht. Dat kunnen bijvoorbeeld huurders,
-                huiseigenaren en VVE’s zijn.</p>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={12} md={12}>
-              <h2>Welke gegevens zijn gebruikt?</h2>
-              <p>
-                Voor de aangesloten gemeenten zijn gegevens verzameld uit het
-                Kadaster en luchtfoto’s. De gegevens zijn automatisch verzameld
-                en geven daarom slechts een indruk van de praktijk.
-              </p>
-              <p>
-                Wanneer je de gegevens voor je perceel in detail invult en
-                opslaat, zie je vanzelf het Waterlabel dat op jouw gebouw van
-                toepassing is.
-              </p>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={12} md={9}>
-              <h2>Hoe tellen de maatregelen?</h2>
-
-              <h3>Dak</h3>
-              <p>
-                De dakberging en de type dakafvoer tellen mee. Het dakoppervlak
-                dat meer dan 20 mm regenwater vasthoudt, geeft punten voor een
-                groener label. Daarnaast telt de manier waarop het dak afwatert;
-                in de tuin, via een gescheiden stelsel op het oppervlaktewater
-                of direct naar de zuivering.
-              </p>
-
-              <h3>Tuin</h3>
-              <p>
-                Het infiltrerend oppervlak en de waterberging in de tuin tellen
-                mee. Het oppervlak waar regen kan infiltreren is bijvoorbeeld
-                onverharde grond, kiezels of aarde. De waterberging is
-                bijvoorbeeld een (lege) regenton of een waterreservoir.
-                Tenslotte geeft ook een geveltuintje een groener waterlabel.
-              </p>
-
-              <h3>Puntenverdeling</h3>
-              <p>
-                De kenmerken van dak en tuin geven we punten. Aan die punten
-                kennen we een label toe van G t/m A. Al bij 10 punten krijg je
-                een label F, daarna krijg je per 20 punten extra een hoger
-                label.
-              </p>
-              <p>
-                De puntenverdeling is gebaseerd op de volgende principes:
-              </p>
-
-              <ul className={styles.List}>
-                <li>
-                  <p>
-                    Dakberging, dakafvoer en ‘groen’ tuinoppervlak tellen mee
-                    in verhouding tot het aanwezige dak- en tuinoppervlak. Dus
-                    bij een kleine tuin kun je weinig punten met je tuin halen
-                    en kan je juist meer punten met je dak krijgen.
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    Alle maatregelen bij elkaar opgeteld geven maximaal 150
-                    punten. Je kunt label A dus op diverse manieren behalen.
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    Maximum punten per maatregel: 60 punten voor dakberging,
-                    90 punten voor dakafvoer, 100 punten voor een ‘groene’
-                    tuin, 30 punten voor 600 liter tuinberging en 20 punten
-                    voor een geveltuintje.
-                  </p>
-                </li>
-              </ul>
-
-              <p>
-                Het is de bedoeling om de maximum punten te nuanceren op basis
-                van een kwantitatief onderzoek. Dit onderzoek is nog nodig.
-              </p>
-            </Col>
-            <Col xs={12} sm={12} md={2}>
-              <img style={{ width: 250, padding: 15 }} src={algemeen03} />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={12} md={12}>
-              <h2>Hoe kan ik gegevens voor mijn gebouw invullen?</h2>
-              <p>
-                Dit is mogelijk door op jouw gebouw te klikken en via de knop
-                ‘Mijn Waterlabel’ jouw gegevens in te vullen en op te slaan.
-              </p>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={12} sm={12} md={12}>
-              <h2>Wie heeft het Waterlabel bedacht?</h2>
-              <p>
-                Het Waterlabel is bedacht door het genootschap “De Waag” en
-                geïnitieerd door de drie gemeenten Amsterdam, Den Haag en
-                Rotterdam.
-              </p>
-              <p>
-                Waterschap Amstel, Gooi en Vecht heeft zich als eerste
-                waterschap aangesloten bij de ontwikkelaars van het
-                Waterlabel.
-              </p>
-              <p>
-                Het Waterlabel werkt samen met Huisjeboompjebeter om effectieve maatregelen aan te dragen.
-                Zo werken we allen samen aan klimaatbestendigheid. 
+                Naast een communicatiemiddel om bewoners en bedrijven te informeren over mogelijke maatregelen, kunt u ook uw subsidie bijdrage afhankelijk maken van het waterlabel. Daarnaast kunt u het waterlabel gebruiken om uw beleidsambitie te formuleren én te monitoren. Een beleidsambitie kan bijvoorbeeld zijn: “ in 2025 moeten de gebouwen in de gemeente gemiddeld een C label hebben”, en  “alle nieuwbouw moet tenminste een A label hebben”. Om een hoger label te stimuleren zou u ook de rioolheffing kunnen variëren, afhankelijk van het waterlabel.
               </p>
             </Col>
             <Col md={12}>
