@@ -944,7 +944,7 @@ class Calculator extends Component {
             <hr />
           </Col>
           <Col md={6}>
-            <h2 className={styles.GroupLabel}>Mijn waterlabel</h2>
+            <h2 className={styles.GroupLabel}>Mijn waterlabel (Binnenkort komt de nieuwe STOWA/RIONED methodiek online)</h2>
             <Row>
               <Col md={6} sm={6}>
                 <span
