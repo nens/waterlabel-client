@@ -5,34 +5,13 @@ import { Grid, Row, Col, Modal, Button, ButtonGroup, OverlayTrigger,
 import appStyles from './App.css'
 import CustomSelect from './CustomSelect.css'
 
+const ANDERS_NAMELIJK = 'Anders namelijk .. ' 
+
 class Assets extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      assetTypes : [
-        {category:'dak',type: 'Normaal verhard dak (0 mm)', storage: 0 }, 
-        {category:'dak',type: 'Vegetatiedak, kleine dikte (3 mm)', storage: 3 },
-        {category:'dak',type: 'Vegetatiedak, kleine dikte (5 mm)', storage: 5 },
-        {category:'dak',type: 'Vegetatiedak, normale dikte (8 mm)', storage: 8 },
-        {category:'dak',type: 'Vegetatiedak, grote dikte (12,5 mm)', storage: 12.5 },
-        {category:'dak',type: 'Vegetatiedak, extra grote dikte (17,5 mm)', storage: 17.5 },
-        {category:'dak',type: 'Tuindak, kleine dikte (10 mm)', storage: 10 },
-        {category:'dak',type: 'Tuindak, grote dikte (37,5 mm)', storage: 37.5 },
-        {category:'dak',type: 'Tuindak, extra grote dikte (50 mm)', storage: 50 },
-        {category:'dak',type: 'Polderdak (30 mm)', storage: 30 },
-        {category:'dak',type: 'Voeg nieuw type toe', storage: 0 },
-        {category:'terrein',type: 'Verhard klinkers', storage: 10 , infiltration: 20 }, 
-        {category:'terrein',type: 'Gazon verlaagd', storage: 200 , infiltration: 25 },
-        {category:'terrein',type: 'Gazon', storage: 25 , infiltration: 30 },
-        {category:'terrein',type: 'Groen plantenperk', storage: 40 , infiltration: 24 },
-        {category:'terrein',type: 'Voeg nieuw type toe', storage: 0 , infiltration: 0 },
-        {category:'extra',type: 'Regenton', storage: 200, infiltration: 0, mm: 0.034 }, 
-        {category:'extra',type: 'Infiltratiekrat', storage: 4500 , infiltration: 1000, mm: 2 },
-        {category:'extra',type: 'Grindkoffer', storage: 2500 , infiltration: 1000, mm: 40 },
-        {category:'extra',type: 'Regenschutting', storage: 2008 , infiltration: 0, mm: 0.034 },
-        {category:'extra',type: 'Voeg nieuw type toe', storage: 0 , infiltration: 0, mm: 0 },
-      ],
       assets: [
         {
           category: 'dak',
@@ -64,8 +43,14 @@ class Assets extends Component {
     };
   }
 
-  findAssetType(type, category) {
-    return this.state.assetTypes.filter(e=>e.type===type && e.category===category)[0];
+  selectedTabToCategory(selectedTab) {
+    if (selectedTab==='dak')     return 'Dak';
+    if (selectedTab==='terrein') return 'Tuin';
+                                 return 'Voorziening'
+  }
+
+  findAssetType(name, category) {
+    return this.props.assetTypes.filter(e=>e.name===name && e.category===category)[0];
   }
 
   
@@ -73,7 +58,7 @@ class Assets extends Component {
   drawRows (rows) {
     return rows.map((e,i)=> {
       console.log(this.props.selectedTab, e.category);
-      if (this.props.selectedTab !== e.category) {
+      if (this.selectedTabToCategory(this.props.selectedTab) !== e.category) {
         return '';
       }
       return (
@@ -97,7 +82,7 @@ class Assets extends Component {
     if (this.props.selectedTab==='dak') {
       return (
         <div>
-        { e.type==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
+        { e.name==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
         { this.createAreaRow(e,i) }
         { this.createStorageRow( e,i)}
         { this.createDrainageRow( e,i)}
@@ -106,7 +91,7 @@ class Assets extends Component {
     } else if (this.props.selectedTab==='terrein') {
       return (
       <div>
-      { e.type==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
+      { e.name=== ANDERS_NAMELIJK ? this.createFreeTextRow(e,i):''}
       { this.createAreaRow(e,i) }
       { this.createInfiltrationRow(e,i)}
       { this.createStorageRow( e,i)}
@@ -115,7 +100,7 @@ class Assets extends Component {
     } else { // selectedTab === extra
       return (
       <div>
-      { e.type==='Voeg nieuw type toe' ? this.createFreeTextRow(e,i):''}
+      { e.name=== ANDERS_NAMELIJK ? this.createFreeTextRow(e,i):''}
       { this.createInfiltrationRow(e,i)}
       { this.createStorageRow( e,i)}
       </div>
@@ -195,8 +180,8 @@ class Assets extends Component {
               tmpAssets[i].infiltration = parseInt(e.target.value) || '';
               this.setState({assets: tmpAssets})
             }}
-            readOnly={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
-            disabled={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
+            readOnly={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
+            disabled={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
           />
         </Col>
       </Row>
@@ -226,8 +211,8 @@ class Assets extends Component {
                   this.setState({assets : tmpAssets})
                 }
               }}
-              readOnly={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
-              disabled={!this.props.editMode || e.type !=="Voeg nieuw type toe"}
+              readOnly={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
+              disabled={!this.props.editMode || e.name !== ANDERS_NAMELIJK}
             />
             </Col>
           </Row>
@@ -331,10 +316,10 @@ class Assets extends Component {
               }
               <h4 style={{display: 'inline-block', marginTop:'5px'}}>
                 {
-                e.type==='Voeg nieuw type toe' ? 
+                e.name==='Voeg nieuw type toe' ? 
                 "Nieuw type"
                 :
-                e.type
+                e.name
                 }
               </h4>
               
@@ -370,7 +355,21 @@ class Assets extends Component {
                   value={""} 
                   className="form-control"
                   onChange={(e)=>{
-                    const selectedItem = this.findAssetType(e.target.value, this.props.selectedTab);
+                    let selectedItem;
+                    if (e.target.value === ANDERS_NAMELIJK ) {
+                      selectedItem = {
+                        "name": ANDERS_NAMELIJK,
+                        "code": ANDERS_NAMELIJK,
+                        "category": this.selectedTabToCategory(this.props.selectedTab),
+                        "storage": 0.0,
+                        "infiltration": 0.0,
+                        "description": ""
+                      }
+                      console.log('selectedItem', selectedItem, 'anders')
+                    } else {
+                      selectedItem = this.findAssetType(e.target.value, this.selectedTabToCategory(this.props.selectedTab));
+                      console.log('selectedItem', selectedItem);
+                    }
                     selectedItem.area = 0;
                     selectedItem.drainage = 'riool';
                     let tmpAssets = this.state.assets;
@@ -386,10 +385,11 @@ class Assets extends Component {
                   :
                   <option value="" disabled >{"+ Nieuw Extra Item"}</option>
                   }
-                  {this.state.assetTypes
-                    .filter(e => e.category===this.props.selectedTab)
-                    .map(  e => <option value={e.type}>{e.type}</option>)
+                  {this.props.assetTypes
+                    .filter(e => e.category===this.selectedTabToCategory(this.props.selectedTab))
+                    .map(  e => <option value={e.name}>{e.name}</option>)
                   }
+                  <option value={ANDERS_NAMELIJK} >{ANDERS_NAMELIJK}</option>
                 </select>
               </Col>
             </Row>
@@ -440,52 +440,6 @@ class Assets extends Component {
           :
           ''
           }
-          {/* {
-            !this.props.editMode 
-            ?
-          <Row>
-            <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%',marginTop: 10}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    onClick={() => this.setState({editMode:true})}
-                    bsSize='lg'>
-                    <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
-                  </Button>
-              </div>
-            </Col>
-            <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%',marginTop: 10}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    // onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-print' />&nbsp;Waterlabel Afdrukken
-                  </Button>
-              </div>
-            </Col>
-          </Row>
-          :
-          <Row>
-            <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%',marginTop: 10}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-save' />&nbsp; Opslaan
-                  </Button>
-              </div>
-            </Col>
-            
-          </Row>
-          } */}
         </div>
       
     );

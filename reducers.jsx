@@ -2,6 +2,9 @@ import undoable, { distinctState } from 'redux-undo';
 import { combineReducers } from 'redux';
 import centroid from 'turf-centroid';
 import geojsonArea from '@mapbox/geojson-area';
+import {assetTypes} from './reducers_asset_types';
+import {addressSearchTerms} from './reducers_address_search_terms';
+import { addressSearchResults } from './reducers_address_search_results';
 import {
   CLEAR_SELECTED_OBJECT,
   COMPUTE_LABEL,
@@ -15,7 +18,19 @@ import {
   RECEIVE_HISTORY,
   REQUEST_HISTORY,
   SET_MAP_LOCATION,
+
+  
 } from './actions.jsx';
+import {
+  FETCH_ASSET_TYPES,
+  RECEIVE_ASSET_TYPES,
+} from './actions_asset_types.jsx';
+import {
+  SET_POSTCODE_QUERY,
+  SET_NUMBER_QUERY,
+  SET_STREET_QUERY,
+  SET_CITY_QUERY,
+} from './actions_address_search_terms'
 
 function calculator(state = {
   label: undefined,
@@ -66,8 +81,14 @@ function choropleth(state = {
   }
 }
 
+
+
+
+
+
 function postcode(state = {
   isFetching: false,
+  foundObjects: undefined,
   selectedObject: undefined,
   maplocation: undefined,
   labelHistory: [],
@@ -76,6 +97,7 @@ function postcode(state = {
   case CLEAR_SELECTED_OBJECT:
     return Object.assign({}, state, {
       selectedObject: undefined,
+      foundObjects: undefined,
       maplocation: undefined,
       labelHistory: [],
     });
@@ -120,8 +142,10 @@ function postcode(state = {
   case RECEIVE_POSTCODE:
     const center = centroid(action.data.features[0].geometry);
     const sqm = Math.round(geojsonArea.geometry(action.data.features[0].geometry));
+    const houseAddresses = []
     return Object.assign({}, state, {
       isFetching: false,
+      foundObjects: action.results,
       selectedObject: action.data.features[0],
       maplocation: {
         lat: center.geometry.coordinates[0],
@@ -142,6 +166,9 @@ const rootReducer = combineReducers({
   }),
   choropleth,
   postcode,
+  assetTypes,
+  addressSearchTerms,
+  addressSearchResults,
 });
 
 export default rootReducer;

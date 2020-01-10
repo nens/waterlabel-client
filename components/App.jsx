@@ -9,7 +9,10 @@ import algemeen02 from '../images/algemeen02.png';
 
 import Calculator from './Calculator';
 import Tabs from './Tabs';
+import HeaderNavigator from './HeaderNavigator';
 import Assets from './Assets';
+import AddressListPicker from './AddressListPicker';
+import AddressSearchWidget from './AddressSearchWidget';
 import calculatorStyles from './Calculator.css';
 import GeoJsonUpdatable from '../lib/GeoJsonUpdatable';
 import InteractiveCalculator from './InteractiveCalculator';
@@ -22,13 +25,30 @@ import selectedObjectStyles from './SelectedObjectDetails.css';
 import styles from './App.css';
 import WaterlabelMap from './WaterlabelMap';
 require('!style!css!../node_modules/sweetalert/dist/sweetalert.css');
-
 import {
   clearSelectedObject,
   fetchHistory,
   lookupPostcode,
   radiusSearch,
 } from '../actions';
+import {
+  fetchAssetTypes,
+  receiveAssetTypes,
+} from '../actions_asset_types';
+import {
+  setPostCode,
+  setNumber,
+  setStreet,
+  setCity,
+} from '../actions_address_search_terms';
+import {
+  requestBuildings,
+  receiveBuildings,
+  dismissNoBuildingsFound,
+  selectAddressFromResults,
+  resetAddressQuery,
+  resetSelectedAddress,
+} from '../actions_address_search_results';
 
 class App extends Component {
 
@@ -70,6 +90,8 @@ class App extends Component {
     window.addEventListener('load', this.parseLocationString);
     window.addEventListener('hashchange', this.parseLocationString);
     window.addEventListener('keydown', this.handleKeyDown);
+    this.props.dispatch(fetchAssetTypes())
+
   }
 
   componentWillReceiveProps(props) {
@@ -331,196 +353,74 @@ class App extends Component {
                       <h1>Label opslag water&nbsp;</h1>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md={6} sm={12} xs={12}>
-                        <ul className='list-inline'>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
-                            </a>
-                          </li>
-                          {/* <li>&nbsp;</li>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
-                            </a>
-                          </li> */}
-                        </ul>
-                      </Col>
-                    <Col md={6} sm={12} xs={12}>
-                      <div className='pull-right' style={{ marginRight: 10 }}>
-                      <a href='https://twitter.com/waterlabel/'
-                        target='_blank'
-                        style={{
-                          padding: '10px 5px 0 0',
-                        }}>
-                        <i className='fa fa-2x fa-twitter-square' />
-                      </a>
-                      <a
-                        href='https://www.facebook.com/Waterlabel-421181284911824/'
-                        target='_blank'
-                        style={{
-                          padding: '10px 5px 0 0',
-                        }}>
-                        <i
-                          className='fa fa-2x fa-facebook-square' />
-                      </a>
-                      <a href='https://www.youtube.com/watch?v=jARteOPf_aI'
-                        target='_blank'
-                        style={{
-                          padding: '10px 0px 0 0',
-                        }}>
-                        <i className='fa fa-2x fa-youtube-square' />
-                      </a><br/>
-                      <a
-                        onClick={this.openPrivacyText}><small>Cookies &amp; Privacy</small>
-                      </a>
-                    </div>
-                    </Col>
-                  </Row>
                   
-                  {/* <Row>
+                  <HeaderNavigator 
+                    openAboutText={this.openAboutText}
+                    openMap={this.openMap}
+                    openPrivacyText={this.openPrivacyText}
+                  />
+                  
+                
+                  <Row>
                     <Col md={12}>
-                        <p>
-                          Uw Waterlabel geeft aan hoeveel regenwater 
-                          uw woning vasthoudt. <br/>
-                          Houdt uw woning veel regenwater vast? <br/> 
-                          Dan is dit goed voor het millieu <br/> 
-                          Omgeving en riool overstromen dan minder snel.
-                        </p>
-                     </Col>
-                    </Row> */}
-                    {/* <Row style={{marginTop:'10px'}}>
-                      <Col md={12} sm={12} xs={12}>
-                        <ul className='list-inline'>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openAboutText}><i className='fa fa-info-circle'></i>&nbsp;Over label Opslag Water
-                            </a>
-                          </li>
-                          <li>&nbsp;</li>
-                          <li>
-                            <a className={styles.InlineLink}
-                              onClick={this.openMap}><i className='fa fa-globe'></i>&nbsp;Bekijk Kaart
-                            </a>
-                          </li>
-                        </ul>
-                      </Col>
-                    </Row> */}
-                    <Row>
-                      <Col md={12}>
                       <h2>
                         Mijn label
                       </h2>
                     </Col>
                   </Row>
-                  <div style={ postcode.selectedObject ? {display: 'none'} : {} }>
-                    <Row>
-                      <Col md={6}>
-                        <Row>
-                          <Col md={4}>
-                            <div className='form-group'>
-                              <label htmlFor='postcode'>Postcode</label>
-                              <input
-                                ref='postcode'
-                                onKeyPress={this.handleKeyPress}
-                                id='postcode'
-                                type='text'
-                                maxLength='6'
-                                style={{ textTransform: 'uppercase' }}
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.postalcode : 'bijv. 3731HS'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                          <Col md={5} sd={5} xs={7}>
-                            <div className='form-group'>
-                              <label htmlFor='huisnummer'>Huisnummer</label>
-                              <input
-                                ref='huisnummer'
-                                onKeyPress={this.handleKeyPress}
-                                id='huisnummer'
-                                type='text'
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.housenumber : 'BIJV. 184'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                          <Col md={3} sd={3} xs={5}>
-                            <div className='form-group'>
-                              <label htmlFor='toevoeging'>Toevoeging</label>
-                              <input
-                                ref='toevoeging'
-                                onKeyPress={this.handleKeyPress}
-                                id='toevoeging'
-                                type='text'
-                                placeholder={(postcode.selectedObject) ?
-                                  postcode.selectedObject.properties.housenumber : 'BIJV. A'}
-                                className='form-control input-lg'
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={12}>
-                              <div className='form-group'>
-                                <label htmlFor='straatnaam'>Straatnaam</label>
-                                <input
-                                  ref='straatnaam'
-                                  onKeyPress={this.handleKeyPress}
-                                  id='straatnaam'
-                                  type='text'
-                                  maxLength='6'
-                                  style={{ textTransform: 'uppercase' }}
-                                  placeholder={(postcode.selectedObject) ?
-                                    postcode.selectedObject.properties.streetname : 'bijv. Dorpstraat'}
-                                  className='form-control input-lg'
-                                />
-                              </div>
-                            </Col>
-                          </Row>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                            <Button
-                              style={{ marginTop: 0, width: '100%' }}
-                              disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={this.handleSearchButton}
-                              bsSize='lg'>
-                              <i className='fa fa-search' />&nbsp;
-                              {(postcode.isFetching) ? 'Even geduld a.u.b...' : 'Zoek'}
-                            </Button>
-                        </div>
-                      </Col>
-                    </Row>
+                  <div 
+                    style={ 
+                      this.props.addressSearchResults.allResultAddresses.length !== 0 ? {display: 'none'} : {} 
+                    }
+                  >
+                    <AddressSearchWidget
+                      addressSearchTerms={this.props.addressSearchTerms}
+                      addressSearchTermsPostcode={this.props.addressSearchTerms.postcode}
+                      addressSearchResults={this.props.addressSearchResults} 
+                      handleKeyPress={this.handleKeyPress}
+                      setPostCode={e=>dispatch(setPostCode(e))}
+                      setNumber={e=>dispatch(setNumber(e))}
+                      setStreet={e=>dispatch(setStreet(e))}
+                      setCity={e=>dispatch(setCity(e))}
+                      requestBuildings={(postcode,number)=>dispatch(requestBuildings(postcode,number))}
+                    />
                   </div>
-                  { postcode.selectedObject 
+                  {
+                    this.props.addressSearchResults.allResultAddresses.length > 1 &&
+                    ! this.props.addressSearchResults.selectedResult
+                    ?
+                    <AddressListPicker 
+                      addresses={this.props.addressSearchResults.allResultAddresses}
+                      onClick={selected=>this.props.dispatch( selectAddressFromResults(selected))}
+                    ></AddressListPicker>
+                    :
+                    ''
+                  }
+                  
+                  { this.props.addressSearchResults.selectedResult 
                   ? 
                   <div className={"form-group " +  styles.FoundAddress} >
                     <Row style={{marginTop: "10px"}}>
                       <Col md={6} sm={12} xs={12} >
                         <Row>
                           <Col md={12}>
-                              <span>{selectedObject.street+' '+ selectedObject.housenumber}</span>
+                              <span>{this.props.addressSearchResults.selectedResult.street+
+                                ' '+ this.props.addressSearchResults.selectedResult.housenumber+
+                                ' '+ this.props.addressSearchResults.selectedResult.houseletter}</span>
                           </Col>
                         </Row>
                         <Row>
                           <Col md={12}>
-                              <span>{selectedObject.postalcode}</span>
+                              <span>{this.props.addressSearchResults.selectedResult.postalcode}</span>
                           </Col>
                         </Row>
                         <Row>
                           <Col md={12}>
-                              <span>{selectedObject.city}</span>
+                              <span>{this.props.addressSearchResults.selectedResult.city}</span>
                           </Col>
                         </Row>
                       </Col>
-                      <Col md={6} sm={12} xs={12}>
+                      {/* <Col md={6} sm={12} xs={12}>
                         <table
                             // className={`table-striped ${styles.ObjectPropertiesTable}`}
                             className={`${styles.ObjectPropertiesTable}`}
@@ -598,20 +498,14 @@ class App extends Component {
                                 }
                               </td>
                             </tr>
-                            {/* <tr>
-                              <td>
-                                <a style={{fontSize:'normal'}}>
-                                  Toon overige Labels
-                                </a>
-                              </td>
-                            </tr> */}
+                            
                             </tbody>
                           </table>
                           <a style={{fontSize:'initial'}}>
                             Toon overige Labels
                           </a>
-                      </Col>
-                      <Col md={6} sm={6} xs={6} style={{display:'none'}}>
+                      </Col> */}
+                      {/* <Col md={6} sm={6} xs={6} style={{display:'none'}}>
                         <span className={styles.Label}>
                           {postcode.selectedObject.properties.labelcode_last}
                         </span>
@@ -790,7 +684,7 @@ class App extends Component {
                             </svg> : ''}
                           </li>
                         </ol>
-                      </Col>
+                      </Col> */}
                     </Row>
                     <Row style={{marginTop: 10 }}>
                       <Col md={6} sm={12} xs={12}>
@@ -803,7 +697,9 @@ class App extends Component {
                               onClick={() => 
                                 {
                                   this.setState({editMode:false})
-                                  dispatch(clearSelectedObject())}
+                                  // dispatch(clearSelectedObject())}
+                                  dispatch(resetAddressQuery())
+                                }
                                 }
                               bsSize='lg'>
                               <i className='fa fa-edit' />&nbsp; Ander adres
@@ -811,85 +707,63 @@ class App extends Component {
                           {/* </ButtonGroup> */}
                         </div>
                       </Col>
-                      {! this.state.editMode ?
-                      <div>
-                      
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                          {/* <ButtonGroup> */}
-                            <Button
-                              style={{width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              // onClick={() => this.setState({editMode:false})}
-                              bsSize='lg'>
-                              <i className='fa fa-print' />&nbsp;Label Afdrukken
-                            </Button>
-                          {/* </ButtonGroup> */}
+                      {
+                        ! this.state.editMode 
+                        ?
+                        <div>
+                        
+                        <Col md={6} sm={12} xs={12} >
+                          <div className='form-group'>
+                              <Button
+                                style={{width:'100%'}}
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                // onClick={() => this.setState({editMode:false})}
+                                bsSize='lg'>
+                                <i className='fa fa-print' />&nbsp;Label Afdrukken
+                              </Button>
+                            {/* </ButtonGroup> */}
+                          </div>
+                        </Col>
+                        <Col md={6} sm={12} xs={12} >
+                          <div className='form-group'>
+                            {/* <ButtonGroup> */}
+                              <Button
+                                style={{width:'100%'}}
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                onClick={() => this.setState({editMode:true})}
+                                bsSize='lg'>
+                                <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
+                              </Button>
+                            {/* </ButtonGroup> */}
+                          </div>
+                        </Col>
                         </div>
-                      </Col>
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                          {/* <ButtonGroup> */}
-                            <Button
-                              style={{width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={() => this.setState({editMode:true})}
-                              bsSize='lg'>
-                              <i className='fa fa-edit' />&nbsp; Mijn gegevens aanpassen
-                            </Button>
-                          {/* </ButtonGroup> */}
-                        </div>
-                      </Col>
+                        :
+                        <Col md={6} sm={12} xs={12} >
+                          <div className='form-group'>
+                            {/* <ButtonGroup style={{ marginTop: 10 }}> */}
+                              <Button
+                                style={{width:'100%'}}
+                                // disabled={(postcode.isFetching) ? true : false}
+                                bsStyle='info'
+                                onClick={() => this.setState({editMode:false})}
+                                bsSize='lg'>
+                                <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
+                              </Button>
+                            {/* </ButtonGroup> */}
+                          </div>
+                        </Col>
+                        }
+                        </Row>
                       </div>
                       :
-
-                      <Col md={6} sm={12} xs={12} >
-                        <div className='form-group'>
-                          {/* <ButtonGroup style={{ marginTop: 10 }}> */}
-                            <Button
-                              style={{width:'100%'}}
-                              // disabled={(postcode.isFetching) ? true : false}
-                              bsStyle='info'
-                              onClick={() => this.setState({editMode:false})}
-                              bsSize='lg'>
-                              <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
-                            </Button>
-                          {/* </ButtonGroup> */}
-                        </div>
-                      </Col>
+                      ''
                       }
-                      
-                    </Row>
-                    {
-            !this.state.editMode 
-            ?
-          ''
-          :
-          <Row>
-            {/* <Col md={6} sm={12} xs={12} >
-              <div className='form-group'>
-                  <Button
-                    style={{width:'100%'}}
-                    // disabled={(postcode.isFetching) ? true : false}
-                    bsStyle='info'
-                    onClick={() => this.setState({editMode:false})}
-                    bsSize='lg'>
-                    <i className='fa fa-save' />&nbsp; Mijn Gegevens Opslaan
-                  </Button>
-              </div>
-            </Col> */}
-            
-          </Row>
-          }
-                  </div>
-                  :
-                  ''
-                  }
-                 
-
-                  { postcode.selectedObject 
+                  { 
+                    this.props.addressSearchResults.selectedResult &&
+                    this.state.editMode
                   ? 
                   <div>
                     <div className={"form-group " +  styles.FoundAddress} >
@@ -900,10 +774,13 @@ class App extends Component {
                       </Row>
                     </div>
                     <Tabs
-                      drawAssets={selectedTab=>{return <Assets selectedTab={selectedTab} editMode={this.state.editMode}/>}}
+                      drawAssets={selectedTab=>{return <Assets 
+                                                  selectedTab={selectedTab} 
+                                                  editMode={true}
+                                                  assetTypes={this.props.assetTypes.assets}
+                                                  assetsFetching={this.props.assetTypes.isFetching}/>}}
                     ></Tabs>
                   </div>
-
                   :
                   ''
                   }
@@ -1490,6 +1367,9 @@ function mapStateToProps(state) {
     choropleth: state.choropleth,
     postcode: state.postcode,
     calculator: state.calculator.present,
+    assetTypes: state.assetTypes,
+    addressSearchTerms: state.addressSearchTerms,
+    addressSearchResults: state.addressSearchResults,
   };
 }
 
